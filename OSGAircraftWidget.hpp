@@ -23,6 +23,7 @@
 #include <osg/ShapeDrawable>
 #include <osg/StateSet>
 #include <osgDB/WriteFile>
+#include <osgDB/ReadFile>
 #include <osgGA/EventQueue>
 #include <osgViewer/View>
 #include <osgViewer/ViewerEventHandlers>
@@ -38,6 +39,10 @@ public:
          Qt::WindowFlags f = 0 );
 
     virtual ~OSGAircraftWidget();
+
+    enum VehicleType {FIXEDWING, QUADCOPTER};
+    enum FixedWingType {EMB312, EMB314, F16D, MQ9};
+    enum QuadcopterType {PHANTOM};
 
     AircraftPhysics* get_physics_ptr();
 
@@ -72,10 +77,13 @@ protected:
     void create_ground_plane();
     void configure_update();
 
-    float initialGroundPlaneSize{10000};
+    float initialGroundPlaneSize{10};
     AircraftPhysics physics{AircraftPhysics()};
 
     bool pauseFlag{true};
+    VehicleType vehicleType{VehicleType::FIXEDWING};
+    FixedWingType fixedWingType{FixedWingType::EMB314};
+    QuadcopterType quadcopterType{QuadcopterType::PHANTOM};
 
 private:
     virtual void on_resize( int width, int height );
