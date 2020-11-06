@@ -12,7 +12,7 @@ public:
     AircraftPhysics();
     void update(float deltaTime);
     void change_aircraft(int type);
-    Vehicle* get_aircraft_ptr();
+    Vehicle *get_aircraft_ptr();
     Eigen::Vector3f get_position();
     Eigen::Vector3f get_velocity();
     Eigen::Vector3f get_orientation();
@@ -24,7 +24,7 @@ public:
 
 protected:
     int aircraftType{0};
-    Vehicle* aircraft;
+    Vehicle *aircraft;
     float gravity{9.81};
     float airDensity{1.225};
 

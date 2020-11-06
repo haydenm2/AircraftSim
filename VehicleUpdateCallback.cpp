@@ -5,7 +5,7 @@ VehicleUpdateCallback::VehicleUpdateCallback(AircraftPhysics *systemPhysics): ph
 {
 }
 
-void VehicleUpdateCallback::operator()(osg::Node* node, osg::NodeVisitor* visitingNode)
+void VehicleUpdateCallback::operator()(osg::Node *node, osg::NodeVisitor *visitingNode)
 {
     osg::Group *parent = node->getParent(0);
     traverse(node, visitingNode);

@@ -17,7 +17,7 @@ void AircraftPhysics::update_collisions()
 {
 }
 
-Vehicle* AircraftPhysics::get_aircraft_ptr()
+Vehicle *AircraftPhysics::get_aircraft_ptr()
 {
 }
 

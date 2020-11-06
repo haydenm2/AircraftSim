@@ -17,7 +17,7 @@ class VehicleUpdateCallback: public osg::NodeCallback
 {
 public:
     VehicleUpdateCallback(AircraftPhysics *systemPhysics);
-    virtual void operator()(osg::Node* node, osg::NodeVisitor* nodeVisitor);
+    virtual void operator()(osg::Node *node, osg::NodeVisitor *nodeVisitor);
 
 protected:
     AircraftPhysics *physicsPtr;
