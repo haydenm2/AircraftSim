@@ -102,7 +102,7 @@ private:
     osg::ref_ptr<osgViewer::View> mView;
     osg::ref_ptr<osg::Group> mRoot;
     osg::Camera *camera;
-    osg::ref_ptr<osgGA::TrackballManipulator> manipulator;
+    osg::ref_ptr<osgGA::TrackballManipulator> manipulator{new osgGA::TrackballManipulator};
 };
 
 #endif

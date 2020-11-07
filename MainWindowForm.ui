@@ -18,7 +18,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_26">
       <item>
-       <widget class="OSGAircraftWidget" name="graphicsView"/>
+       <widget class="osgQOpenGLWidget" name="osgWidget"/>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_34">
@@ -136,9 +136,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>OSGAircraftWidget</class>
+   <class>osgQOpenGLWidget</class>
    <extends>QGraphicsView</extends>
-   <header>OSGAircraftWidget.hpp</header>
+   <header>osgQOpenGL/osgQOpenGLWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>
