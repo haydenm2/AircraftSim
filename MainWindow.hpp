@@ -5,7 +5,7 @@
 #include <osgQOpenGL/osgQOpenGLWidget>
 #include <osg/ref_ptr>
 #include <osgGA/TrackballManipulator>
-#include <osgGA/FlightManipulator>
+#include <osgGA/NodeTrackerManipulator>
 #include <osg/StateSet>
 #include <osgDB/ReadFile>
 #include <osgGA/EventQueue>
@@ -83,7 +83,7 @@ private:
     osg::ref_ptr<osg::Node> terrainModelNode;
 
     osg::ref_ptr<osg::Group> mRoot;
-    osg::ref_ptr<osgGA::FlightManipulator> manipulator;
+    osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;
 
 };
 #endif

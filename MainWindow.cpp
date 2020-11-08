@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow{parent},
     mMainWindowUI{new Ui::MainWindowForm},
     mRoot{new osg::Group},
-    manipulator{new osgGA::FlightManipulator}
+    manipulator{new osgGA::NodeTrackerManipulator}
 {
     mMainWindowUI->setupUi(this);
     QObject::connect(mMainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setupOsgView);
@@ -27,9 +27,9 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::setupOsgView()
 {
     create_camera();
-    create_manipulator();
     create_terrain();
     create_aircraft();
+    create_manipulator();
     create_timer();
 }
 
@@ -105,6 +105,11 @@ void MainWindow::create_manipulator()
     osg::Vec3 initialPosition{-15.0, 0.0, 5.0};
     osg::Vec3 initialPointingPosition{0, 0, 0};
     osg::Vec3 upVector{0,0,1};
+    osgGA::NodeTrackerManipulator::TrackerMode track_mode{osgGA::NodeTrackerManipulator::NODE_CENTER};
+    manipulator->setTrackerMode(track_mode);
+    osgGA::NodeTrackerManipulator::RotationMode rot_mode{osgGA::NodeTrackerManipulator::TRACKBALL};
+    manipulator->setRotationMode(rot_mode);
+    manipulator->setTrackNode(aircraftModelNode);
     manipulator->setAllowThrow(false);
     manipulator->setHomePosition(initialPosition, initialPointingPosition, upVector);
     mMainWindowUI->osgWidget->getOsgViewer()->setCameraManipulator(manipulator);
