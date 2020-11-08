@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow{parent},
     mMainWindowUI{new Ui::MainWindowForm},
     mRoot{new osg::Group},
-    manipulator{new osgGA::TrackballManipulator}
+    manipulator{new osgGA::FlightManipulator}
 {
     mMainWindowUI->setupUi(this);
     QObject::connect(mMainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setupOsgView);
@@ -31,6 +31,32 @@ void MainWindow::setupOsgView()
     create_terrain();
     create_aircraft();
     create_timer();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent* event)
+{
+    QString keyString = event->text();
+    const char* keyData = keyString.toLocal8Bit().data();
+    std::cout << "KEY PRESS: " << keyData << std::endl;
+    mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent* event)
+{
+    QString keyString = event->text();
+    const char* keyData = keyString.toLocal8Bit().data();
+    std::cout << "KEY RELEASE: " << keyData << std::endl;
+    mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyRelease(osgGA::GUIEventAdapter::KeySymbol(*keyData));
+}
+
+osgGA::EventQueue* MainWindow::getEventQueue() const
+{
+    osgGA::EventQueue* eventQueue = mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue();
+
+    if(eventQueue)
+        return eventQueue;
+    else
+        throw std::runtime_error("Unable to obtain valid event queue");
 }
 
 void MainWindow::timerEvent(QTimerEvent *)
@@ -116,6 +142,8 @@ void MainWindow::create_aircraft()
     transformAircraft->addChild(aircraftModelNode);
 
     this->mRoot->addChild(transformAircraft);
+
+    manipulator->setNode(aircraftModelNode);
 }
 
 void MainWindow::create_terrain()

@@ -3,31 +3,15 @@
 
 #include <QtCore>
 #include <osgQOpenGL/osgQOpenGLWidget>
-#include <osgViewer/Viewer>
-#include <osg/PositionAttitudeTransform>
 #include <osg/ref_ptr>
-#include <osgViewer/GraphicsWindow>
-#include <osgViewer/CompositeViewer>
 #include <osgGA/TrackballManipulator>
-#include <osgText/Text>
-#include <osg/Camera>
-#include <osg/DisplaySettings>
-#include <osg/Geode>
-#include <osg/Material>
-#include <osg/Shape>
-#include <osg/ShapeDrawable>
+#include <osgGA/FlightManipulator>
 #include <osg/StateSet>
-#include <osgDB/WriteFile>
 #include <osgDB/ReadFile>
 #include <osgGA/EventQueue>
-#include <osgViewer/View>
 #include <osgViewer/ViewerEventHandlers>
-#include <osg/MatrixTransform>
-
-#include <cassert>
 
 #include <QKeyEvent>
-#include <QPainter>
 #include <QWheelEvent>
 
 #include "ui_MainWindowForm.h"
@@ -66,6 +50,10 @@ public slots:
     void on_actionExit_triggered();
     void setupOsgView();
 
+protected:
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
+
 private:
     Ui::MainWindowForm *mMainWindowUI;
     void timerEvent(QTimerEvent *)override;
@@ -94,7 +82,7 @@ private:
     osg::ref_ptr<osg::Node> terrainModelNode;
 
     osg::ref_ptr<osg::Group> mRoot;
-    osg::ref_ptr<osgGA::TrackballManipulator> manipulator;
+    osg::ref_ptr<osgGA::FlightManipulator> manipulator;
 
 };
 #endif

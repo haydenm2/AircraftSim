@@ -5,9 +5,6 @@
 
 #include <osg/NodeVisitor>
 #include <osg/PositionAttitudeTransform>
-#include <osg/Material>
-#include <osg/ShapeDrawable>
-#include <osg/Shape>
 #include <osg/Geode>
 
 #include <eigen3/Eigen/Dense>
