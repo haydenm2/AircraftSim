@@ -45,6 +45,7 @@ public:
     void set_input_4(float newInput4);
     void set_pause_flag(bool pauseState);
     void change_vehicle(VehicleType vehicleType);
+    osg::Vec3 aircraftPosition{0.f, 0.f, 0.f};
 
 public slots:
     void on_actionExit_triggered();

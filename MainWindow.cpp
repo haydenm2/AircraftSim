@@ -37,6 +37,23 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
+    if(*keyData == 'j')
+    {
+        aircraftPosition[1] += 1.0;
+    }
+    else if(*keyData == 'k')
+    {
+        aircraftPosition[0] -= 1.0;
+    }
+    else if(*keyData == 'l')
+    {
+        aircraftPosition[1] -= 1.0;
+    }
+    else if(*keyData == 'i')
+    {
+        aircraftPosition[0] += 1.0;
+    }
+
     std::cout << "KEY PRESS: " << keyData << std::endl;
     mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
 }
@@ -74,10 +91,10 @@ void MainWindow::create_timer()
 
 void MainWindow::create_camera()
 {
-    float aspectRatio = static_cast<float>( this->width() ) / static_cast<float>( this->height() );
+    float aspectRatio = static_cast<float>(this->width())/static_cast<float>(this->height());
     auto pixelRatio = this->devicePixelRatio();
     mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearColor(osg::Vec4(0.529f, 0.808f, 0.922f, 0.7f));
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setProjectionMatrixAsPerspective( 45.f, aspectRatio, 1.f, 1000.f );
+    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setProjectionMatrixAsPerspective(45.f, aspectRatio, 1.f, 1000.f);
     mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setViewMatrixAsLookAt(osg::Vec3d(0.0,-20.0,3.0),osg::Vec3d(0,0,0),osg::Vec3d(0,0,1));
     mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearMask(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
@@ -139,6 +156,7 @@ void MainWindow::create_aircraft()
     osg::PositionAttitudeTransform *transformAircraft = new osg::PositionAttitudeTransform;
     transformAircraft->setPosition(initialAircraftPosition);
     transformAircraft->setAttitude(osgToNEDRotation);
+    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&aircraftPosition));
     transformAircraft->addChild(aircraftModelNode);
 
     this->mRoot->addChild(transformAircraft);
