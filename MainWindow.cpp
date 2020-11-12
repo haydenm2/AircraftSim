@@ -37,8 +37,9 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
-    float scale{15};
+
     // Translation
+    float scale{15};
     if(*keyData == 'w')
     {
         aircraftPosition[0] += scale;
@@ -63,27 +64,24 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     {
         aircraftPosition[2] -= scale;
     }
+
     // Orientation
     double dTheta{0.1};
-//    osg::Quat rotateX{sin(dTheta), 0.f, 0.f, cos(dTheta)};
-//    osg::Quat rotateY{0.f, sin(dTheta), 0.f, cos(dTheta)};
-//    osg::Quat rotateZ{0.f, 0.f, sin(dTheta), cos(dTheta)};
-
-    if(*keyData == 'i')
-    {
-        aircraftAttitude[1] += dTheta;
-    }
-    else if(*keyData == 'k')
-    {
-        aircraftAttitude[1] -= dTheta;
-    }
-    else if(*keyData == 'j')
+    if(*keyData == 'j')
     {
         aircraftAttitude[0] -= dTheta;
     }
     else if(*keyData == 'l')
     {
         aircraftAttitude[0] += dTheta;
+    }
+    else if(*keyData == 'i')
+    {
+        aircraftAttitude[1] += dTheta;
+    }
+    else if(*keyData == 'k')
+    {
+        aircraftAttitude[1] -= dTheta;
     }
     else if(*keyData == 'u')
     {
@@ -142,10 +140,10 @@ void MainWindow::create_camera()
 
 void MainWindow::create_manipulator()
 {
-    osg::Vec3 initialPosition{-15.0, 0.0, 5.0};
+    osg::Vec3 initialPosition{0.0, 15.0, 5.0};
     osg::Vec3 initialPointingPosition{0, 0, 0};
     osg::Vec3 upVector{0,0,1};
-    osgGA::NodeTrackerManipulator::TrackerMode track_mode{osgGA::NodeTrackerManipulator::NODE_CENTER};
+    osgGA::NodeTrackerManipulator::TrackerMode track_mode{osgGA::NodeTrackerManipulator::NODE_CENTER_AND_ROTATION};
     manipulator->setTrackerMode(track_mode);
     osgGA::NodeTrackerManipulator::RotationMode rot_mode{osgGA::NodeTrackerManipulator::TRACKBALL};
     manipulator->setRotationMode(rot_mode);
