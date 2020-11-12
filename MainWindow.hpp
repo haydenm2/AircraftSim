@@ -45,7 +45,13 @@ public:
     void set_input_4(float newInput4);
     void set_pause_flag(bool pauseState);
     void change_vehicle(VehicleType vehicleType);
+
     osg::Vec3 aircraftPosition{0.f, 0.f, 0.f};
+
+    double rollAttitude{0.f};
+    double pitchAttitude{0.f};
+    double yawAttitude{0.f};
+    std::array<double, 3> aircraftAttitude{std::array<double, 3>{rollAttitude, pitchAttitude, yawAttitude}};
 
 public slots:
     void on_actionExit_triggered();
@@ -72,7 +78,6 @@ private:
 
     float initialGroundPlaneSize{10};
     osg::Vec3 initialAircraftPosition{0.f, 0.f, 0.f};
-    osg::Quat osgToNEDRotation{0.f, 0.f, 0.7071, 0.7071};
     AircraftPhysics physics{AircraftPhysics()};
 
     VehicleType vehicleType{VehicleType::FIXEDWING};

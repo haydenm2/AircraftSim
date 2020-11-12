@@ -37,24 +37,64 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
-    if(*keyData == 'j')
+    float scale{15};
+    // Translation
+    if(*keyData == 'w')
     {
-        aircraftPosition[1] += 1.0;
+        aircraftPosition[0] += scale;
+    }
+    else if(*keyData == 's')
+    {
+        aircraftPosition[0] -= scale;
+    }
+    else if(*keyData == 'a')
+    {
+        aircraftPosition[1] += scale;
+    }
+    else if(*keyData == 'd')
+    {
+        aircraftPosition[1] -= scale;
+    }
+    else if(*keyData == 'q')
+    {
+        aircraftPosition[2] += scale;
+    }
+    else if(*keyData == 'e')
+    {
+        aircraftPosition[2] -= scale;
+    }
+    // Orientation
+    double dTheta{0.1};
+//    osg::Quat rotateX{sin(dTheta), 0.f, 0.f, cos(dTheta)};
+//    osg::Quat rotateY{0.f, sin(dTheta), 0.f, cos(dTheta)};
+//    osg::Quat rotateZ{0.f, 0.f, sin(dTheta), cos(dTheta)};
+
+    if(*keyData == 'i')
+    {
+        aircraftAttitude[1] += dTheta;
     }
     else if(*keyData == 'k')
     {
-        aircraftPosition[0] -= 1.0;
+        aircraftAttitude[1] -= dTheta;
+    }
+    else if(*keyData == 'j')
+    {
+        aircraftAttitude[0] -= dTheta;
     }
     else if(*keyData == 'l')
     {
-        aircraftPosition[1] -= 1.0;
+        aircraftAttitude[0] += dTheta;
     }
-    else if(*keyData == 'i')
+    else if(*keyData == 'u')
     {
-        aircraftPosition[0] += 1.0;
+        aircraftAttitude[2] += dTheta;
+    }
+    else if(*keyData == 'o')
+    {
+        aircraftAttitude[2] -= dTheta;
     }
 
-    std::cout << "KEY PRESS: " << keyData << std::endl;
+//    std::cout << "KEY PRESS: " << keyData << std::endl;
     mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
 }
 
@@ -62,7 +102,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event)
 {
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
-    std::cout << "KEY RELEASE: " << keyData << std::endl;
+//    std::cout << "KEY RELEASE: " << keyData << std::endl;
     mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyRelease(osgGA::GUIEventAdapter::KeySymbol(*keyData));
 }
 
@@ -160,8 +200,8 @@ void MainWindow::create_aircraft()
 
     osg::PositionAttitudeTransform *transformAircraft = new osg::PositionAttitudeTransform;
     transformAircraft->setPosition(initialAircraftPosition);
-    transformAircraft->setAttitude(osgToNEDRotation);
-    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&aircraftPosition));
+//    transformAircraft->setAttitude(osgToNEDRotation);
+    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&aircraftPosition, &aircraftAttitude));
     transformAircraft->addChild(aircraftModelNode);
 
     this->mRoot->addChild(transformAircraft);
@@ -171,7 +211,8 @@ void MainWindow::create_aircraft()
 
 void MainWindow::create_terrain()
 {
-    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/Amaryllis_City.3ds");
+//    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/Amaryllis_City.3ds");
+    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
     if (!terrainModelNode)
         std::cout << "Problem opening terrain model" << std::endl;
 

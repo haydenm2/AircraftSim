@@ -1,7 +1,7 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 
 struct Vehicle

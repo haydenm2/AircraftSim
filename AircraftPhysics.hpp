@@ -4,7 +4,7 @@
 #include "Vehicle.hpp"
 #include "FixedWing.hpp"
 #include <math.h>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 class AircraftPhysics
 {
