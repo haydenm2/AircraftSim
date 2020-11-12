@@ -3,7 +3,7 @@
 #include "FixedWing.hpp"
 
 
-TEST(FixedWingTests, WhenGettingFixedWingPosition_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultPosition_ExpectCorrectValues)
 {
     Eigen::Vector3f positionExpected{0.0, 0.0, 0.0};
 
@@ -12,7 +12,7 @@ TEST(FixedWingTests, WhenGettingFixedWingPosition_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), positionExpected);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingVelocity_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
 {
     Eigen::Vector3f velocityExpected{0.0, 0.0, 0.0};
 
@@ -21,7 +21,7 @@ TEST(FixedWingTests, WhenGettingFixedWingVelocity_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), velocityExpected);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingAcceleration_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultAcceleration_ExpectCorrectValues)
 {
     Eigen::Vector3f accelerationExpected{0.0, 0.0, 0.0};
 
@@ -30,7 +30,7 @@ TEST(FixedWingTests, WhenGettingFixedWingAcceleration_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), accelerationExpected);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingOrientation_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultOrientation_ExpectCorrectValues)
 {
     Eigen::Vector3f orientationExpected{0.0, 0.0, 0.0};
 
@@ -39,7 +39,7 @@ TEST(FixedWingTests, WhenGettingFixedWingOrientation_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), orientationExpected);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingAngularVelocity_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultAngularVelocity_ExpectCorrectValues)
 {
     Eigen::Vector3f angularVeclocityExpected{0.0, 0.0, 0.0};
 
@@ -48,13 +48,22 @@ TEST(FixedWingTests, WhenGettingFixedWingAngularVelocity_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), angularVeclocityExpected);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingAngularAcceleration_ExpectCorrectValues)
+TEST(FixedWingTests, WhenGettingFixedWingDefaultAngularAcceleration_ExpectCorrectValues)
 {
     Eigen::Vector3f angularAccelerationExpected{0.0, 0.0, 0.0};
 
     FixedWing fixedWing;
 
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), angularAccelerationExpected);
+}
+
+TEST(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
+{
+    Eigen::Vector3f windExpected{0.0, 0.0, 0.0};
+
+    FixedWing fixedWing;
+
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), windExpected);
 }
 
 TEST(FixedWingTests, WhenSettingFixedWingPosition_ExpectCorrectValues)
@@ -115,5 +124,15 @@ TEST(FixedWingTests, WhenSettingFixedWingAngularAcceleration_ExpectCorrectValues
     fixedWing.setAngularAcceleration(angularAccelerationExpected);
 
     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), angularAccelerationExpected);
+}
+
+TEST(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
+{
+    Eigen::Vector3f windExpected{1.0, 1.0, 1.0};
+
+    FixedWing fixedWing;
+    fixedWing.setWind(windExpected);
+
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), windExpected);
 }
 

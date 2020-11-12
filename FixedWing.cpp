@@ -34,6 +34,11 @@ const Eigen::Vector3f * FixedWing::getAngularAcceleration()
     return &angularAcceleration;
 }
 
+const Eigen::Vector3f * FixedWing::getWind()
+{
+    return &wind;
+}
+
 void FixedWing::setPosition(Eigen::Vector3f positionInput)
 {
     position = positionInput;
@@ -62,4 +67,9 @@ void FixedWing::setAngularVelocity(Eigen::Vector3f angularVelocityInput)
 void FixedWing::setAngularAcceleration(Eigen::Vector3f angularAccelerationInput)
 {
     angularAcceleration = angularAccelerationInput;
+}
+
+void FixedWing::setWind(Eigen::Vector3f windInput)
+{
+    wind = windInput;
 }
