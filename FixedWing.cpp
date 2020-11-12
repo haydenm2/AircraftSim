@@ -4,72 +4,92 @@ FixedWing::FixedWing()
 {
 }
 
-const Eigen::Vector3f * FixedWing::getPosition()
+void FixedWing::update(float deltaTime)
+{
+
+}
+
+Eigen::Vector3f FixedWing::calculate_gravitational_forces()
+{
+
+}
+
+Eigen::Vector3f FixedWing::calculate_aerodynamic_forces()
+{
+
+}
+
+Eigen::Vector3f FixedWing::calculate_propulsion_forces()
+{
+
+}
+
+const Eigen::Vector3f * FixedWing::get_position()
 {
     return &position;
 }
 
-const Eigen::Vector3f * FixedWing::getVelocity()
+const Eigen::Vector3f * FixedWing::get_velocity()
 {
     return &velocity;
 }
 
-const Eigen::Vector3f * FixedWing::getAcceleration()
+const Eigen::Vector3f * FixedWing::get_acceleration()
 {
     return &acceleration;
 }
 
-const Eigen::Vector3f * FixedWing::getOrientation()
+const Eigen::Vector3f * FixedWing::get_orientation()
 {
     return &orientation;
 }
 
-const Eigen::Vector3f * FixedWing::getAngularVelocity()
+const Eigen::Vector3f * FixedWing::get_angular_velocity()
 {
     return &angularVelocity;
 }
 
-const Eigen::Vector3f * FixedWing::getAngularAcceleration()
+const Eigen::Vector3f * FixedWing::get_angular_acceleration()
 {
     return &angularAcceleration;
 }
 
-const Eigen::Vector3f * FixedWing::getWind()
+const Eigen::Vector3f * FixedWing::get_wind()
 {
     return &wind;
 }
 
-void FixedWing::setPosition(Eigen::Vector3f positionInput)
+void FixedWing::set_position(Eigen::Vector3f positionInput)
 {
     position = positionInput;
 }
 
-void FixedWing::setVelocity(Eigen::Vector3f velocityInput)
+void FixedWing::set_velocity(Eigen::Vector3f velocityInput)
 {
     velocity = velocityInput;
 }
 
-void FixedWing::setAcceleration(Eigen::Vector3f accelerationInput)
+void FixedWing::set_acceleration(Eigen::Vector3f accelerationInput)
 {
     acceleration = accelerationInput;
 }
 
-void FixedWing::setOrientation(Eigen::Vector3f orientationInput)
+void FixedWing::set_orientation(Eigen::Vector3f orientationInput)
 {
     orientation = orientationInput;
 }
 
-void FixedWing::setAngularVelocity(Eigen::Vector3f angularVelocityInput)
+void FixedWing::set_angular_velocity(Eigen::Vector3f angularVelocityInput)
 {
     angularVelocity = angularVelocityInput;
 }
 
-void FixedWing::setAngularAcceleration(Eigen::Vector3f angularAccelerationInput)
+void FixedWing::set_angular_acceleration(Eigen::Vector3f angularAccelerationInput)
 {
     angularAcceleration = angularAccelerationInput;
 }
 
-void FixedWing::setWind(Eigen::Vector3f windInput)
+void FixedWing::set_wind(Eigen::Vector3f windInput)
 {
     wind = windInput;
 }

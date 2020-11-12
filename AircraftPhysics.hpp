@@ -2,7 +2,6 @@
 #define AIRCRAFT_PHYSICS_HPP
 
 #include "Vehicle.hpp"
-#include "FixedWing.hpp"
 #include <math.h>
 #include <Eigen/Dense>
 
@@ -26,7 +25,7 @@ protected:
     int aircraftType{0};
     Vehicle *aircraft;
     float gravity{9.81};
-    float airDensity{1.225};
+    float airDensity{1.2682};
 
 private:
     void update_collisions();

@@ -13,85 +13,85 @@ protected:
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultPosition_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_position()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
 {
-     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), zeros);
+     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_velocity()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAcceleration_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_acceleration()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultOrientation_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_orientation()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularVelocity_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_angular_velocity()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularAcceleration_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_angular_acceleration()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), zeros);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_wind()), zeros);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingPosition_ExpectCorrectValues)
 {
-    fixedWing.setPosition(ones);
+    fixedWing.set_position(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_position()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingVelocity_ExpectCorrectValues)
 {
-    fixedWing.setVelocity(ones);
+    fixedWing.set_velocity(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_velocity()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingAcceleration_ExpectCorrectValues)
 {
-    fixedWing.setAcceleration(ones);
+    fixedWing.set_acceleration(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_acceleration()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingOrientation_ExpectCorrectValues)
 {
-    fixedWing.setOrientation(ones);
+    fixedWing.set_orientation(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_orientation()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingAngularVelocity_ExpectCorrectValues)
 {
-    fixedWing.setAngularVelocity(ones);
+    fixedWing.set_angular_velocity(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_angular_velocity()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingAngularAcceleration_ExpectCorrectValues)
 {
-    fixedWing.setAngularAcceleration(ones);
+    fixedWing.set_angular_acceleration(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_angular_acceleration()), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
 {
-    fixedWing.setWind(ones);
+    fixedWing.set_wind(ones);
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), ones);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.get_wind()), ones);
 }
 

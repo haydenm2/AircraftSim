@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     manipulator{new osgGA::NodeTrackerManipulator}
 {
     mMainWindowUI->setupUi(this);
-    QObject::connect(mMainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setupOsgView);
+    QObject::connect(mMainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setup_osg_view);
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +24,7 @@ void MainWindow::on_actionExit_triggered()
     QApplication::quit();
 }
 
-void MainWindow::setupOsgView()
+void MainWindow::setup_osg_view()
 {
     create_camera();
     create_terrain();

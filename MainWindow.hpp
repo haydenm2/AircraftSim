@@ -55,7 +55,7 @@ public:
 
 public slots:
     void on_actionExit_triggered();
-    void setupOsgView();
+    void setup_osg_view();
 
 protected:
     void keyPressEvent(QKeyEvent* event);

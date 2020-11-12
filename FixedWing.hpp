@@ -11,25 +11,30 @@ class FixedWing : Vehicle
 {
 public:
     FixedWing();
-    const Eigen::Vector3f * getPosition();
-    const Eigen::Vector3f * getVelocity();
-    const Eigen::Vector3f * getAcceleration();
-    const Eigen::Vector3f * getOrientation();
-    const Eigen::Vector3f * getAngularVelocity();
-    const Eigen::Vector3f * getAngularAcceleration();
-    const Eigen::Vector3f * getWind();
-    const FixedWingParameters * getParameters();
+    void update(float deltaTime) override;
+    const Eigen::Vector3f * get_position();
+    const Eigen::Vector3f * get_velocity();
+    const Eigen::Vector3f * get_acceleration();
+    const Eigen::Vector3f * get_orientation();
+    const Eigen::Vector3f * get_angular_velocity();
+    const Eigen::Vector3f * get_angular_acceleration();
+    const Eigen::Vector3f * get_wind();
+    const FixedWingParameters * get_parameters();
 
-    void setPosition(Eigen::Vector3f positionInput);
-    void setVelocity(Eigen::Vector3f velocityInput);
-    void setAcceleration(Eigen::Vector3f accelerationInput);
-    void setOrientation(Eigen::Vector3f orientationInput);
-    void setAngularVelocity(Eigen::Vector3f angularVelocityInput);
-    void setAngularAcceleration(Eigen::Vector3f angularAccelerationInput);
-    void setWind(Eigen::Vector3f windInput);
-    void setParameters(FixedWingParameters parameterInput);
+    void set_position(Eigen::Vector3f positionInput);
+    void set_velocity(Eigen::Vector3f velocityInput);
+    void set_acceleration(Eigen::Vector3f accelerationInput);
+    void set_orientation(Eigen::Vector3f orientationInput);
+    void set_angular_velocity(Eigen::Vector3f angularVelocityInput);
+    void set_angular_acceleration(Eigen::Vector3f angularAccelerationInput);
+    void set_wind(Eigen::Vector3f windInput);
+    void set_parameters(FixedWingParameters parameterInput);
 
 private:
+    Eigen::Vector3f calculate_gravitational_forces();
+    Eigen::Vector3f calculate_aerodynamic_forces();
+    Eigen::Vector3f calculate_propulsion_forces();
+
     Eigen::Vector3f position{0.0, 0.0, 0.0};
     Eigen::Vector3f velocity{0.0, 0.0, 0.0};
     Eigen::Vector3f acceleration{0.0, 0.0, 0.0};

@@ -4,9 +4,14 @@
 #include <Eigen/Dense>
 
 
-struct Vehicle
+class Vehicle
 {
+public:
     Vehicle();
+    virtual void update(float deltaTime)=0;
+
+protected:
+
 };
 
 #endif

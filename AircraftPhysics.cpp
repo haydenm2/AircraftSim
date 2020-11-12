@@ -7,6 +7,7 @@ AircraftPhysics::AircraftPhysics()
 
 void AircraftPhysics::update(float deltaTime)
 {
+    aircraft->update(deltaTime);
 }
 
 void AircraftPhysics::change_aircraft(int type)
