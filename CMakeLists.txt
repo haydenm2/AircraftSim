@@ -30,12 +30,16 @@ add_library(${PHYSICS_NAME} STATIC
         Vehicle.cpp
         FixedWing.hpp
         FixedWing.cpp
+        FixedWingParameters.hpp
+        FixedWingAerosondeParameters.hpp
+        FixedWingAerosondeParameters.cpp
         )
 
 add_executable(${TEST_NAME}
     AircraftPhysicsUnitTests.cpp
     VehicleUnitTests.cpp
     FixedWingUnitTests.cpp
+    FixedWingParametersUnitTests.cpp
     UnitTestUtils.cpp
     UnitTestUtils.hpp
     )

@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 
 #include "Vehicle.hpp"
+#include "FixedWingParameters.hpp"
 
 
 class FixedWing : Vehicle
@@ -17,6 +18,8 @@ public:
     const Eigen::Vector3f * getAngularVelocity();
     const Eigen::Vector3f * getAngularAcceleration();
     const Eigen::Vector3f * getWind();
+    const FixedWingParameters * getParameters();
+
     void setPosition(Eigen::Vector3f positionInput);
     void setVelocity(Eigen::Vector3f velocityInput);
     void setAcceleration(Eigen::Vector3f accelerationInput);
@@ -24,6 +27,7 @@ public:
     void setAngularVelocity(Eigen::Vector3f angularVelocityInput);
     void setAngularAcceleration(Eigen::Vector3f angularAccelerationInput);
     void setWind(Eigen::Vector3f windInput);
+    void setParameters(FixedWingParameters parameterInput);
 
 private:
     Eigen::Vector3f position{0.0, 0.0, 0.0};
@@ -33,6 +37,7 @@ private:
     Eigen::Vector3f angularVelocity{0.0, 0.0, 0.0};
     Eigen::Vector3f angularAcceleration{0.0, 0.0, 0.0};
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
+    FixedWingParameters parameters;
 };
 
 #endif

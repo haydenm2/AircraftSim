@@ -3,136 +3,95 @@
 #include "FixedWing.hpp"
 
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultPosition_ExpectCorrectValues)
+class FixedWingTests : public ::testing::Test
 {
-    Eigen::Vector3f positionExpected{0.0, 0.0, 0.0};
-
+protected:
     FixedWing fixedWing;
+    Eigen::Vector3f zeros{0.0, 0.0, 0.0};
+    Eigen::Vector3f ones{1.0, 1.0, 1.0};
+};
 
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), positionExpected);
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultPosition_ExpectCorrectValues)
+{
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
 {
-    Eigen::Vector3f velocityExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), velocityExpected);
+     EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultAcceleration_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAcceleration_ExpectCorrectValues)
 {
-    Eigen::Vector3f accelerationExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), accelerationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultOrientation_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultOrientation_ExpectCorrectValues)
 {
-    Eigen::Vector3f orientationExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), orientationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultAngularVelocity_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularVelocity_ExpectCorrectValues)
 {
-    Eigen::Vector3f angularVeclocityExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), angularVeclocityExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultAngularAcceleration_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularAcceleration_ExpectCorrectValues)
 {
-    Eigen::Vector3f angularAccelerationExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), angularAccelerationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), zeros);
 }
 
-TEST(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
 {
-    Eigen::Vector3f windExpected{0.0, 0.0, 0.0};
-
-    FixedWing fixedWing;
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), windExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), zeros);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingPosition_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingPosition_ExpectCorrectValues)
 {
-    Eigen::Vector3f positionExpected{1.0, 1.0, 1.0};
+    fixedWing.setPosition(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setPosition(positionExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), positionExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getPosition()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingVelocity_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingVelocity_ExpectCorrectValues)
 {
-    Eigen::Vector3f velocityExpected{1.0, 1.0, 1.0};
+    fixedWing.setVelocity(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setVelocity(velocityExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), velocityExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getVelocity()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingAcceleration_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingAcceleration_ExpectCorrectValues)
 {
-    Eigen::Vector3f accelerationExpected{1.0, 1.0, 1.0};
+    fixedWing.setAcceleration(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setAcceleration(accelerationExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), accelerationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAcceleration()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingOrientation_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingOrientation_ExpectCorrectValues)
 {
-    Eigen::Vector3f orientationExpected{1.0, 1.0, 1.0};
+    fixedWing.setOrientation(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setOrientation(orientationExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), orientationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getOrientation()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingAngularVelocity_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingAngularVelocity_ExpectCorrectValues)
 {
-    Eigen::Vector3f angularVeclocityExpected{1.0, 1.0, 1.0};
+    fixedWing.setAngularVelocity(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setAngularVelocity(angularVeclocityExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), angularVeclocityExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularVelocity()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingAngularAcceleration_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingAngularAcceleration_ExpectCorrectValues)
 {
-    Eigen::Vector3f angularAccelerationExpected{1.0, 1.0, 1.0};
+    fixedWing.setAngularAcceleration(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setAngularAcceleration(angularAccelerationExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), angularAccelerationExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getAngularAcceleration()), ones);
 }
 
-TEST(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
 {
-    Eigen::Vector3f windExpected{1.0, 1.0, 1.0};
+    fixedWing.setWind(ones);
 
-    FixedWing fixedWing;
-    fixedWing.setWind(windExpected);
-
-    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), windExpected);
+    EXPECT_VECTOR3_FLOAT_EQ(*(fixedWing.getWind()), ones);
 }
 
