@@ -70,9 +70,9 @@ const Eigen::Vector3f & FixedWing::get_angular_acceleration()
     return angularAcceleration;
 }
 
-const Eigen::Vector4f & FixedWing::get_inputs()
+const Eigen::Vector4f & FixedWing::get_control()
 {
-    return inputs;
+    return control;
 }
 
 const Eigen::Vector3f & FixedWing::get_wind()
@@ -80,12 +80,22 @@ const Eigen::Vector3f & FixedWing::get_wind()
     return wind;
 }
 
-void FixedWing::set_inputs(Eigen::Vector4f inputsInput)
+const float & FixedWing::get_gravity()
 {
-    inputs = inputsInput;
+    return gravity;
+}
+
+void FixedWing::set_control(Eigen::Vector4f controlInput)
+{
+    control = controlInput;
 }
 
 void FixedWing::set_wind(Eigen::Vector3f windInput)
 {
     wind = windInput;
+}
+
+void FixedWing::set_gravity(float gravityInput)
+{
+    gravity = gravityInput;
 }

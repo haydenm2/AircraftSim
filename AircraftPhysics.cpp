@@ -37,9 +37,10 @@ void AircraftPhysics::change_aircraft(int type)
 {
 }
 
-void AircraftPhysics::update_collisions()
-{
-}
+//void AircraftPhysics::update_collisions()
+//{
+//    //TODO
+//}
 
 Vehicle *AircraftPhysics::get_aircraft_ptr()
 {
@@ -56,10 +57,28 @@ const Eigen::Vector3f & AircraftPhysics::get_orientation()
     return aircraft->get_orientation();
 }
 
-void AircraftPhysics::set_wind(Eigen::Vector3f windInput)
+const float & AircraftPhysics::get_gravity()
 {
+    return aircraft->get_gravity();
 }
 
-void AircraftPhysics::set_control(Eigen::Vector4f controlInputs)
+const Eigen::Vector3f & AircraftPhysics::get_wind()
 {
+    return aircraft->get_wind();
+}
+
+void AircraftPhysics::set_wind(Eigen::Vector3f windInput)
+{
+    wind = windInput;
+    aircraft->set_wind(windInput);
+}
+
+void AircraftPhysics::set_control(Eigen::Vector4f controlInput)
+{
+    aircraft->set_control(controlInput);
+}
+
+void AircraftPhysics::set_gravity(float gravityInput)
+{
+    aircraft->set_gravity(gravityInput);
 }

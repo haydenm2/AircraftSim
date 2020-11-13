@@ -46,9 +46,14 @@ TEST_F(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_wind(), zeros);
 }
 
-TEST_F(FixedWingTests, WhenGettingFixedWingInputs_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultControl_ExpectCorrectValues)
 {
-    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_inputs(), Eigen::Vector4f{0.0, 0.0, 0.0, 0.0});
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), Eigen::Vector4f{0.0, 0.0, 0.0, 0.0});
+}
+
+TEST_F(FixedWingTests, WhenGettingFixedWingDefaultGravity_ExpectCorrectValue)
+{
+    EXPECT_EQ(fixedWing.get_gravity(), 9.81f);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
@@ -58,12 +63,22 @@ TEST_F(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_wind(), ones);
 }
 
-TEST_F(FixedWingTests, WhenSettingFixedWingInputs_ExpectCorrectValues)
+TEST_F(FixedWingTests, WhenSettingFixedWingControl_ExpectCorrectValues)
 {
-    Eigen::Vector4f inputsExpected{1.0, 1.0, 1.0, 1.0};
+    Eigen::Vector4f controlExpected{1.0, 1.0, 1.0, 1.0};
 
-    fixedWing.set_inputs(inputsExpected);
+    fixedWing.set_control(controlExpected);
 
-    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_inputs(), inputsExpected);
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
 }
+
+TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
+{
+    float gravityExpected{20.0};
+
+    fixedWing.set_gravity(gravityExpected);
+
+    EXPECT_EQ(fixedWing.get_gravity(), gravityExpected);
+}
+
 

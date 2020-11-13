@@ -15,11 +15,13 @@ public:
     virtual const Eigen::Vector3f & get_orientation()=0;
     virtual const Eigen::Vector3f & get_angular_velocity()=0;
     virtual const Eigen::Vector3f & get_angular_acceleration()=0;
-    virtual const Eigen::Vector4f & get_inputs()=0;
+    virtual const Eigen::Vector4f & get_control()=0;
     virtual const Eigen::Vector3f & get_wind()=0;
+    virtual const float & get_gravity()=0;
 
-    virtual void set_inputs(Eigen::Vector4f inputsInput)=0;
+    virtual void set_control(Eigen::Vector4f controlInput)=0;
     virtual void set_wind(Eigen::Vector3f windInput)=0;
+    virtual void set_gravity(float gravityInput)=0;
 };
 
 #endif

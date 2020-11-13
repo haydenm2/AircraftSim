@@ -16,11 +16,16 @@ public:
 
     void update(float deltaTime);
     void change_aircraft(int type);
+
     Vehicle *get_aircraft_ptr();
     const Eigen::Vector3f & get_position();
     const Eigen::Vector3f & get_orientation();
+    const float & get_gravity();
+    const Eigen::Vector3f & get_wind();
+
     void set_wind(Eigen::Vector3f windInput);
-    void set_control(Eigen::Vector4f controlInputs);
+    void set_control(Eigen::Vector4f controlInput);
+    void set_gravity(float gravityInput);
 
 protected:
     int aircraftType{0};
@@ -28,10 +33,11 @@ protected:
     int quadrotorType{0};
     Vehicle *aircraft;
     float gravity{9.81};
-    float airDensity{1.2682};
+    Eigen::Vector3f wind{0.0, 0.0, 0.0};
+
 
 private:
-    void update_collisions();
+//    void update_collisions();
 };
 
 #endif

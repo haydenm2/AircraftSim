@@ -21,11 +21,13 @@ public:
     const Eigen::Vector3f & get_orientation() override;
     const Eigen::Vector3f & get_angular_velocity() override;
     const Eigen::Vector3f & get_angular_acceleration() override;
-    const Eigen::Vector4f & get_inputs() override;
+    const Eigen::Vector4f & get_control() override;
     const Eigen::Vector3f & get_wind() override;
+    const float & get_gravity() override;
 
-    void set_inputs(Eigen::Vector4f inputsInput) override;
+    void set_control(Eigen::Vector4f controlInput) override;
     void set_wind(Eigen::Vector3f windInput) override;
+    void set_gravity(float gravityInput) override;
 
 private:
     Eigen::Vector3f calculate_aerodynamic_forces();
@@ -38,10 +40,11 @@ private:
     Eigen::Vector3f angularVelocity{0.0, 0.0, 0.0};
     Eigen::Vector3f angularAcceleration{0.0, 0.0, 0.0};
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
-    Eigen::Vector4f inputs{0.0, 0.0, 0.0, 0.0};
+    Eigen::Vector4f control{0.0, 0.0, 0.0, 0.0};
 
     FixedWingParameters parameters;
     float gravity{9.81};
+    float airDensity;
 };
 
 #endif
