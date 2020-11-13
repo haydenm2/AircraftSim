@@ -27,7 +27,6 @@ add_library(${PHYSICS_NAME} STATIC
         AircraftPhysics.hpp
         AircraftPhysics.cpp
         Vehicle.hpp
-        Vehicle.cpp
         FixedWing.hpp
         FixedWing.cpp
         FixedWingParameters.hpp
@@ -37,7 +36,6 @@ add_library(${PHYSICS_NAME} STATIC
 
 add_executable(${TEST_NAME}
     AircraftPhysicsUnitTests.cpp
-    VehicleUnitTests.cpp
     FixedWingUnitTests.cpp
     FixedWingParametersUnitTests.cpp
     UnitTestUtils.cpp

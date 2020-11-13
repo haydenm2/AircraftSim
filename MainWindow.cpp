@@ -5,18 +5,18 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow{parent},
-    mMainWindowUI{new Ui::MainWindowForm},
-    mRoot{new osg::Group},
+    mainWindowUI{new Ui::MainWindowForm},
+    root{new osg::Group},
     manipulator{new osgGA::NodeTrackerManipulator}
 {
-    mMainWindowUI->setupUi(this);
-    QObject::connect(mMainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setup_osg_view);
+    mainWindowUI->setupUi(this);
+    QObject::connect(mainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setup_osg_view);
 }
 
 MainWindow::~MainWindow()
 {
     killTimer(simulationUpdateTimerId);
-    delete mMainWindowUI;
+    delete mainWindowUI;
 }
 
 void MainWindow::on_actionExit_triggered()
@@ -38,75 +38,37 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
 
-    // Translation
-    float scale{15};
-    if(*keyData == 'w')
-    {
-        aircraftPosition[0] += scale;
-    }
-    else if(*keyData == 's')
-    {
-        aircraftPosition[0] -= scale;
-    }
-    else if(*keyData == 'a')
-    {
-        aircraftPosition[1] += scale;
-    }
-    else if(*keyData == 'd')
-    {
-        aircraftPosition[1] -= scale;
-    }
-    else if(*keyData == 'q')
-    {
-        aircraftPosition[2] += scale;
-    }
-    else if(*keyData == 'e')
-    {
-        aircraftPosition[2] -= scale;
-    }
-
-    // Orientation
-    double dTheta{0.1};
     if(*keyData == 'j')
     {
-        aircraftAttitude[0] -= dTheta;
+        // negative roll aileron
     }
     else if(*keyData == 'l')
     {
-        aircraftAttitude[0] += dTheta;
+        // positive roll aileron
     }
     else if(*keyData == 'i')
     {
-        aircraftAttitude[1] += dTheta;
+        // negative pitch elevator
     }
     else if(*keyData == 'k')
     {
-        aircraftAttitude[1] -= dTheta;
+        // positive pitch elevator
     }
     else if(*keyData == 'u')
     {
-        aircraftAttitude[2] += dTheta;
+        // negative yaw rudder
     }
     else if(*keyData == 'o')
     {
-        aircraftAttitude[2] -= dTheta;
+        // positive yaw rudder
     }
 
-//    std::cout << "KEY PRESS: " << keyData << std::endl;
-    mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
-}
-
-void MainWindow::keyReleaseEvent(QKeyEvent* event)
-{
-    QString keyString = event->text();
-    const char* keyData = keyString.toLocal8Bit().data();
-//    std::cout << "KEY RELEASE: " << keyData << std::endl;
-    mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyRelease(osgGA::GUIEventAdapter::KeySymbol(*keyData));
+    mainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
 }
 
 osgGA::EventQueue* MainWindow::getEventQueue() const
 {
-    osgGA::EventQueue* eventQueue = mMainWindowUI->osgWidget->getOsgViewer()->getEventQueue();
+    osgGA::EventQueue* eventQueue = mainWindowUI->osgWidget->getOsgViewer()->getEventQueue();
 
     if(eventQueue)
         return eventQueue;
@@ -116,7 +78,8 @@ osgGA::EventQueue* MainWindow::getEventQueue() const
 
 void MainWindow::timerEvent(QTimerEvent *)
 {
-    mMainWindowUI->osgWidget->getOsgViewer()->frame();
+    physics.update(deltaTime);
+    mainWindowUI->osgWidget->getOsgViewer()->frame();
 }
 
 void MainWindow::create_timer()
@@ -124,18 +87,18 @@ void MainWindow::create_timer()
     double framesPerSecond{30};
     double timeStep{1.0/framesPerSecond};
     double timerDurationInMilliSeconds{timeStep * 1000};
-    simulationUpdateTimerId=startTimer(timerDurationInMilliSeconds);
+    simulationUpdateTimerId = startTimer(timerDurationInMilliSeconds);
 }
 
 void MainWindow::create_camera()
 {
     float aspectRatio = static_cast<float>(this->width())/static_cast<float>(this->height());
     auto pixelRatio = this->devicePixelRatio();
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearColor(osg::Vec4(0.529f, 0.808f, 0.922f, 0.7f));
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setProjectionMatrixAsPerspective(45.f, aspectRatio, 1.f, 1000.f);
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setViewMatrixAsLookAt(osg::Vec3d(0.0,-20.0,3.0),osg::Vec3d(0,0,0),osg::Vec3d(0,0,1));
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearMask(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    mMainWindowUI->osgWidget->getOsgViewer()->getCamera()->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearColor(osg::Vec4(0.529f, 0.808f, 0.922f, 0.7f));
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setProjectionMatrixAsPerspective(45.f, aspectRatio, 1.f, 1000.f);
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setViewMatrixAsLookAt(osg::Vec3d(0.0,-20.0,3.0),osg::Vec3d(0,0,0),osg::Vec3d(0,0,1));
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearMask(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
 }
 
 void MainWindow::create_manipulator()
@@ -150,8 +113,8 @@ void MainWindow::create_manipulator()
     manipulator->setTrackNode(aircraftModelNode);
     manipulator->setAllowThrow(false);
     manipulator->setHomePosition(initialPosition, initialPointingPosition, upVector);
-    mMainWindowUI->osgWidget->getOsgViewer()->setCameraManipulator(manipulator);
-    mMainWindowUI->osgWidget->getOsgViewer()->setSceneData(this->mRoot.get());
+    mainWindowUI->osgWidget->getOsgViewer()->setCameraManipulator(manipulator);
+    mainWindowUI->osgWidget->getOsgViewer()->setSceneData(this->root.get());
 }
 
 void MainWindow::create_aircraft()
@@ -197,12 +160,12 @@ void MainWindow::create_aircraft()
     stateSetAircraft->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
 
     osg::PositionAttitudeTransform *transformAircraft = new osg::PositionAttitudeTransform;
+    osg::Vec3f initialAircraftPosition{physics.get_position()[0], physics.get_position()[1], physics.get_position()[2]};
     transformAircraft->setPosition(initialAircraftPosition);
-//    transformAircraft->setAttitude(osgToNEDRotation);
-    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&aircraftPosition, &aircraftAttitude));
+    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&physics.get_position(), &physics.get_orientation()));
     transformAircraft->addChild(aircraftModelNode);
 
-    this->mRoot->addChild(transformAircraft);
+    this->root->addChild(transformAircraft);
 
     manipulator->setNode(aircraftModelNode);
 }
@@ -217,7 +180,7 @@ void MainWindow::create_terrain()
     osg::StateSet *stateSetTerrain = terrainModelNode->getOrCreateStateSet();
     stateSetTerrain->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
 
-    this->mRoot->addChild(terrainModelNode);
+    this->root->addChild(terrainModelNode);
 }
 
 void MainWindow::change_vehicle(VehicleType vehicleType)

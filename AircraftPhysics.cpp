@@ -3,6 +3,29 @@
 
 AircraftPhysics::AircraftPhysics()
 {
+    if(aircraftType == 0)
+    {
+        aircraft = new FixedWing(fixedWingType);
+    }
+    else if(aircraftType == 1)
+    {
+        //TODO: add quadrotor
+    }
+}
+
+//AircraftPhysics::AircraftPhysics(const AircraftPhysics &newPhysics)
+//{
+//    //TODO
+//}
+
+//void operator=(const AircraftPhysics &newPhysics)
+//{
+//    //TODO
+//}
+
+AircraftPhysics::~AircraftPhysics()
+{
+    delete aircraft;
 }
 
 void AircraftPhysics::update(float deltaTime)
@@ -20,30 +43,17 @@ void AircraftPhysics::update_collisions()
 
 Vehicle *AircraftPhysics::get_aircraft_ptr()
 {
+    return aircraft;
 }
 
-Eigen::Vector3f AircraftPhysics::get_position()
+const Eigen::Vector3f & AircraftPhysics::get_position()
 {
+    return aircraft->get_position();
 }
 
-Eigen::Vector3f AircraftPhysics::get_velocity()
+const Eigen::Vector3f & AircraftPhysics::get_orientation()
 {
-}
-
-Eigen::Vector3f AircraftPhysics::get_orientation()
-{
-}
-
-Eigen::Vector3f AircraftPhysics::get_angular_velocity()
-{
-}
-
-void AircraftPhysics::set_position(Eigen::Vector3f positionInput)
-{
-}
-
-void AircraftPhysics::set_orientation(Eigen::Vector3f orientationInput)
-{
+    return aircraft->get_orientation();
 }
 
 void AircraftPhysics::set_wind(Eigen::Vector3f windInput)

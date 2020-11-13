@@ -14,13 +14,13 @@
 class VehicleUpdateCallback: public osg::NodeCallback
 {
 public:
-    VehicleUpdateCallback(osg::Vec3 *aircraftPosition, std::array<double, 3> *aircraftAttitude);
+    VehicleUpdateCallback(const Eigen::Vector3f *aircraftPosition, const Eigen::Vector3f *aircraftAttitude);
     virtual void operator()(osg::Node *node, osg::NodeVisitor *nodeVisitor);
 
 private:
     AircraftPhysics *physicsPtr;
-    osg::Vec3 *positionPtr;
-    std::array<double, 3> *attitudePtr;
+    const Eigen::Vector3f *positionPtr;
+    const Eigen::Vector3f *attitudePtr;
     osg::Quat osgToNEDRotation{0.f, 0.f, 0.7071, 0.7071};
 
 

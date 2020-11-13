@@ -1,7 +1,7 @@
 #include "VehicleUpdateCallback.hpp"
 
 
-VehicleUpdateCallback::VehicleUpdateCallback(osg::Vec3 *position, std::array<double, 3> *attitude)
+VehicleUpdateCallback::VehicleUpdateCallback(const Eigen::Vector3f *position, const Eigen::Vector3f *attitude)
 {
     positionPtr = position;
     attitudePtr = attitude;
@@ -10,12 +10,16 @@ VehicleUpdateCallback::VehicleUpdateCallback(osg::Vec3 *position, std::array<dou
 void VehicleUpdateCallback::operator()(osg::Node *node, osg::NodeVisitor *visitingNode)
 {
     osg::PositionAttitudeTransform *aircraftTransformation = dynamic_cast<osg::PositionAttitudeTransform *> (node);
-    aircraftTransformation->setPosition(*positionPtr);
+    osg::Vec3 position;
+    position[0] = positionPtr->data()[0];
+    position[1] = positionPtr->data()[1];
+    position[2] = positionPtr->data()[2];
+    aircraftTransformation->setPosition(position);
 
     osg::Quat attitudeRPY;
-    double phi = attitudePtr->at(0);
-    double theta = attitudePtr->at(1);
-    double psi = attitudePtr->at(2);
+    double phi = attitudePtr->data()[0];
+    double theta = attitudePtr->data()[1];
+    double psi = attitudePtr->data()[2];
 
     attitudeRPY[3] = cos(phi/2.0)*cos(theta/2.0)*cos(psi/2.0) + sin(phi/2.0)*sin(theta/2.0)*sin(psi/2.0);
     attitudeRPY[0] = sin(phi/2.0)*cos(theta/2.0)*cos(psi/2.0) - cos(phi/2.0)*sin(theta/2.0)*sin(psi/2.0);

@@ -46,23 +46,15 @@ public:
     void set_pause_flag(bool pauseState);
     void change_vehicle(VehicleType vehicleType);
 
-    osg::Vec3 aircraftPosition{0.f, 0.f, 0.f};
-
-    double rollAttitude{0.f};
-    double pitchAttitude{0.f};
-    double yawAttitude{0.f};
-    std::array<double, 3> aircraftAttitude{std::array<double, 3>{rollAttitude, pitchAttitude, yawAttitude}};
-
 public slots:
     void on_actionExit_triggered();
     void setup_osg_view();
 
 protected:
     void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
 
 private:
-    Ui::MainWindowForm *mMainWindowUI;
+    Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;
     int simulationUpdateTimerId{0};
 
@@ -75,9 +67,9 @@ private:
     osgGA::EventQueue *getEventQueue() const;
 
     bool pauseFlag{true};
+    float deltaTime{1/30.0};
 
     float initialGroundPlaneSize{10};
-    osg::Vec3 initialAircraftPosition{0.f, 0.f, 0.f};
     AircraftPhysics physics{AircraftPhysics()};
 
     VehicleType vehicleType{VehicleType::FIXEDWING};
@@ -87,7 +79,7 @@ private:
     osg::ref_ptr<osg::Node> aircraftModelNode;
     osg::ref_ptr<osg::Node> terrainModelNode;
 
-    osg::ref_ptr<osg::Group> mRoot;
+    osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;
 
 };
