@@ -63,15 +63,6 @@ TEST_F(FixedWingTests, WhenSettingFixedWingWind_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_wind(), ones);
 }
 
-TEST_F(FixedWingTests, WhenSettingFixedWingControl_ExpectCorrectValues)
-{
-    Eigen::Vector4f controlExpected{1.0, 1.0, 1.0, 1.0};
-
-    fixedWing.set_control(controlExpected);
-
-    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
-}
-
 TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
 {
     float gravityExpected{20.0};
@@ -79,6 +70,35 @@ TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
     fixedWing.set_gravity(gravityExpected);
 
     EXPECT_EQ(fixedWing.get_gravity(), gravityExpected);
+}
+
+TEST_F(FixedWingTests, WhenSettingFixedWingControlWithinSaturation_ExpectOriginalValues)
+{
+    Eigen::Vector4f controlExpected{0.15, 0.15, 0.15, 0.15};
+
+    fixedWing.set_control(controlExpected);
+
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
+}
+
+TEST_F(FixedWingTests, WhenSettingFixedWingControlBelowSaturation_ExpectMaximumValues)
+{
+    Eigen::Vector4f controlInput{math_tools::degrees2Radians(-90), math_tools::degrees2Radians(-90), math_tools::degrees2Radians(-90), -10.0};
+    Eigen::Vector4f controlExpected{math_tools::degrees2Radians(-25), math_tools::degrees2Radians(-25), math_tools::degrees2Radians(-25), 0.0};
+
+    fixedWing.set_control(controlInput);
+
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
+}
+
+TEST_F(FixedWingTests, WhenSettingFixedWingControlAboveSaturation_ExpectMaximumValues)
+{
+    Eigen::Vector4f controlInput{math_tools::degrees2Radians(90), math_tools::degrees2Radians(90), math_tools::degrees2Radians(90), 10.0};
+    Eigen::Vector4f controlExpected{math_tools::degrees2Radians(25), math_tools::degrees2Radians(25), math_tools::degrees2Radians(25), 1.0};
+
+    fixedWing.set_control(controlInput);
+
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
 }
 
 

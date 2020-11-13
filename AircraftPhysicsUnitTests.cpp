@@ -68,9 +68,11 @@ TEST_F(AircraftPhysicsTests, WhenSettingAircraftWind_ExpectCorrectValues)
 
 TEST_F(AircraftPhysicsTests, WhenSettingAircraftControl_ExpectCorrectValues)
 {
-    physics.set_control(ones4);
+    Eigen::Vector4f controlExpected{Eigen::Vector4f{0.1, 0.1, 0.1, 0.1}};
 
-    EXPECT_VECTOR4_FLOAT_EQ(physics.get_aircraft_ptr()->get_control(), ones4);
+    physics.set_control(controlExpected);
+
+    EXPECT_VECTOR4_FLOAT_EQ(physics.get_aircraft_ptr()->get_control(), controlExpected);
 }
 
 TEST_F(AircraftPhysicsTests, WhenGettingDefaultGravity_ExpectCorrectValue)

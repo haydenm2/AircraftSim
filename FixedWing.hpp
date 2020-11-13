@@ -12,8 +12,7 @@
 class FixedWing : public Vehicle
 {
 public:
-    FixedWing();
-    FixedWing(int type);
+    FixedWing(int type=0);
 
     void update(float deltaTime) override;
     const Eigen::Vector3f & get_position() override;

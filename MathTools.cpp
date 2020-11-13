@@ -1,4 +1,5 @@
 #include "MathTools.hpp"
+#include <iostream>
 
 namespace math_tools
 {
@@ -15,7 +16,7 @@ float degrees2Radians(float degreeInput)
 
 float saturate(float input, float minimum, float maximum)
 {
-    float output;
+    float output{input};
     if(input < minimum)
     {
         output = minimum;
@@ -24,13 +25,7 @@ float saturate(float input, float minimum, float maximum)
     {
         output = maximum;
     }
-    else
-    {
-        output = input;
-    }
     return output;
 }
-
-
 
 }
