@@ -6,6 +6,7 @@
 #include "Vehicle.hpp"
 #include "FixedWingParameters.hpp"
 #include "FixedWingAerosondeParameters.hpp"
+#include "MathTools.hpp"
 
 
 class FixedWing : public Vehicle
@@ -41,10 +42,10 @@ private:
     Eigen::Vector3f angularAcceleration{0.0, 0.0, 0.0};
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
     Eigen::Vector4f control{0.0, 0.0, 0.0, 0.0};
+    Eigen::MatrixXf controlThresholds{Eigen::MatrixXf(2, 4)};
 
     FixedWingParameters parameters;
     float gravity{9.81};
-    float airDensity;
 };
 
 #endif

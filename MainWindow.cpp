@@ -38,6 +38,8 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
 
+    Eigen::Vector4f controlInputs{0.0, 0.0, 0.0, 0.0};
+
     if(*keyData == 'j')
     {
         // negative roll aileron
@@ -54,14 +56,24 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     {
         // positive pitch elevator
     }
-    else if(*keyData == 'u')
+    else if(*keyData == 'a')
     {
         // negative yaw rudder
     }
-    else if(*keyData == 'o')
+    else if(*keyData == 'd')
     {
         // positive yaw rudder
     }
+    else if(*keyData == 'w')
+    {
+        controlInputs[3] += 0.05;
+    }
+    else if(*keyData == 's')
+    {
+        controlInputs[3] -= 0.05;
+    }
+
+    physics.set_control(controlInputs);
 
     mainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
 }

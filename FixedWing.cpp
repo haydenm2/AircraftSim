@@ -1,9 +1,16 @@
 #include "FixedWing.hpp"
-#include <iostream>
 
 FixedWing::FixedWing()
 {
     parameters = FixedWingAerosondeParameters();
+    controlThresholds(0, 0) = math_tools::degrees2Radians(-25);
+    controlThresholds(1, 0) = math_tools::degrees2Radians(25);
+    controlThresholds(0, 1) = math_tools::degrees2Radians(-25);
+    controlThresholds(1, 1) = math_tools::degrees2Radians(25);
+    controlThresholds(0, 2) = math_tools::degrees2Radians(-25);
+    controlThresholds(1, 2) = math_tools::degrees2Radians(25);
+    controlThresholds(0, 3) = 0.0;
+    controlThresholds(1, 3) = 1.0;
 }
 
 FixedWing::FixedWing(int type)
@@ -87,6 +94,7 @@ const float & FixedWing::get_gravity()
 
 void FixedWing::set_control(Eigen::Vector4f controlInput)
 {
+
     control = controlInput;
 }
 

@@ -14,9 +14,12 @@
 #include <QKeyEvent>
 #include <QWheelEvent>
 
+#include <Eigen/Dense>
+
 #include "ui_MainWindowForm.h"
 #include "VehicleUpdateCallback.hpp"
 #include "AircraftPhysics.hpp"
+
 
 class OutputWindow;
 
