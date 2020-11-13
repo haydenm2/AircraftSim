@@ -28,13 +28,15 @@ public:
     void set_control(Eigen::Vector4f controlInput) override;
     void set_wind(Eigen::Vector3f windInput) override;
     void set_gravity(float gravityInput) override;
+    void set_velocity(Eigen::Vector3f velocityInput) override;
 
 private:
     Eigen::Vector3f calculate_aerodynamic_forces();
     Eigen::Vector3f calculate_propulsion_forces();
 
+    float initialVelocity{0};
     Eigen::Vector3f position{0.0, 0.0, 0.0};
-    Eigen::Vector3f velocity{0.0, 0.0, 0.0};
+    Eigen::Vector3f velocity{initialVelocity, 0.0, 0.0};
     Eigen::Vector3f acceleration{0.0, 0.0, 0.0};
     Eigen::Vector3f orientation{0.0, 0.0, 0.0};
     Eigen::Vector3f angularVelocity{0.0, 0.0, 0.0};

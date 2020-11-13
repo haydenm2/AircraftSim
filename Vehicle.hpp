@@ -22,6 +22,7 @@ public:
     virtual void set_control(Eigen::Vector4f controlInput)=0;
     virtual void set_wind(Eigen::Vector3f windInput)=0;
     virtual void set_gravity(float gravityInput)=0;
+    virtual void set_velocity(Eigen::Vector3f velocityInput)=0;
 };
 
 #endif

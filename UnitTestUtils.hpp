@@ -6,5 +6,7 @@
 
 void EXPECT_VECTOR3_FLOAT_EQ(Eigen::Vector3f inputVector, Eigen::Vector3f truthVector);
 void EXPECT_VECTOR4_FLOAT_EQ(Eigen::Vector4f inputVector, Eigen::Vector4f truthVector);
+void EXPECT_VECTOR3_FLOAT_NEAR(Eigen::Vector3f inputVector, Eigen::Vector3f truthVector, float threshold);
+void EXPECT_VECTOR4_FLOAT_NEAR(Eigen::Vector4f inputVector, Eigen::Vector4f truthVector, float threshold);
 
 #endif

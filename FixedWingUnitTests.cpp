@@ -72,6 +72,13 @@ TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
     EXPECT_EQ(fixedWing.get_gravity(), gravityExpected);
 }
 
+TEST_F(FixedWingTests, WhenGettingFixedWingVelocity_ExpectCorrectValues)
+{
+    fixedWing.set_velocity(ones);
+
+    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_velocity(), ones);
+}
+
 TEST_F(FixedWingTests, WhenSettingFixedWingControlWithinSaturation_ExpectOriginalValues)
 {
     Eigen::Vector4f controlExpected{0.15, 0.15, 0.15, 0.15};
@@ -100,5 +107,3 @@ TEST_F(FixedWingTests, WhenSettingFixedWingControlAboveSaturation_ExpectMaximumV
 
     EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
 }
-
-

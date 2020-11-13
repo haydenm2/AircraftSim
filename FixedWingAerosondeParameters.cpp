@@ -15,9 +15,11 @@ FixedWingAerosondeParameters::FixedWingAerosondeParameters()
     wingM = 50;
     wingEpsilon = 0.1592;
     wingAlpha0 = 0.4712;
+
     kMotor = 80.0;
     kTP = 0.0;
     kOmega = 0.0;
+
     propE = 0.9;
     propS = 0.55;
     propC = 1.0;

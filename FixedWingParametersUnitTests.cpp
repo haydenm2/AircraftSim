@@ -19,9 +19,11 @@ TEST(FixedWingParameterTests, WhenInitializingAerosondeParameterSet_ExpectCorrec
     EXPECT_EQ(parameters.wingM, 50.0f);
     EXPECT_EQ(parameters.wingEpsilon, 0.1592f);
     EXPECT_EQ(parameters.wingAlpha0, 0.4712f);
+
     EXPECT_EQ(parameters.kMotor, 80.0f);
     EXPECT_EQ(parameters.kTP, 0.0f);
     EXPECT_EQ(parameters.kOmega, 0.0f);
+
     EXPECT_EQ(parameters.propE, 0.9f);
     EXPECT_EQ(parameters.propS, 0.55f);
     EXPECT_EQ(parameters.propC, 1.0f);

@@ -38,7 +38,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     QString keyString = event->text();
     const char* keyData = keyString.toLocal8Bit().data();
 
-    Eigen::Vector4f controlInputs{0.0, 0.0, 0.0, 0.0};
+    Eigen::Vector4f controlInputs{physics.get_aircraft_ptr()->get_control()};
 
     if(*keyData == 'j')
     {
