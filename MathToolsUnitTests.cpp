@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "MathTools.hpp"
+#include "UnitTestUtils.hpp"
 
 
 TEST(MathToolsTests, WhenConvertingToDegrees_ExpectCorrectValue)
@@ -49,4 +50,70 @@ TEST(MathToolsTests, WhenSaturatingValueBelowRange_ExpectMinimum)
     float output{math_tools::saturate(input, minimum, maximum)};
 
     EXPECT_EQ(output, minimum);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorRoll90DegreesToBody_ExpectXUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{1.0, 0.0, 0.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(math_tools::degrees2Radians(90), 0.0, 0.0)};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorPitch90DegreesToBody_ExpectZUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{0.0, 0.0, 1.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(0.0, math_tools::degrees2Radians(90), 0.0)};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorYaw90DegreesToBody_ExpectYUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{0.0, -1.0, 0.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(0.0, 0.0, math_tools::degrees2Radians(90))};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorRoll90DegreesToBodyAndBack_ExpectXUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{1.0, 0.0, 0.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(math_tools::degrees2Radians(90), 0.0, 0.0) * math_tools::rotationBody2Inertial(math_tools::degrees2Radians(90), 0.0, 0.0)};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorPitch90DegreesToBodyAndBack_ExpectXUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{1.0, 0.0, 0.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(0.0, math_tools::degrees2Radians(90), 0.0) * math_tools::rotationBody2Inertial(0.0, math_tools::degrees2Radians(90), 0.0)};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
+}
+
+TEST(MathToolsTests, WhenRotatingXUnitVectorYaw90DegreesToBodyAndBack_ExpectXUnitVector)
+{
+    Eigen::Vector3f input{1.0, 0.0, 0.0};
+    Eigen::Vector3f outputExpected{1.0, 0.0, 0.0};
+
+    Eigen::Matrix3f R{math_tools::rotationInertial2Body(0.0, 0.0, math_tools::degrees2Radians(90)) * math_tools::rotationBody2Inertial(0.0, 0.0, math_tools::degrees2Radians(90))};
+    Eigen::Vector3f output{R*input};
+
+    EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
 }

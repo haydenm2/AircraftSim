@@ -25,17 +25,14 @@ FixedWing::FixedWing(int type)
 void FixedWing::update(float deltaTime)
 {
     Eigen::Vector3f gravity_force{0.0, 0.0, -parameters.mass*gravity};
-    Eigen::Vector3f aerodynamic_force = calculate_aerodynamic_forces();
     Eigen::Vector3f propulsion_force = calculate_propulsion_forces();
+    Eigen::Vector3f aerodynamic_force = calculate_aerodynamic_forces();
 
     acceleration = (gravity_force + aerodynamic_force + propulsion_force)/parameters.mass;
     velocity = velocity + acceleration*deltaTime;
     position = position + velocity*deltaTime + 0.5*acceleration*pow(deltaTime, 2);
-}
 
-Eigen::Vector3f FixedWing::calculate_aerodynamic_forces()
-{
-    return Eigen::Vector3f{0.0, 0.0, 0.0};
+    Eigen::Vector3f propulsion_moment = calculate_propulsion_moments();
 }
 
 Eigen::Vector3f FixedWing::calculate_propulsion_forces()
@@ -44,6 +41,18 @@ Eigen::Vector3f FixedWing::calculate_propulsion_forces()
     float forcePropulsion{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2))};
 
     return Eigen::Vector3f{forcePropulsion, 0.0, 0.0};
+}
+
+Eigen::Vector3f FixedWing::calculate_propulsion_moments()
+{
+    float momentPropulsion{-parameters.kTP*pow(parameters.kOmega*control[3], 2)};
+
+    return Eigen::Vector3f{momentPropulsion, 0.0, 0.0};
+}
+
+Eigen::Vector3f FixedWing::calculate_aerodynamic_forces()
+{
+    return Eigen::Vector3f{0.0, 0.0, 0.0};
 }
 
 const Eigen::Vector3f & FixedWing::get_position()
