@@ -80,3 +80,5 @@ TEST_F(FixedWingTests, WhenSettingFixedWingControlAboveSaturation_ExpectMaximumV
 
     EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), controlExpected);
 }
+
+

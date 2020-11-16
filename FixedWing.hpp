@@ -27,7 +27,9 @@ public:
     void set_initial_velocity(float inertialVelocityInput) override;
 
 private:
-    Eigen::VectorXf get_derivatives(Eigen::VectorXf state, Eigen::Vector3f forces, Eigen::Vector3f moments) override;
+    void propogate_states(Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments, float deltaTime) override;
+    Eigen::VectorXf get_derivatives(const Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments) const override;
+
     void calculate_forces_and_moments();
     void calculate_propulsion_forces_and_moments();
     void calculate_aerodynamic_forces_and_moments();
@@ -42,6 +44,14 @@ private:
 
     FixedWingParameters parameters;
     float gravity{9.81};
+    float gamma1;
+    float gamma2;
+    float gamma3;
+    float gamma4;
+    float gamma5;
+    float gamma6;
+    float gamma7;
+    float gamma8;
 };
 
 #endif

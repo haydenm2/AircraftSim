@@ -34,20 +34,6 @@ TEST_F(AircraftPhysicsTests, WhenUpdatingWithNoTimeStep_ExpectNoChanges)
     EXPECT_VECTOR4_FLOAT_NEAR(physics.get_aircraft_ptr()->get_control(), zeros4, threshold);
 }
 
-//TEST_F(AircraftPhysicsTests, WhenUpdatingWithTimeStepAndOnlyGravity_ExpectCorrectStateUpdates)
-//{
-//    float deltaTime{1.0};
-//    Eigen::Vector3f accelerationExpected{0.0, 0.0, -gravity};
-//    Eigen::Vector3f velocityExpected{accelerationExpected*deltaTime};
-//    Eigen::Vector3f positionExpected{velocityExpected*deltaTime + 0.5*accelerationExpected*pow(deltaTime,2)};
-
-//    physics.update(deltaTime);
-
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_position(), positionExpected, threshold);
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_velocity(), velocityExpected, threshold);
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_acceleration(), accelerationExpected, threshold);
-//}
-
 TEST_F(AircraftPhysicsTests, WhenGettingDefaultAircraftPosition_ExpectCorrectValues)
 {
     EXPECT_VECTOR3_FLOAT_EQ(physics.get_position(), zeros3);

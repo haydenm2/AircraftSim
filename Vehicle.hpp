@@ -21,7 +21,8 @@ public:
     virtual void set_initial_velocity(float inertialVelocityInput)=0;
 
 protected:
-    virtual Eigen::VectorXf get_derivatives(Eigen::VectorXf state, Eigen::Vector3f forces, Eigen::Vector3f moments) const=0;
+    virtual void propogate_states(Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments, float deltaTime)=0;
+    virtual Eigen::VectorXf get_derivatives(const Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments) const=0;
 
 };
 
