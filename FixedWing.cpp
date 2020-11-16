@@ -3,6 +3,7 @@
 
 FixedWing::FixedWing(int type)
 {
+    state.setZero(12);
     switch(type)
     {
         case 0:
@@ -24,78 +25,92 @@ FixedWing::FixedWing(int type)
 
 void FixedWing::update(float deltaTime)
 {
-    Eigen::Vector3f gravity_force{0.0, 0.0, -parameters.mass*gravity};
-    Eigen::Vector3f propulsion_force = calculate_propulsion_forces();
-    Eigen::Vector3f aerodynamic_force = calculate_aerodynamic_forces();
+    calculate_forces_and_moments();
 
-    acceleration = (gravity_force + aerodynamic_force + propulsion_force)/parameters.mass;
-    velocity = velocity + acceleration*deltaTime;
-    position = position + velocity*deltaTime + 0.5*acceleration*pow(deltaTime, 2);
+    state[0] = position[0];
+    state[1] = position[1];
+    state[2] = position[2];
 
-    Eigen::Vector3f propulsion_moment = calculate_propulsion_moments();
 }
 
-Eigen::Vector3f FixedWing::calculate_propulsion_forces()
+Eigen::VectorXf get_derivatives(Eigen::VectorXf state, Eigen::Vector3f forces, Eigen::Vector3f moments)
 {
-    float Va{(velocity - wind).norm()};
+    ;
+}
+
+void FixedWing::calculate_forces_and_moments()
+{
+    forces = math_tools::rotationInertial2Body(state[6], state[7], state[8])*Eigen::Vector3f{0.0, 0.0, -parameters.mass*gravity};
+    moments *= 0;
+    calculate_propulsion_forces_and_moments();
+//    calculate_aerodynamic_forces_and_moments();
+}
+
+void FixedWing::calculate_propulsion_forces_and_moments()
+{
+    Eigen::Vector3f bodyVelocity{state[0], state[1], state[2]};
+    Eigen::Vector3f bodyWind{math_tools::rotationInertial2Body(state[6], state[7], state[8]) * wind};
+    float Va{(bodyVelocity - bodyWind).norm()};
     float forcePropulsion{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2))};
 
-    return Eigen::Vector3f{forcePropulsion, 0.0, 0.0};
-}
+    forces[0] += forcePropulsion;
 
-Eigen::Vector3f FixedWing::calculate_propulsion_moments()
-{
     float momentPropulsion{-parameters.kTP*pow(parameters.kOmega*control[3], 2)};
-
-    return Eigen::Vector3f{momentPropulsion, 0.0, 0.0};
+    moments[0] = momentPropulsion;
 }
 
-Eigen::Vector3f FixedWing::calculate_aerodynamic_forces()
+void FixedWing::calculate_aerodynamic_forces_and_moments()
 {
-    return Eigen::Vector3f{0.0, 0.0, 0.0};
+//    Eigen::Vector3f bodyVelocity{state[0], state[1], state[2]};
+//    Eigen::Vector3f bodyWind{math_tools::rotationInertial2Body(state[6], state[7], state[8]) * wind};
+//    Eigen::Vector3f relativeBodyAirspeedVelocity{bodyVelocity - bodyWind};
+//    float Va{relativeBodyAirspeedVelocity.norm()};
+
+//    float alpha{atan(relativeBodyAirspeedVelocity[2]/relativeBodyAirspeedVelocity[0])};
+//    float beta{asin(relativeBodyAirspeedVelocity[1]/Va)};
+
+//    float cL{parameters.cL.O + parameters.cL.alpha*alpha};
+//    float cD{parameters.cD.O + parameters.cD.alpha*alpha};
+
+//    float aerodynamicCoefficient{0.5*parameters.rho*pow(Va, 2)*parameters.wingS};
+
+//    float forceLift{aerodynamicCoefficient*(cL + parameters.cL.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cL.deltaE*control[1])};
+//    float forceDrag{aerodynamicCoefficient*(cD + parameters.cD.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cD.deltaE*control[1])};
+
+//    Eigen::Vector3f aerodynamicForces;
+//    aerodynamicForces[0] = -forceDrag*cos(alpha) + forceLift*sin(alpha);
+//    aerodynamicForces[2] = -forceDrag*sin(alpha) - forceLift*cos(alpha);
+//    aerodynamicForces[1] = forceCoefficient*(parameters.cY.O + parameters.cY.beta*beta + parameters.cY.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cY.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cY.deltaA*control[0] + parameters.cY.deltaR*control[2]);
+
+//    forces[0] += aerodynamicForces;
+
+//    Eigen::Vector3f aerodynamicMoments;
+//    aerodynamicMoments[0] = aerodynamicCoefficient*parameters.wingB*(parameters.cell.O + parameters.cell.beta*beta + parameters.cell.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cell.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cell.deltaA*control[0] + parameters.cell.deltaR*control[2]);
+//    aerodynamicMoments[2] = aerodynamicCoefficient*parameters.wingB*(parameters.cn.O + parameters.cn.beta*beta + parameters.cn.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cn.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cn.deltaA*control[0] + parameters.cn.deltaR*control[2]);
+//    aerodynamicMoments[1] = aerodynamicCoefficient*parameters.wingC(parameters.cm.O + parameters.cm.alpha*alpha + parameters.cm.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cm.deltaE*control[1]);
 }
 
-const Eigen::Vector3f & FixedWing::get_position()
+Eigen::Vector3f FixedWing::get_position() const
 {
-    return position;
+    return Eigen::Vector3f{state[0], state[1], state[2]};
 }
 
-const Eigen::Vector3f & FixedWing::get_velocity()
+Eigen::Vector3f FixedWing::get_orientation() const
 {
-    return velocity;
+    return Eigen::Vector3f{state[6], state[7], state[8]};
 }
 
-const Eigen::Vector3f & FixedWing::get_acceleration()
-{
-    return acceleration;
-}
-
-const Eigen::Vector3f & FixedWing::get_orientation()
-{
-    return orientation;
-}
-
-const Eigen::Vector3f & FixedWing::get_angular_velocity()
-{
-    return angularVelocity;
-}
-
-const Eigen::Vector3f & FixedWing::get_angular_acceleration()
-{
-    return angularAcceleration;
-}
-
-const Eigen::Vector4f & FixedWing::get_control()
+Eigen::Vector4f FixedWing::get_control() const
 {
     return control;
 }
 
-const Eigen::Vector3f & FixedWing::get_wind()
+Eigen::Vector3f FixedWing::get_wind() const
 {
     return wind;
 }
 
-const float & FixedWing::get_gravity()
+float FixedWing::get_gravity() const
 {
     return gravity;
 }
@@ -120,7 +135,7 @@ void FixedWing::set_gravity(float gravityInput)
     gravity = gravityInput;
 }
 
-void FixedWing::set_velocity(Eigen::Vector3f velocityInput)
+void FixedWing::set_initial_velocity(float inertialVelocityInput)
 {
-    velocity = velocityInput;
+    state[3] = inertialVelocityInput;
 }

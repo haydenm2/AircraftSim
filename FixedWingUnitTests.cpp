@@ -16,29 +16,9 @@ TEST_F(FixedWingTests, WhenGettingFixedWingDefaultPosition_ExpectCorrectValues)
     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_position(), zeros);
 }
 
-TEST_F(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
-{
-     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_velocity(), zeros);
-}
-
-TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAcceleration_ExpectCorrectValues)
-{
-    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_acceleration(), zeros);
-}
-
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultOrientation_ExpectCorrectValues)
 {
     EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_orientation(), zeros);
-}
-
-TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularVelocity_ExpectCorrectValues)
-{
-    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_angular_velocity(), zeros);
-}
-
-TEST_F(FixedWingTests, WhenGettingFixedWingDefaultAngularAcceleration_ExpectCorrectValues)
-{
-    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_angular_acceleration(), zeros);
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
@@ -70,13 +50,6 @@ TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
     fixedWing.set_gravity(gravityExpected);
 
     EXPECT_EQ(fixedWing.get_gravity(), gravityExpected);
-}
-
-TEST_F(FixedWingTests, WhenGettingFixedWingVelocity_ExpectCorrectValues)
-{
-    fixedWing.set_velocity(ones);
-
-    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_velocity(), ones);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingControlWithinSaturation_ExpectOriginalValues)

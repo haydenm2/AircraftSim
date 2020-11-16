@@ -18,10 +18,10 @@ public:
     void change_aircraft(int type);
 
     Vehicle *get_aircraft_ptr();
-    const Eigen::Vector3f & get_position();
-    const Eigen::Vector3f & get_orientation();
-    const float & get_gravity();
-    const Eigen::Vector3f & get_wind();
+    Eigen::Vector3f get_position() const;
+    Eigen::Vector3f get_orientation() const;
+    float get_gravity() const;
+    Eigen::Vector3f get_wind() const;
 
     void set_wind(Eigen::Vector3f windInput);
     void set_control(Eigen::Vector4f controlInput);

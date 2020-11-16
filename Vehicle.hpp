@@ -9,20 +9,20 @@ class Vehicle
 public:
     virtual void update(float deltaTime)=0;
 
-    virtual const Eigen::Vector3f & get_position()=0;
-    virtual const Eigen::Vector3f & get_velocity()=0;
-    virtual const Eigen::Vector3f & get_acceleration()=0;
-    virtual const Eigen::Vector3f & get_orientation()=0;
-    virtual const Eigen::Vector3f & get_angular_velocity()=0;
-    virtual const Eigen::Vector3f & get_angular_acceleration()=0;
-    virtual const Eigen::Vector4f & get_control()=0;
-    virtual const Eigen::Vector3f & get_wind()=0;
-    virtual const float & get_gravity()=0;
+    virtual Eigen::Vector3f get_position() const=0;
+    virtual Eigen::Vector3f get_orientation() const=0;
+    virtual Eigen::Vector4f get_control() const=0;
+    virtual Eigen::Vector3f get_wind() const=0;
+    virtual float get_gravity() const=0;
 
     virtual void set_control(Eigen::Vector4f controlInput)=0;
     virtual void set_wind(Eigen::Vector3f windInput)=0;
     virtual void set_gravity(float gravityInput)=0;
-    virtual void set_velocity(Eigen::Vector3f velocityInput)=0;
+    virtual void set_initial_velocity(float inertialVelocityInput)=0;
+
+protected:
+    virtual Eigen::VectorXf get_derivatives(Eigen::VectorXf state, Eigen::Vector3f forces, Eigen::Vector3f moments) const=0;
+
 };
 
 #endif

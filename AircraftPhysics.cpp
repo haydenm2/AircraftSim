@@ -47,22 +47,22 @@ Vehicle *AircraftPhysics::get_aircraft_ptr()
     return aircraft;
 }
 
-const Eigen::Vector3f & AircraftPhysics::get_position()
+Eigen::Vector3f AircraftPhysics::get_position() const
 {
     return aircraft->get_position();
 }
 
-const Eigen::Vector3f & AircraftPhysics::get_orientation()
+Eigen::Vector3f AircraftPhysics::get_orientation() const
 {
     return aircraft->get_orientation();
 }
 
-const float & AircraftPhysics::get_gravity()
+float AircraftPhysics::get_gravity() const
 {
     return aircraft->get_gravity();
 }
 
-const Eigen::Vector3f & AircraftPhysics::get_wind()
+Eigen::Vector3f AircraftPhysics::get_wind() const
 {
     return aircraft->get_wind();
 }
