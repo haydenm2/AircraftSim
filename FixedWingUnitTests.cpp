@@ -186,3 +186,51 @@ TEST_F(FixedWingTests, WhenCalculatingAerodynamicForcesAndMoments_ExpectCorrectV
     EXPECT_VECTOR3_FLOAT_EQ(forces, aerodynamicForcesExpected);
     EXPECT_VECTOR3_FLOAT_EQ(moments, aerodynamicMomentsExpected);
 }
+
+TEST_F(FixedWingTests, WhenCalculatingDerivatives_ExpectCorrectValues)
+{
+    calculate_velocities();
+    Eigen::VectorXf state{get_state()};
+    Eigen::VectorXf derivativeExpected{Eigen::VectorXf(12)};
+    derivativeExpected[0] = state[3];
+    derivativeExpected[1] = state[4];
+    derivativeExpected[2] = state[5];
+
+    Eigen::Vector3f coriolisForces{(state[11]*state[4] - state[10]*state[5]), (state[9]*state[5] - state[11]*state[3]), (state[10]*state[3] - state[9]*state[4])};
+    Eigen::Vector3f bodyVelocityDot{coriolisForces + 1/parameters.mass*forces};
+    derivativeExpected[3] = bodyVelocityDot[0];
+    derivativeExpected[4] = bodyVelocityDot[1];
+    derivativeExpected[5] = bodyVelocityDot[2];
+
+    Eigen::Vector3f angularVelocities{state[9], state[10], state[11]};
+    Eigen::Matrix3f rotationBodyToEulerFrame;
+    rotationBodyToEulerFrame(0, 0) = 1;
+    rotationBodyToEulerFrame(0, 1) = sin(state[6])*tan(state[7]);
+    rotationBodyToEulerFrame(0, 2) = cos(state[6])*tan(state[7]);
+    rotationBodyToEulerFrame(1, 0) = 0;
+    rotationBodyToEulerFrame(1, 1) = cos(state[6]);
+    rotationBodyToEulerFrame(1, 2) = -sin(state[6]);
+    rotationBodyToEulerFrame(2, 0) = 0;
+    rotationBodyToEulerFrame(2, 1) = sin(state[6])/cos(state[7]);
+    rotationBodyToEulerFrame(2, 2) = cos(state[6])/cos(state[7]);
+    Eigen::Vector3f orientationDot{rotationBodyToEulerFrame*angularVelocities};
+    derivativeExpected[6] = orientationDot[0];
+    derivativeExpected[7] = orientationDot[1];
+    derivativeExpected[8] = orientationDot[2];
+
+    float gamma{parameters.Jx*parameters.Jz - pow(parameters.Jxz, 2)};
+    float gamma1{parameters.Jxz*(parameters.Jx - parameters.Jy + parameters.Jz)/gamma};
+    float gamma2{(parameters.Jz*(parameters.Jz - parameters.Jy) + pow(parameters.Jxz, 2))/gamma};
+    float gamma3{parameters.Jz/gamma};
+    float gamma4{parameters.Jxz/gamma};
+    float gamma5{(parameters.Jz - parameters.Jx)/parameters.Jy};
+    float gamma6{parameters.Jxz/parameters.Jy};
+    float gamma7{((parameters.Jx - parameters.Jy)*parameters.Jx + pow(parameters.Jxz, 2))/gamma};
+    float gamma8{parameters.Jx/gamma};
+
+    derivativeExpected[9] = gamma1*state[9]*state[10] - gamma2*state[10]*state[11] + gamma3*moments[0] + gamma4*moments[2];
+    derivativeExpected[10] = gamma5*state[9]*state[11] - gamma6*(pow(state[9], 2) - pow(state[11], 2)) + 1/parameters.Jy*moments[1];
+    derivativeExpected[11] = gamma7*state[9]*state[10] - gamma1*state[10]*state[11] + gamma4*moments[0] + gamma8*moments[2];
+
+    EXPECT_VECTORX_FLOAT_EQ(get_derivatives(get_state(), forces, moments), derivativeExpected, 12);
+}
