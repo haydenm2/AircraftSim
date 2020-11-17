@@ -173,6 +173,11 @@ Eigen::Vector3f FixedWing::get_velocity() const
     return Eigen::Vector3f{state[3], state[4], state[5]};
 }
 
+Eigen::VectorXf FixedWing::get_state() const
+{
+    return state;
+}
+
 void FixedWing::set_control(Eigen::Vector4f controlInput)
 {
     Eigen::Vector4f saturatedControl;

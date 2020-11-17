@@ -16,6 +16,14 @@ void EXPECT_VECTOR4_FLOAT_EQ(Eigen::Vector4f inputVector, Eigen::Vector4f truthV
     }
 }
 
+void EXPECT_VECTORX_FLOAT_EQ(Eigen::VectorXf inputVector, Eigen::VectorXf truthVector, int indices)
+{
+    for(float index = 0; index < indices; index++)
+    {
+        EXPECT_EQ(inputVector[index], truthVector[index]);
+    }
+}
+
 void EXPECT_VECTOR3_FLOAT_NEAR(Eigen::Vector3f inputVector, Eigen::Vector3f truthVector, float threshold)
 {
     for(float index = 0; index < 3; index++)
