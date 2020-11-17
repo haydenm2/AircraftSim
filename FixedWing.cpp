@@ -38,6 +38,7 @@ FixedWing::FixedWing(int type)
 
 void FixedWing::update(float deltaTime)
 {
+    calculate_velocities();
     calculate_forces_and_moments();
     propogate_states(state, forces, moments, deltaTime);
 }
@@ -88,7 +89,6 @@ void FixedWing::calculate_forces_and_moments()
 {
     forces = math_tools::rotationInertial2Body(state[6], state[7], state[8])*Eigen::Vector3f{0.0, 0.0, -parameters.mass*gravity};
     moments *= 0;
-    calculate_velocities();
     calculate_propulsion_forces_and_moments();
     calculate_aerodynamic_forces_and_moments();
 }

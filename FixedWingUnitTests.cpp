@@ -234,3 +234,20 @@ TEST_F(FixedWingTests, WhenCalculatingDerivatives_ExpectCorrectValues)
 
     EXPECT_VECTORX_FLOAT_EQ(get_derivatives(get_state(), forces, moments), derivativeExpected, 12);
 }
+
+TEST_F(FixedWingTests, WhenPropogatingFixedWingStatesWithDerivativeDynamics_ExpectCorrectStateValues)
+{
+    float deltaTime(10.0);
+    Eigen::VectorXf stateExpected{get_state()};
+    calculate_forces_and_moments();
+    Eigen::VectorXf k1{get_derivatives(stateExpected, forces, moments)};
+    Eigen::VectorXf k2{get_derivatives(stateExpected + deltaTime/2.0*k1, forces, moments)};
+    Eigen::VectorXf k3{get_derivatives(stateExpected + deltaTime/2.0*k2, forces, moments)};
+    Eigen::VectorXf k4{get_derivatives(stateExpected + deltaTime*k3, forces, moments)};
+    stateExpected += deltaTime/6.0*(k1 + 2*k2 + 2*k3 + k4);
+
+    Eigen::VectorXf stateOutput{get_state()};
+    propogate_states(stateOutput, forces, moments, deltaTime);
+
+    EXPECT_VECTORX_FLOAT_EQ(stateOutput, stateExpected, 12);
+}
