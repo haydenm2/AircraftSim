@@ -40,29 +40,30 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 
     Eigen::Vector4f controlInputs{physics.get_aircraft_ptr()->get_control()};
 
+    float deltaTheta{math_tools::degrees2Radians(1)};
     if(*keyData == 'j')
     {
-        // negative roll aileron
+        controlInputs[0] -= deltaTheta;
     }
     else if(*keyData == 'l')
     {
-        // positive roll aileron
+        controlInputs[0] += deltaTheta;
     }
     else if(*keyData == 'i')
     {
-        // negative pitch elevator
+        controlInputs[1] -= deltaTheta;
     }
     else if(*keyData == 'k')
     {
-        // positive pitch elevator
+        controlInputs[1] += deltaTheta;
     }
     else if(*keyData == 'a')
     {
-        // negative yaw rudder
+        controlInputs[2] += deltaTheta;
     }
     else if(*keyData == 'd')
     {
-        // positive yaw rudder
+        controlInputs[2] -= deltaTheta;
     }
     else if(*keyData == 'w')
     {

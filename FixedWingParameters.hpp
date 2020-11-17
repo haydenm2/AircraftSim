@@ -50,7 +50,9 @@ struct FixedWingParameters
     float theta0;
     float psi0;
     float Va0;
+    float deltaA0;
     float deltaE0;
+    float deltaR0;
     float deltaT0;
 
 };

@@ -23,7 +23,7 @@ TEST_F(AircraftPhysicsTests, WhenRequestingAircraftPointer_ExpectValidPointer)
 
 TEST_F(AircraftPhysicsTests, WhenUpdatingWithNoTimeStep_ExpectNoChanges)
 {
-    Eigen::Vector3f accelerationExpected{0.0, 0.0, -gravity};
+    Eigen::Vector4f controlExpected{0.0, 0.032, 0.0, 0.78144714};
     float deltaTime{0.0};
 
     physics.update(deltaTime);
@@ -31,7 +31,7 @@ TEST_F(AircraftPhysicsTests, WhenUpdatingWithNoTimeStep_ExpectNoChanges)
     EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_position(), zeros3, threshold);
     EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_orientation(), zeros3, threshold);
     EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_wind(), zeros3, threshold);
-    EXPECT_VECTOR4_FLOAT_NEAR(physics.get_aircraft_ptr()->get_control(), zeros4, threshold);
+    EXPECT_VECTOR4_FLOAT_NEAR(physics.get_aircraft_ptr()->get_control(), controlExpected, threshold);
 }
 
 TEST_F(AircraftPhysicsTests, WhenGettingDefaultAircraftPosition_ExpectCorrectValues)

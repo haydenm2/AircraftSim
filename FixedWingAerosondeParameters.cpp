@@ -21,7 +21,7 @@ FixedWingAerosondeParameters::FixedWingAerosondeParameters()
     kOmega = 0.0;
 
     propE = 0.9;
-    propS = 0.55;
+    propS = 0.2027;
     propC = 1.0;
 
     cL.O = 0.28;
@@ -34,7 +34,7 @@ FixedWingAerosondeParameters::FixedWingAerosondeParameters()
     cL.deltaE = -0.36;
     cL.deltaR = 0.0;
 
-    cD.O = 0.28;
+    cD.O = 0.03;
     cD.alpha = 0.3;
     cD.beta = 0.0;
     cD.p = 0.0437;
@@ -87,7 +87,9 @@ FixedWingAerosondeParameters::FixedWingAerosondeParameters()
     phi0 = 0.0;
     theta0 = 0.0349;
     psi0 = 0;
-    Va0 = 250;
-    deltaE0 = 0.02967;
-    deltaT0 = 0.4;
+    Va0 = 25;
+    deltaA0 = 0.0;
+    deltaE0 = 0.032;
+    deltaR0 = 0.0;
+    deltaT0 = 0.78144714;
 }

@@ -25,7 +25,7 @@ TEST(FixedWingParameterTests, WhenInitializingAerosondeParameterSet_ExpectCorrec
     EXPECT_EQ(parameters.kOmega, 0.0f);
 
     EXPECT_EQ(parameters.propE, 0.9f);
-    EXPECT_EQ(parameters.propS, 0.55f);
+    EXPECT_EQ(parameters.propS, 0.2027f);
     EXPECT_EQ(parameters.propC, 1.0f);
 
     EXPECT_EQ(parameters.cL.O, 0.28f);
@@ -38,7 +38,7 @@ TEST(FixedWingParameterTests, WhenInitializingAerosondeParameterSet_ExpectCorrec
     EXPECT_EQ(parameters.cL.deltaE, -0.36f);
     EXPECT_EQ(parameters.cL.deltaR, 0.0f);
 
-    EXPECT_EQ(parameters.cD.O, 0.28f);
+    EXPECT_EQ(parameters.cD.O, 0.03f);
     EXPECT_EQ(parameters.cD.alpha, 0.3f);
     EXPECT_EQ(parameters.cD.beta, 0.0f);
     EXPECT_EQ(parameters.cD.p, 0.0437f);
@@ -91,7 +91,9 @@ TEST(FixedWingParameterTests, WhenInitializingAerosondeParameterSet_ExpectCorrec
     EXPECT_EQ(parameters.phi0, 0.0f);
     EXPECT_EQ(parameters.theta0, 0.0349f);
     EXPECT_EQ(parameters.psi0, 0.0f);
-    EXPECT_EQ(parameters.Va0, 250.0f);
-    EXPECT_EQ(parameters.deltaE0, 0.02967f);
-    EXPECT_EQ(parameters.deltaT0, 0.4f);
+    EXPECT_EQ(parameters.Va0, 25.0f);
+    EXPECT_EQ(parameters.deltaA0, 0.0f);
+    EXPECT_EQ(parameters.deltaE0, 0.032f);
+    EXPECT_EQ(parameters.deltaR0, 0.0f);
+    EXPECT_EQ(parameters.deltaT0, 0.78144714f);
 }

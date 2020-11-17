@@ -28,7 +28,7 @@ TEST_F(FixedWingTests, WhenGettingFixedWingDefaultWind_ExpectCorrectValues)
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultControl_ExpectCorrectValues)
 {
-    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), Eigen::Vector4f{0.0, 0.0, 0.0, 0.0});
+    EXPECT_VECTOR4_FLOAT_EQ(fixedWing.get_control(), Eigen::Vector4f{0.0, 0.032, 0.0, 0.78144714});
 }
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultGravity_ExpectCorrectValue)
@@ -54,7 +54,8 @@ TEST_F(FixedWingTests, WhenGettingFixedWingGravity_ExpectCorrectValue)
 
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
 {
-    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_velocity(), zeros);
+    Eigen::Vector3f velocityExpected{25.0, 0.0, 0.0};
+    EXPECT_VECTOR3_FLOAT_EQ(fixedWing.get_velocity(), velocityExpected);
 }
 
 TEST_F(FixedWingTests, WhenSettingFixedWingInitialVelocity_ExpectCorrectValues)
