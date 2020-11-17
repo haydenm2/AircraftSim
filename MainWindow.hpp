@@ -39,13 +39,6 @@ public:
     enum FixedWingType {EMB312, EMB314, F16D, MQ9};
     enum QuadcopterType {PHANTOM};
 
-    AircraftPhysics *get_physics_ptr();
-
-    bool is_paused();
-    void set_input_1(float newInput1);
-    void set_input_2(float newInput2);
-    void set_input_3(float newInput3);
-    void set_input_4(float newInput4);
     void set_pause_flag(bool pauseState);
     void change_vehicle(VehicleType vehicleType);
 

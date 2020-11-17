@@ -199,33 +199,3 @@ void MainWindow::create_terrain()
 void MainWindow::change_vehicle(VehicleType vehicleType)
 {
 }
-
-
-AircraftPhysics *MainWindow::get_physics_ptr()
-{
-}
-
-bool MainWindow::is_paused()
-{
-}
-
-void MainWindow::set_input_1(float newInput1)
-{
-}
-
-void MainWindow::set_input_2(float newInput2)
-{
-}
-
-void MainWindow::set_input_3(float newInput3)
-{
-}
-
-void MainWindow::set_input_4(float newInput4)
-{
-}
-
-void MainWindow::set_pause_flag(bool pauseState)
-{
-}
-
