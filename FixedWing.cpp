@@ -85,52 +85,59 @@ void FixedWing::calculate_forces_and_moments()
 {
     forces = math_tools::rotationInertial2Body(state[6], state[7], state[8])*Eigen::Vector3f{0.0, 0.0, -parameters.mass*gravity};
     moments *= 0;
+    calculate_velocities();
     calculate_propulsion_forces_and_moments();
 //    calculate_aerodynamic_forces_and_moments();
 }
 
-void FixedWing::calculate_propulsion_forces_and_moments()
+void FixedWing::calculate_velocities()
 {
     Eigen::Vector3f bodyVelocity{state[3], state[4], state[5]};
     Eigen::Vector3f bodyWind{math_tools::rotationInertial2Body(state[6], state[7], state[8]) * wind};
-    float Va{(bodyVelocity - bodyWind).norm()};
-    float forcePropulsion{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2))};
+    relativeBodyAirspeedVelocity = bodyVelocity - bodyWind;
+    Va = relativeBodyAirspeedVelocity.norm();
+}
 
+void FixedWing::calculate_propulsion_forces_and_moments()
+{
+    float forcePropulsion{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2))};
     forces[0] += forcePropulsion;
 
     float momentPropulsion{-parameters.kTP*pow(parameters.kOmega*control[3], 2)};
-    moments[0] = momentPropulsion;
+    moments[0] += momentPropulsion;
 }
 
 void FixedWing::calculate_aerodynamic_forces_and_moments()
 {
-//    Eigen::Vector3f bodyVelocity{state[3], state[4], state[5]};
-//    Eigen::Vector3f bodyWind{math_tools::rotationInertial2Body(state[6], state[7], state[8]) * wind};
-//    Eigen::Vector3f relativeBodyAirspeedVelocity{bodyVelocity - bodyWind};
-//    float Va{relativeBodyAirspeedVelocity.norm()};
+//    if(Va != 0)
+//    {
+//        float alpha{atan(relativeBodyAirspeedVelocity[2]/relativeBodyAirspeedVelocity[0])};
+//        float beta{asin(relativeBodyAirspeedVelocity[1]/Va)};
 
-//    float alpha{atan(relativeBodyAirspeedVelocity[2]/relativeBodyAirspeedVelocity[0])};
-//    float beta{asin(relativeBodyAirspeedVelocity[1]/Va)};
+//        float cL{parameters.cL.O + parameters.cL.alpha*alpha};
+//        float cD{parameters.cD.O + parameters.cD.alpha*alpha};
 
-//    float cL{parameters.cL.O + parameters.cL.alpha*alpha};
-//    float cD{parameters.cD.O + parameters.cD.alpha*alpha};
+//        float aerodynamicCoefficient{0.5*parameters.rho*pow(Va, 2)*parameters.wingS};
 
-//    float aerodynamicCoefficient{0.5*parameters.rho*pow(Va, 2)*parameters.wingS};
+//        float forceLift{aerodynamicCoefficient*(cL + parameters.cL.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cL.deltaE*control[1])};
+//        float forceDrag{aerodynamicCoefficient*(cD + parameters.cD.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cD.deltaE*control[1])};
 
-//    float forceLift{aerodynamicCoefficient*(cL + parameters.cL.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cL.deltaE*control[1])};
-//    float forceDrag{aerodynamicCoefficient*(cD + parameters.cD.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cD.deltaE*control[1])};
+//        Eigen::Vector3f aerodynamicForces;
+//        aerodynamicForces[0] = -forceDrag*cos(alpha) + forceLift*sin(alpha);
+//        aerodynamicForces[2] = -forceDrag*sin(alpha) - forceLift*cos(alpha);
+//        aerodynamicForces[1] = aerodynamicCoefficient*(parameters.cY.O + parameters.cY.beta*beta + parameters.cY.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cY.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cY.deltaA*control[0] + parameters.cY.deltaR*control[2]);
 
-//    Eigen::Vector3f aerodynamicForces;
-//    aerodynamicForces[0] = -forceDrag*cos(alpha) + forceLift*sin(alpha);
-//    aerodynamicForces[2] = -forceDrag*sin(alpha) - forceLift*cos(alpha);
-//    aerodynamicForces[1] = aerodynamicCoefficient*(parameters.cY.O + parameters.cY.beta*beta + parameters.cY.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cY.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cY.deltaA*control[0] + parameters.cY.deltaR*control[2]);
+//        forces += aerodynamicForces;
 
-//    forces += aerodynamicForces;
-
-//    Eigen::Vector3f aerodynamicMoments;
-//    aerodynamicMoments[0] = aerodynamicCoefficient*parameters.wingB*(parameters.cell.O + parameters.cell.beta*beta + parameters.cell.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cell.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cell.deltaA*control[0] + parameters.cell.deltaR*control[2]);
-//    aerodynamicMoments[2] = aerodynamicCoefficient*parameters.wingB*(parameters.cn.O + parameters.cn.beta*beta + parameters.cn.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cn.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cn.deltaA*control[0] + parameters.cn.deltaR*control[2]);
-//    aerodynamicMoments[1] = aerodynamicCoefficient*parameters.wingC*(parameters.cm.O + parameters.cm.alpha*alpha + parameters.cm.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cm.deltaE*control[1]);
+//        Eigen::Vector3f aerodynamicMoments;
+//        aerodynamicMoments[0] = aerodynamicCoefficient*parameters.wingB*(parameters.cell.O + parameters.cell.beta*beta + parameters.cell.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cell.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cell.deltaA*control[0] + parameters.cell.deltaR*control[2]);
+//        aerodynamicMoments[2] = aerodynamicCoefficient*parameters.wingB*(parameters.cn.O + parameters.cn.beta*beta + parameters.cn.p*parameters.wingB/(2.0*Va)*state[9] + parameters.cn.r*parameters.wingB/(2.0*Va)*state[11] + parameters.cn.deltaA*control[0] + parameters.cn.deltaR*control[2]);
+//        aerodynamicMoments[1] = aerodynamicCoefficient*parameters.wingC*(parameters.cm.O + parameters.cm.alpha*alpha + parameters.cm.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cm.deltaE*control[1]);
+//        moments += aerodynamicMoments;
+//    }
+//    else
+//    {
+//    }
 }
 
 Eigen::Vector3f FixedWing::get_position() const
@@ -156,6 +163,11 @@ Eigen::Vector3f FixedWing::get_wind() const
 float FixedWing::get_gravity() const
 {
     return gravity;
+}
+
+Eigen::Vector3f FixedWing::get_velocity() const
+{
+    return Eigen::Vector3f{state[3], state[4], state[5]};
 }
 
 void FixedWing::set_control(Eigen::Vector4f controlInput)

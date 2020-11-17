@@ -19,11 +19,6 @@ public:
     virtual void set_wind(Eigen::Vector3f windInput)=0;
     virtual void set_gravity(float gravityInput)=0;
     virtual void set_initial_velocity(float inertialVelocityInput)=0;
-
-protected:
-    virtual void propogate_states(Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments, float deltaTime)=0;
-    virtual Eigen::VectorXf get_derivatives(const Eigen::VectorXf &state, const Eigen::Vector3f &forces, const Eigen::Vector3f &moments) const=0;
-
 };
 
 #endif

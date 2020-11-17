@@ -73,24 +73,3 @@ TEST_F(AircraftPhysicsTests, WhenSettingGravity_ExpectCorrectValue)
 
     EXPECT_EQ(physics.get_gravity(), gravityExpected);
 }
-
-//TEST_F(AircraftPhysicsTests, WhenUpdatingAerosondeWithTimeStepWithGravityAndPropulsion_ExpectCorrectStateUpdates)
-//{
-//    float deltaTime{1.0};
-
-//    Eigen::Vector4f controlInput{Eigen::Vector4f{0, 0, 0, 0.5}};
-//    physics.set_control(controlInput);
-
-//    Eigen::Vector3f accelerationGravity{0.0, 0.0, -gravity};
-//    Eigen::Vector3f accelerationPropulsion{(0.5*parameters.propS*parameters.propC*pow((parameters.kMotor*controlInput[3]), 2))/parameters.mass, 0.0, 0.0};
-
-//    Eigen::Vector3f accelerationExpected{accelerationGravity + accelerationPropulsion};
-//    Eigen::Vector3f velocityExpected{accelerationExpected*deltaTime};
-//    Eigen::Vector3f positionExpected{velocityExpected*deltaTime + 0.5*accelerationExpected*pow(deltaTime,2)};
-
-//    physics.update(deltaTime);
-
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_position(), positionExpected, threshold);
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_velocity(), velocityExpected, threshold);
-//    EXPECT_VECTOR3_FLOAT_NEAR(physics.get_aircraft_ptr()->get_acceleration(), accelerationExpected, threshold);
-//}
