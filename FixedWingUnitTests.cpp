@@ -60,6 +60,7 @@ TEST_F(FixedWingTests, WhenGettingFixedWingDefaultVelocity_ExpectCorrectValues)
 TEST_F(FixedWingTests, WhenGettingFixedWingDefaultState_ExpectCorrectValues)
 {
     Eigen::VectorXf stateExpected{Eigen::VectorXf(12)};
+    stateExpected.setZero(12);
     stateExpected[3] = 25.0;
     EXPECT_VECTORX_FLOAT_EQ(get_state(), stateExpected, 12);
 }

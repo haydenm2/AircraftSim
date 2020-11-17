@@ -73,3 +73,19 @@ TEST_F(AircraftPhysicsTests, WhenSettingGravity_ExpectCorrectValue)
 
     EXPECT_EQ(physics.get_gravity(), gravityExpected);
 }
+
+TEST_F(AircraftPhysicsTests, WhenResettingAircraft_ExpectInitializedStatesAndValidPointer)
+{
+    physics.set_control(ones4);
+    physics.set_gravity(100.0);
+    physics.set_wind(ones3);
+    physics.update(10.0);
+
+    physics.reset();
+
+    EXPECT_FALSE(physics.get_aircraft_ptr() == nullptr);
+    EXPECT_EQ(physics.get_gravity(), gravity);
+    EXPECT_VECTOR3_FLOAT_EQ(physics.get_wind(), zeros3);
+    EXPECT_VECTOR3_FLOAT_EQ(physics.get_position(), zeros3);
+    EXPECT_VECTOR3_FLOAT_EQ(physics.get_orientation(), zeros3);
+}
