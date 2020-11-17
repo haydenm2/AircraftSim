@@ -16,6 +16,7 @@ public:
 
     void update(float deltaTime);
     void change_aircraft(int type);
+    void reset();
 
     Vehicle *get_aircraft_ptr();
     Eigen::Vector3f get_position() const;

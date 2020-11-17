@@ -49,6 +49,9 @@ public slots:
 protected:
     void keyPressEvent(QKeyEvent* event);
 
+private slots:
+    void on_pushButton_Reset_clicked();
+
 private:
     Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;

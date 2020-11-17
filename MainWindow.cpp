@@ -199,3 +199,8 @@ void MainWindow::create_terrain()
 void MainWindow::change_vehicle(VehicleType vehicleType)
 {
 }
+
+void MainWindow::on_pushButton_Reset_clicked()
+{
+    physics.reset();
+}
