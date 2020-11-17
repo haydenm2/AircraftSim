@@ -59,11 +59,11 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     }
     else if(*keyData == 'a')
     {
-        controlInputs[2] += deltaTheta;
+        controlInputs[2] -= deltaTheta;
     }
     else if(*keyData == 'd')
     {
-        controlInputs[2] -= deltaTheta;
+        controlInputs[2] += deltaTheta;
     }
     else if(*keyData == 'w')
     {
@@ -91,8 +91,11 @@ osgGA::EventQueue* MainWindow::getEventQueue() const
 
 void MainWindow::timerEvent(QTimerEvent *)
 {
-    physics.update(deltaTime);
-    mainWindowUI->osgWidget->getOsgViewer()->frame();
+    if(!pauseFlag)
+    {
+        physics.update(deltaTime);
+        mainWindowUI->osgWidget->getOsgViewer()->frame();
+    }
 }
 
 void MainWindow::create_timer()
@@ -196,11 +199,27 @@ void MainWindow::create_terrain()
     this->root->addChild(terrainModelNode);
 }
 
-void MainWindow::change_vehicle(VehicleType vehicleType)
-{
-}
+//void MainWindow::change_vehicle(VehicleType vehicleType)
+//{
+//}
 
 void MainWindow::on_pushButton_Reset_clicked()
 {
     physics.reset();
+    manipulator->home(0);
+}
+
+void MainWindow::on_pushButton_Pause_toggled(bool checked)
+{
+    pauseFlag = checked;
+    QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
+    if(checked)
+        pausePlayButton->setText(QString("PLAY"));
+    else
+        pausePlayButton->setText(QString("PAUSE"));
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    manipulator->home(0);
 }

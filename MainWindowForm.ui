@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1176</width>
-    <height>628</height>
+    <width>1084</width>
+    <height>891</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_Pause">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>PLAY</string>
           </property>
@@ -64,9 +67,16 @@
        </layout>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>RESET CAMERA</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_Reset">
         <property name="text">
-         <string>RESET</string>
+         <string>RESET ALL</string>
         </property>
        </widget>
       </item>
@@ -79,7 +89,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1176</width>
+     <width>1084</width>
      <height>22</height>
     </rect>
    </property>

@@ -40,7 +40,7 @@ public:
     enum QuadcopterType {PHANTOM};
 
     void set_pause_flag(bool pauseState);
-    void change_vehicle(VehicleType vehicleType);
+//    void change_vehicle(VehicleType vehicleType);
 
 public slots:
     void on_actionExit_triggered();
@@ -51,6 +51,10 @@ protected:
 
 private slots:
     void on_pushButton_Reset_clicked();
+
+    void on_pushButton_Pause_toggled(bool checked);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindowForm *mainWindowUI;
