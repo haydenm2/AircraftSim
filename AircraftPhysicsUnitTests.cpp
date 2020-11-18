@@ -7,7 +7,7 @@ class AircraftPhysicsTests : public ::testing::Test
 {
 protected:
     AircraftPhysics physics;
-    FixedWingParameters parameters{FixedWingAerosondeParameters()};
+    FixedWingParameters parameters{FixedWingPioneerParameters()};
     Eigen::Vector3f zeros3{0.0, 0.0, 0.0};
     Eigen::Vector3f ones3{1.0, 1.0, 1.0};
     Eigen::Vector4f zeros4{0.0, 0.0, 0.0, 0.0};
