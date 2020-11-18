@@ -22,7 +22,6 @@ private:
     const Vehicle *aircraftPtr;
     osg::Quat osgToNEDRotation{0.f, 0.f, 0.7071, 0.7071};
 
-
 };
 
 #endif

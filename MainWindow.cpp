@@ -1,6 +1,7 @@
 #include <QMainWindow>
 
 #include "MainWindow.hpp"
+#include <iostream>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,6 +23,26 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionExit_triggered()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_actionEMB_312_triggered()
+{
+    change_vehicle(FixedWingType::EMB312);
+}
+
+void MainWindow::on_actionEMB_314_triggered()
+{
+    change_vehicle(FixedWingType::EMB314);
+}
+
+void MainWindow::on_actionF16_D_triggered()
+{
+    change_vehicle(FixedWingType::F16D);
+}
+
+void MainWindow::on_actionMQ9_triggered()
+{
+    change_vehicle(FixedWingType::MQ9);
 }
 
 void MainWindow::setup_osg_view()
@@ -119,7 +140,7 @@ void MainWindow::create_camera()
 
 void MainWindow::create_manipulator()
 {
-    osg::Vec3 initialPosition{0.0, 15.0, 5.0};
+    osg::Vec3 initialPosition{0.0, 25.0, 5.0};
     osg::Vec3 initialPointingPosition{0, 0, 0};
     osg::Vec3 upVector{0,0,1};
     osgGA::NodeTrackerManipulator::TrackerMode track_mode{osgGA::NodeTrackerManipulator::NODE_CENTER_AND_ROTATION};
@@ -146,7 +167,7 @@ void MainWindow::create_aircraft()
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
                 break;
             case FixedWingType::F16D:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.0bj");
+                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.obj");
                 break;
             case FixedWingType::MQ9:
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/MQ-9/MQ-9.obj");
@@ -182,14 +203,15 @@ void MainWindow::create_aircraft()
     transformAircraft->addChild(aircraftModelNode);
 
     this->root->addChild(transformAircraft);
+    aircraftChildNode = transformAircraft->asNode();
 
     manipulator->setNode(aircraftModelNode);
 }
 
 void MainWindow::create_terrain()
 {
-//    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/Amaryllis_City.3ds");
-    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
+    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/city.3ds");
+//    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
     if (!terrainModelNode)
         std::cout << "Problem opening terrain model" << std::endl;
 
@@ -199,9 +221,19 @@ void MainWindow::create_terrain()
     this->root->addChild(terrainModelNode);
 }
 
-//void MainWindow::change_vehicle(VehicleType vehicleType)
-//{
-//}
+void MainWindow::change_vehicle(FixedWingType type)
+{
+    pauseFlag = true;
+    QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
+    pausePlayButton->setChecked(pauseFlag);
+    fixedWingType = type;
+    this->root->removeChild(1);
+    this->root->removeObserver(0);
+    create_aircraft();
+    create_manipulator();
+    physics.reset();
+    manipulator->home(0);
+}
 
 void MainWindow::on_pushButton_Reset_clicked()
 {

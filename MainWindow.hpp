@@ -39,11 +39,14 @@ public:
     enum FixedWingType {EMB312, EMB314, F16D, MQ9};
     enum QuadcopterType {PHANTOM};
 
-    void set_pause_flag(bool pauseState);
-//    void change_vehicle(VehicleType vehicleType);
+    void change_vehicle(FixedWingType type);
 
 public slots:
     void on_actionExit_triggered();
+    void on_actionEMB_312_triggered();
+    void on_actionEMB_314_triggered();
+    void on_actionF16_D_triggered();
+    void on_actionMQ9_triggered();
     void setup_osg_view();
 
 protected:
@@ -51,9 +54,7 @@ protected:
 
 private slots:
     void on_pushButton_Reset_clicked();
-
     void on_pushButton_Pause_toggled(bool checked);
-
     void on_pushButton_clicked();
 
 private:
@@ -81,6 +82,7 @@ private:
 
     osg::ref_ptr<osg::Node> aircraftModelNode;
     osg::ref_ptr<osg::Node> terrainModelNode;
+    osg::ref_ptr<osg::Node> aircraftChildNode;
 
     osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;

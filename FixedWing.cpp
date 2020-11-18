@@ -7,7 +7,10 @@ FixedWing::FixedWing(int type)
     switch(type)
     {
         case 0:
-            parameters = FixedWingAerosondeParameters();
+            parameters = FixedWingPioneerParameters();
+//            parameters = FixedWingMyTwinDreamsParameters();
+//            parameters = FixedWingF16Parameters();
+//            parameters = FixedWingAerosondeParameters();
             break;
         default:
             parameters = FixedWingAerosondeParameters();

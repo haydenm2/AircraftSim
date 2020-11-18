@@ -32,6 +32,12 @@ add_library(${PHYSICS_NAME} STATIC
         FixedWingParameters.hpp
         FixedWingAerosondeParameters.hpp
         FixedWingAerosondeParameters.cpp
+        FixedWingF16Parameters.hpp
+        FixedWingF16Parameters.cpp
+        FixedWingMyTwinDreamsParameters.hpp
+        FixedWingMyTwinDreamsParameters.cpp
+        FixedWingPioneerParameters.hpp
+        FixedWingPioneerParameters.cpp
         MathTools.hpp
         MathTools.cpp
         )

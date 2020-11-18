@@ -6,6 +6,9 @@
 #include "Vehicle.hpp"
 #include "FixedWingParameters.hpp"
 #include "FixedWingAerosondeParameters.hpp"
+#include "FixedWingF16Parameters.hpp"
+#include "FixedWingMyTwinDreamsParameters.hpp"
+#include "FixedWingPioneerParameters.hpp"
 #include "MathTools.hpp"
 
 
