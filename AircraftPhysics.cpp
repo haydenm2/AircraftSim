@@ -55,7 +55,7 @@ void AircraftPhysics::reset()
 //    //TODO
 //}
 
-Vehicle *AircraftPhysics::get_aircraft_ptr()
+Vehicle *AircraftPhysics::get_aircraft_ptr() const
 {
     return aircraft;
 }

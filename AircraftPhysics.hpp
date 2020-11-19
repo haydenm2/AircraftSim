@@ -18,7 +18,7 @@ public:
     void change_aircraft(int type);
     void reset();
 
-    Vehicle *get_aircraft_ptr();
+    Vehicle *get_aircraft_ptr() const;
     Eigen::Vector3f get_position() const;
     Eigen::Vector3f get_orientation() const;
     float get_gravity() const;

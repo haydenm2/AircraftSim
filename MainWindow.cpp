@@ -199,7 +199,7 @@ void MainWindow::create_aircraft()
     osg::PositionAttitudeTransform *transformAircraft = new osg::PositionAttitudeTransform;
     osg::Vec3f initialAircraftPosition{physics.get_position()[0], physics.get_position()[1], physics.get_position()[2]};
     transformAircraft->setPosition(initialAircraftPosition);
-    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(physics.get_aircraft_ptr()));
+    transformAircraft->setUpdateCallback(new VehicleUpdateCallback(&physics));
     transformAircraft->addChild(aircraftModelNode);
 
     this->root->addChild(transformAircraft);
