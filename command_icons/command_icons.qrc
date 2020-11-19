@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/command_icons">
+        <file>computer_key_A_T.png</file>
+        <file>computer_key_S_T.png</file>
+        <file>computer_key_D_T.png</file>
+        <file>computer_key_W_T.png</file>
+        <file>computer_key_J_T.png</file>
+        <file>computer_key_K_T.png</file>
+        <file>computer_key_L_T.png</file>
+        <file>computer_key_I_T.png</file>
+    </qresource>
+</RCC>

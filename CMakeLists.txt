@@ -49,13 +49,18 @@ add_executable(${TEST_NAME}
     UnitTestUtils.hpp
     )
 
+set(MYRESOURCES command_icons/command_icons.qrc)
 add_executable(${PROJECT_NAME}
     Main.cpp
     MainWindow.cpp
     MainWindow.hpp
     MainWindowForm.ui
+    KeyboardCommandWindow.cpp
+    KeyboardCommandWindow.hpp
+    KeyboardCommandWindow.ui
     VehicleUpdateCallback.cpp
     VehicleUpdateCallback.hpp
+    ${MYRESOURCES}
     )
 
 target_link_libraries(${PROJECT_NAME}
