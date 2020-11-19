@@ -191,16 +191,6 @@ void MainWindow::create_aircraft()
             break;
     }
 
-//    switch(quadcopterType)
-//    {
-//        case QuadcopterType::PHANTOM:
-//            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
-//            break;
-//        default:
-//            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
-//            break;
-//    }
-
     if (!aircraftModelNode)
         std::cout << "Problem opening aircraft model" << std::endl;
 

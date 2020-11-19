@@ -35,11 +35,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    enum TerrainType {WARZONE, CITY};
-
-    void change_vehicle(FixedWing::FixedWingType type);
-    void change_terrain(TerrainType type);
-
 public slots:
     void on_actionExit_triggered();
     void on_actionEMB_312_triggered();
@@ -59,8 +54,12 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    enum TerrainType {WARZONE, CITY};
     TerrainType terrainType{TerrainType::CITY};
     FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
+
+    void change_vehicle(FixedWing::FixedWingType type);
+    void change_terrain(TerrainType type);
 
     Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;
