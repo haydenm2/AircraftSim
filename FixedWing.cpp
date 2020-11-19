@@ -1,16 +1,25 @@
 #include "FixedWing.hpp"
 #include <iostream>
 
-FixedWing::FixedWing(int type)
+FixedWing::FixedWing(FixedWingType type)
 {
     state.setZero(12);
     switch(type)
     {
-        case 0:
-            parameters = FixedWingPioneerParameters();
+        case FixedWingType::EMB312:
+            parameters = FixedWingEMBParameters();
+            break;
+        case FixedWingType::EMB314:
+            parameters = FixedWingEMBParameters();
+            break;
+        case FixedWingType::F16D:
+            parameters = FixedWingF16Parameters();
+            break;
+        case FixedWingType::MQ9:
+            parameters = FixedWingMQ9Parameters();
             break;
         default:
-            parameters = FixedWingAerosondeParameters();
+            parameters = FixedWingEMBParameters();
             break;
     }
     controlThresholds(0, 0) = math_tools::degrees2Radians(-25);

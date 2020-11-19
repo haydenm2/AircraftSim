@@ -28,22 +28,22 @@ void MainWindow::on_actionExit_triggered()
 
 void MainWindow::on_actionEMB_312_triggered()
 {
-    change_vehicle(FixedWingType::EMB312);
+    change_vehicle(FixedWing::FixedWingType::EMB312);
 }
 
 void MainWindow::on_actionEMB_314_triggered()
 {
-    change_vehicle(FixedWingType::EMB314);
+    change_vehicle(FixedWing::FixedWingType::EMB314);
 }
 
 void MainWindow::on_actionF16_D_triggered()
 {
-    change_vehicle(FixedWingType::F16D);
+    change_vehicle(FixedWing::FixedWingType::F16D);
 }
 
 void MainWindow::on_actionMQ9_triggered()
 {
-    change_vehicle(FixedWingType::MQ9);
+    change_vehicle(FixedWing::FixedWingType::MQ9);
 }
 
 void MainWindow::on_actionWar_Zone_triggered()
@@ -176,16 +176,16 @@ void MainWindow::create_aircraft()
     {
         switch(fixedWingType)
         {
-            case FixedWingType::EMB312:
+            case FixedWing::FixedWingType::EMB312:
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_312/EMB_312.obj");
                 break;
-            case FixedWingType::EMB314:
+            case FixedWing::FixedWingType::EMB314:
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
                 break;
-            case FixedWingType::F16D:
+            case FixedWing::FixedWingType::F16D:
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.obj");
                 break;
-            case FixedWingType::MQ9:
+            case FixedWing::FixedWingType::MQ9:
                 aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/MQ-9/MQ-9.obj");
                 break;
             default:
@@ -237,7 +237,7 @@ void MainWindow::create_terrain()
     this->root->addChild(terrainModelNode);
 }
 
-void MainWindow::change_vehicle(FixedWingType type)
+void MainWindow::change_vehicle(FixedWing::FixedWingType type)
 {
     pauseFlag = true;
     QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
@@ -247,6 +247,7 @@ void MainWindow::change_vehicle(FixedWingType type)
     this->root->removeObserver(0);
     create_aircraft();
     create_manipulator();
+    physics.change_fixed_wing(type);
     physics.reset();
     manipulator->home(0);
 }

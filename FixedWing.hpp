@@ -14,7 +14,8 @@
 class FixedWing : public Vehicle
 {
 public:
-    FixedWing(int type=0);
+    enum FixedWingType {EMB312, EMB314, F16D, MQ9};
+    FixedWing(FixedWingType type=FixedWingType::EMB314);
 
     void update(float deltaTime) override;
     Eigen::Vector3f get_position() const override;

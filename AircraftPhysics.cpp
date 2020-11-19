@@ -33,8 +33,15 @@ void AircraftPhysics::update(float deltaTime)
     aircraft->update(deltaTime);
 }
 
-void AircraftPhysics::change_aircraft(int type)
+//void AircraftPhysics::change_vehicle(VehiclePhysicsType type)
+//{
+//}
+
+void AircraftPhysics::change_fixed_wing(FixedWing::FixedWingType type)
 {
+    delete aircraft;
+    fixedWingType = type;
+    aircraft = new FixedWing(fixedWingType);
 }
 
 void AircraftPhysics::reset()

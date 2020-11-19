@@ -36,11 +36,11 @@ public:
     ~MainWindow();
 
     enum VehicleType {FIXEDWING, QUADCOPTER};
-    enum FixedWingType {EMB312, EMB314, F16D, MQ9};
+//    enum FixedWingType {EMB312, EMB314, F16D, MQ9};
     enum QuadcopterType {PHANTOM};
     enum TerrainType {WARZONE, CITY};
 
-    void change_vehicle(FixedWingType type);
+    void change_vehicle(FixedWing::FixedWingType type);
     void change_terrain(TerrainType type);
 
 public slots:
@@ -62,6 +62,11 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    TerrainType terrainType{TerrainType::CITY};
+    VehicleType vehicleType{VehicleType::FIXEDWING};
+    FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
+    QuadcopterType quadcopterType{QuadcopterType::PHANTOM};
+
     Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;
     int simulationUpdateTimerId{0};
@@ -81,11 +86,6 @@ private:
 
     float initialGroundPlaneSize{10};
     AircraftPhysics physics{AircraftPhysics()};
-
-    TerrainType terrainType{TerrainType::CITY};
-    VehicleType vehicleType{VehicleType::FIXEDWING};
-    FixedWingType fixedWingType{FixedWingType::EMB314};
-    QuadcopterType quadcopterType{QuadcopterType::PHANTOM};
 
     osg::ref_ptr<osg::Node> aircraftModelNode;
     osg::ref_ptr<osg::Node> terrainModelNode;

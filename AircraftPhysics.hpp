@@ -15,7 +15,8 @@ public:
 //    void operator=(const AircraftPhysics &newAircraft);
 
     void update(float deltaTime);
-    void change_aircraft(int type);
+//    void change_vehicle(VehiclePhysicsType type);
+    void change_fixed_wing(FixedWing::FixedWingType type);
     void reset();
 
     Vehicle *get_aircraft_ptr() const;
@@ -28,10 +29,13 @@ public:
     void set_control(Eigen::Vector4f controlInput);
     void set_gravity(float gravityInput);
 
+//    enum FixedWingPhysicsType {EMB312, EMB314, F16D, MQ9};
+//    enum QuadcopterPhysicsType {PHANTOM};
+
 protected:
     int aircraftType{0};
-    int fixedWingType{0};
-    int quadrotorType{0};
+    FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
+//    QuadcopterPhysicsType quadcopterType{QuadcopterPhysicsType::PHANTOM};
     Vehicle *aircraft;
     float gravity{9.81};
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
