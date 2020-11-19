@@ -30,14 +30,12 @@ add_library(${PHYSICS_NAME} STATIC
         FixedWing.hpp
         FixedWing.cpp
         FixedWingParameters.hpp
-        FixedWingAerosondeParameters.hpp
-        FixedWingAerosondeParameters.cpp
+        FixedWingEMBParameters.hpp
+        FixedWingEMBParameters.cpp
         FixedWingF16Parameters.hpp
         FixedWingF16Parameters.cpp
-        FixedWingMyTwinDreamsParameters.hpp
-        FixedWingMyTwinDreamsParameters.cpp
-        FixedWingPioneerParameters.hpp
-        FixedWingPioneerParameters.cpp
+        FixedWingMQ9Parameters.hpp
+        FixedWingMQ9Parameters.cpp
         MathTools.hpp
         MathTools.cpp
         )

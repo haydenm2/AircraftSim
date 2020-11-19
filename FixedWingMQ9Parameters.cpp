@@ -1,7 +1,7 @@
-#include "FixedWingPioneerParameters.hpp"
+#include "FixedWingMQ9Parameters.hpp"
 
 
-FixedWingPioneerParameters::FixedWingPioneerParameters()
+FixedWingMQ9Parameters::FixedWingMQ9Parameters()
 {
     mass = 190.509;
     Jx = 47.2258508334;
@@ -16,7 +16,7 @@ FixedWingPioneerParameters::FixedWingPioneerParameters()
     wingEpsilon = 0.0;
     wingAlpha0 = 0.3040363557;
 
-    kMotor = 125.0;
+    kMotor = 225.0;
     kTP = 0.0;
     kOmega = 0.0;
 
@@ -87,9 +87,9 @@ FixedWingPioneerParameters::FixedWingPioneerParameters()
     phi0 = 0.0;
     theta0 = 0.0;
     psi0 = 0.0;
-    Va0 = 52.0;
+    Va0 = 152.0;
     deltaA0 = 0.0;
-    deltaE0 = 0.32;
+    deltaE0 = 0.26;
     deltaR0 = 0.0;
-    deltaT0 = 0.7;
+    deltaT0 = 0.4;
 }

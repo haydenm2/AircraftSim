@@ -3,93 +3,93 @@
 
 FixedWingF16Parameters::FixedWingF16Parameters()
 {
-    mass = 9298;
-    Jx = 12875;
-    Jy = 75673.62;
-    Jz = 85552.11;
-    Jxz = 1331.41;
+    mass = 190.5;
+    Jx = 980.0;
+    Jy = 910.0;
+    Jz = 1115.0;
+    Jxz = -66.0;
     rho = 1.2682;
-    wingS = 4.68;
-    wingB = 18.0;
-    wingC = 2.6;
-    wingM = 100;
-    wingEpsilon = 0.1592;
+    wingS = 2.8261105;
+    wingB = 5.15112;
+    wingC = 0.54864;
+    wingM = 50;
+    wingEpsilon = 0.0;
     wingAlpha0 = 0.3040363557;
 
-    kMotor = 200.0;
+    kMotor = 1025.0;
     kTP = 0.0;
     kOmega = 0.0;
 
     propE = 0.8;
-    propS = 0.0314;
+    propS = 0.314;
     propC = 1.0;
 
-    cL.O = 1.9;
-    cL.alpha = 0.0489;
+    cL.O = 0.385;
+    cL.alpha = 4.78;
     cL.beta = 0.0;
     cL.p = 0.0;
-    cL.q = 1.7102;
+    cL.q = 8.05;
     cL.r = 0.0;
     cL.deltaA = 0.0;
-    cL.deltaE = 0.5202;
+    cL.deltaE = 0.401;
     cL.deltaR = 0.0;
 
-    cD.O = 0.0175;
-    cD.alpha = 0.0043021;
+    cD.O = 0.060;
+    cD.alpha = 0.430;
     cD.beta = 0.0;
-    cD.p = 0.02815;
-    cD.q = 0.2514;
+    cD.p = 0.0;
+    cD.q = 0.0;
     cD.r = 0.0;
     cD.deltaA = 0.0;
-    cD.deltaE = 0.01879;
+    cD.deltaE = 0.0180;
     cD.deltaR = 0.0;
 
     cY.O = 0.0;
     cY.alpha = 0.0;
-    cY.beta = -0.2471;
-    cY.p = -0.07278;
+    cY.beta = -0.819;
+    cY.p = 0.0;
     cY.q = 0.0;
-    cY.r = 0.1849;
-    cY.deltaA = -0.02344;
+    cY.r = 0.0;
+    cY.deltaA = 0.0;
     cY.deltaE = 0.0;
-    cY.deltaR = 0.1591;
+    cY.deltaR = 0.191;
 
     cell.O = 0.0;
     cell.alpha = 0.0;
-    cell.beta = 0.0193;
-    cell.p = -0.5406;
+    cell.beta = -0.023;
+    cell.p = -0.450;
     cell.q = 0.0;
-    cell.r = 0.1929;
-    cell.deltaA = 0.2818;
+    cell.r = 0.265;
+    cell.deltaA = 0.161;
     cell.deltaE = 0.0;
-    cell.deltaR = 0.00096;
+    cell.deltaR = -0.00229;
 
-    cm.O = 0.0362;
-    cm.alpha = -0.284;
+    cm.O = 0.194;
+    cm.alpha = -2.12;
     cm.beta = 0.0;
     cm.p = 0.0;
-    cm.q = -9.7213;
+    cm.q = -36.6;
     cm.r = 0.0;
     cm.deltaA = 0.0;
-    cm.deltaE = -1.2392;
+    cm.deltaE = -1.76;
     cm.deltaR = 0.0;
 
     cn.O = 0.0;
     cn.alpha = 0.0;
-    cn.beta = 0.08557;
-    cn.p = -0.0498;
+    cn.beta = 0.109;
+    cn.p = -0.110;
     cn.q = 0.0;
-    cn.r = -0.0572;
-    cn.deltaA = 0.0095;
+    cn.r = -0.200;
+    cn.deltaA = -0.0200;
     cn.deltaE = 0.0;
-    cn.deltaR = -0.06;
+    cn.deltaR = -0.0917;
 
     phi0 = 0.0;
-    theta0 = 0.087;
-    psi0 = 0;
-    Va0 = 250;
+    theta0 = 0.0;
+    psi0 = 0.0;
+    Va0 = 252.0;
     deltaA0 = 0.0;
-    deltaE0 = 0.02967;
+    deltaE0 = 0.26;
     deltaR0 = 0.0;
     deltaT0 = 0.4;
 }

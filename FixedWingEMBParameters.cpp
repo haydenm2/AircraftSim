@@ -1,7 +1,7 @@
-#include "FixedWingAerosondeParameters.hpp"
+#include "FixedWingEMBParameters.hpp"
 
 
-FixedWingAerosondeParameters::FixedWingAerosondeParameters()
+FixedWingEMBParameters::FixedWingEMBParameters()
 {
     mass = 13.5;
     Jx = 0.8244;
