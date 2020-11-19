@@ -172,39 +172,34 @@ void MainWindow::create_manipulator()
 
 void MainWindow::create_aircraft()
 {
-    if(vehicleType == VehicleType::FIXEDWING)
+    switch(fixedWingType)
     {
-        switch(fixedWingType)
-        {
-            case FixedWing::FixedWingType::EMB312:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_312/EMB_312.obj");
-                break;
-            case FixedWing::FixedWingType::EMB314:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
-                break;
-            case FixedWing::FixedWingType::F16D:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.obj");
-                break;
-            case FixedWing::FixedWingType::MQ9:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/MQ-9/MQ-9.obj");
-                break;
-            default:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
-                break;
-        }
+        case FixedWing::FixedWingType::EMB312:
+            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_312/EMB_312.obj");
+            break;
+        case FixedWing::FixedWingType::EMB314:
+            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
+            break;
+        case FixedWing::FixedWingType::F16D:
+            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.obj");
+            break;
+        case FixedWing::FixedWingType::MQ9:
+            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/MQ-9/MQ-9.obj");
+            break;
+        default:
+            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
+            break;
     }
-    else if(vehicleType == VehicleType::QUADCOPTER)
-    {
-        switch(quadcopterType)
-        {
-            case QuadcopterType::PHANTOM:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
-                break;
-            default:
-                aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
-                break;
-        }
-    }
+
+//    switch(quadcopterType)
+//    {
+//        case QuadcopterType::PHANTOM:
+//            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
+//            break;
+//        default:
+//            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/quadcopter/PHANTOM/Drone.obj");
+//            break;
+//    }
 
     if (!aircraftModelNode)
         std::cout << "Problem opening aircraft model" << std::endl;

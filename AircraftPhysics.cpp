@@ -3,14 +3,7 @@
 
 AircraftPhysics::AircraftPhysics()
 {
-    if(aircraftType == 0)
-    {
-        aircraft = new FixedWing(fixedWingType);
-    }
-    else if(aircraftType == 1)
-    {
-        //TODO: add quadrotor
-    }
+    aircraft = new FixedWing(fixedWingType);
 }
 
 //AircraftPhysics::AircraftPhysics(const AircraftPhysics &newPhysics)
@@ -47,14 +40,7 @@ void AircraftPhysics::change_fixed_wing(FixedWing::FixedWingType type)
 void AircraftPhysics::reset()
 {
     delete aircraft;
-    if(aircraftType == 0)
-    {
-        aircraft = new FixedWing(fixedWingType);
-    }
-    else if(aircraftType == 1)
-    {
-        //TODO: add quadrotor
-    }
+    aircraft = new FixedWing(fixedWingType);
 }
 
 //void AircraftPhysics::update_collisions()

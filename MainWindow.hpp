@@ -35,9 +35,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    enum VehicleType {FIXEDWING, QUADCOPTER};
-//    enum FixedWingType {EMB312, EMB314, F16D, MQ9};
-    enum QuadcopterType {PHANTOM};
     enum TerrainType {WARZONE, CITY};
 
     void change_vehicle(FixedWing::FixedWingType type);
@@ -63,9 +60,7 @@ private slots:
 
 private:
     TerrainType terrainType{TerrainType::CITY};
-    VehicleType vehicleType{VehicleType::FIXEDWING};
     FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
-    QuadcopterType quadcopterType{QuadcopterType::PHANTOM};
 
     Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;
