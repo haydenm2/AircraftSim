@@ -89,3 +89,37 @@ TEST_F(AircraftPhysicsTests, WhenResettingAircraft_ExpectInitializedStatesAndVal
     EXPECT_VECTOR3_FLOAT_EQ(physics.get_position(), zeros3);
     EXPECT_VECTOR3_FLOAT_EQ(physics.get_orientation(), zeros3);
 }
+
+TEST_F(AircraftPhysicsTests, WhenChangingFixedWingAircraftToEMB12_ExpectCorrectAircraftType)
+{
+    FixedWing *fixedWingPtr = dynamic_cast<FixedWing *>(physics.get_aircraft_ptr());
+    physics.change_fixed_wing(FixedWing::EMB312);
+
+    EXPECT_EQ(fixedWingPtr->fixedWingType, FixedWing::EMB312);
+}
+
+TEST_F(AircraftPhysicsTests, WhenChangingFixedWingAircraftToEMB14_ExpectCorrectAircraftType)
+{
+    FixedWing *fixedWingPtr = dynamic_cast<FixedWing *>(physics.get_aircraft_ptr());
+    physics.change_fixed_wing(FixedWing::EMB314);
+
+    EXPECT_EQ(fixedWingPtr->fixedWingType, FixedWing::EMB314);
+}
+
+TEST_F(AircraftPhysicsTests, WhenChangingFixedWingAircraftToF16_ExpectCorrectAircraftType)
+{
+    FixedWing *fixedWingPtr = dynamic_cast<FixedWing *>(physics.get_aircraft_ptr());
+    physics.change_fixed_wing(FixedWing::F16D);
+
+    EXPECT_EQ(fixedWingPtr->fixedWingType, FixedWing::F16D);
+}
+
+TEST_F(AircraftPhysicsTests, WhenChangingFixedWingAircraftToMQ9_ExpectCorrectAircraftType)
+{
+    FixedWing *fixedWingPtr = dynamic_cast<FixedWing *>(physics.get_aircraft_ptr());
+    physics.change_fixed_wing(FixedWing::MQ9);
+
+    EXPECT_EQ(fixedWingPtr->fixedWingType, FixedWing::MQ9);
+}
+
+

@@ -252,3 +252,66 @@ TEST_F(FixedWingTests, WhenPropogatingFixedWingStatesWithDerivativeDynamics_Expe
 
     EXPECT_VECTORX_FLOAT_EQ(stateOutput, stateExpected, 12);
 }
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingDefault_ExpectCorrectType)
+{
+    EXPECT_EQ(fixedWingType, EMB314);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsEMB12_ExpectCorrectType)
+{
+    FixedWing newFixedWing(EMB312);
+    EXPECT_EQ(newFixedWing.fixedWingType, EMB312);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsEMB14_ExpectCorrectType)
+{
+    FixedWing newFixedWing(EMB314);
+    EXPECT_EQ(newFixedWing.fixedWingType, EMB314);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsF16D_ExpectCorrectType)
+{
+    FixedWing newFixedWing(F16D);
+    EXPECT_EQ(newFixedWing.fixedWingType, F16D);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsMQ9_ExpectCorrectType)
+{
+    FixedWing newFixedWing(MQ9);
+    EXPECT_EQ(newFixedWing.fixedWingType, MQ9);
+}
+
+TEST_F(FixedWingTests, WhenGettingFixedWingParameters_ExpectEMB314ParameterMass)
+{
+    FixedWingEMBParameters expectedParameters;
+    EXPECT_EQ(get_parameters().mass, expectedParameters.mass);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsEMB12_ExpectCorrectMassParameter)
+{
+    FixedWing newFixedWing(EMB312);
+    FixedWingEMBParameters expectedParameters;
+    EXPECT_EQ(newFixedWing.get_parameters().mass, expectedParameters.mass);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsEMB14_ExpectCorrectMassParameter)
+{
+    FixedWing newFixedWing(EMB314);
+    FixedWingEMBParameters expectedParameters;
+    EXPECT_EQ(newFixedWing.get_parameters().mass, expectedParameters.mass);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsF16_ExpectCorrectMassParameter)
+{
+    FixedWing newFixedWing(F16D);
+    FixedWingF16Parameters expectedParameters;
+    EXPECT_EQ(newFixedWing.get_parameters().mass, expectedParameters.mass);
+}
+
+TEST_F(FixedWingTests, WhenInitializingFixedWingAsMQ9_ExpectCorrectMassParameter)
+{
+    FixedWing newFixedWing(MQ9);
+    FixedWingMQ9Parameters expectedParameters;
+    EXPECT_EQ(newFixedWing.get_parameters().mass, expectedParameters.mass);
+}

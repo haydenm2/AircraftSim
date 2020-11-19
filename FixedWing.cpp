@@ -3,6 +3,7 @@
 
 FixedWing::FixedWing(FixedWingType type)
 {
+    fixedWingType = type;
     state.setZero(12);
     switch(type)
     {
@@ -185,6 +186,11 @@ Eigen::Vector3f FixedWing::get_velocity() const
 Eigen::VectorXf FixedWing::get_state() const
 {
     return state;
+}
+
+FixedWingParameters FixedWing::get_parameters() const
+{
+    return parameters;
 }
 
 void FixedWing::set_control(Eigen::Vector4f controlInput)

@@ -15,6 +15,8 @@ class FixedWing : public Vehicle
 {
 public:
     enum FixedWingType {EMB312, EMB314, F16D, MQ9};
+    FixedWingType fixedWingType{FixedWingType::EMB314};
+
     FixedWing(FixedWingType type=FixedWingType::EMB314);
 
     void update(float deltaTime) override;
@@ -25,6 +27,7 @@ public:
     float get_gravity() const override;
     Eigen::Vector3f get_velocity() const;
     Eigen::VectorXf get_state() const;
+    FixedWingParameters get_parameters() const;
 
     void set_control(Eigen::Vector4f controlInput) override;
     void set_wind(Eigen::Vector3f windInput) override;
