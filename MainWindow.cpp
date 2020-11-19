@@ -56,6 +56,11 @@ void MainWindow::on_actionCity_triggered()
     change_terrain(TerrainType::CITY);
 }
 
+void MainWindow::on_actionMountains_triggered()
+{
+    change_terrain(TerrainType::MOUNTAINS);
+}
+
 void MainWindow::setup_osg_view()
 {
     create_camera();
@@ -210,8 +215,11 @@ void MainWindow::create_aircraft()
 
 void MainWindow::create_terrain()
 {
+    // TODO: READ NODE FILE RELATIVE TO MAIN FILE PATH INSTEAD OF GLOBAL FILE PATH
     warzoneTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
     cityTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/city.3ds");
+    mountainTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/mountains/mountain.obj");
+
     terrainModelNode = cityTerrainModelNode;
     if (!terrainModelNode)
         std::cout << "Problem opening terrain model" << std::endl;
@@ -253,6 +261,9 @@ void MainWindow::change_terrain(TerrainType type)
             break;
         case TerrainType::WARZONE:
             newTerrainModelNode = warzoneTerrainModelNode;
+            break;
+        case TerrainType::MOUNTAINS:
+            newTerrainModelNode = mountainTerrainModelNode;
             break;
         default:
             newTerrainModelNode = cityTerrainModelNode;

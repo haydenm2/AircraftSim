@@ -43,6 +43,7 @@ public slots:
     void on_actionMQ9_triggered();
     void on_actionWar_Zone_triggered();
     void on_actionCity_triggered();
+    void on_actionMountains_triggered();
     void setup_osg_view();
 
 protected:
@@ -54,7 +55,7 @@ private slots:
     void on_pushButton_clicked();
 
 private:
-    enum TerrainType {WARZONE, CITY};
+    enum TerrainType {WARZONE, CITY, MOUNTAINS, MARS};
     TerrainType terrainType{TerrainType::CITY};
     FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
 
@@ -84,6 +85,7 @@ private:
     osg::ref_ptr<osg::Node> aircraftModelNode;
     osg::ref_ptr<osg::Node> terrainModelNode;
     osg::ref_ptr<osg::Node> warzoneTerrainModelNode;
+    osg::ref_ptr<osg::Node> mountainTerrainModelNode;
     osg::ref_ptr<osg::Node> cityTerrainModelNode;
 
     osg::ref_ptr<osg::Group> root;

@@ -127,6 +127,7 @@
     </property>
     <addaction name="actionWar_Zone"/>
     <addaction name="actionCity"/>
+    <addaction name="actionMountains"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuVehicles"/>
@@ -231,6 +232,16 @@
   <action name="actionCity">
    <property name="text">
     <string>City</string>
+   </property>
+  </action>
+  <action name="actionMountains">
+   <property name="text">
+    <string>Mountains</string>
+   </property>
+  </action>
+  <action name="actionMars">
+   <property name="text">
+    <string>Mars</string>
    </property>
   </action>
  </widget>
