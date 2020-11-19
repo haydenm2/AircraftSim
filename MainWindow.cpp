@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     killTimer(simulationUpdateTimerId);
+    killTimer(physicsUpdateTimerId);
     delete mainWindowUI;
 }
 
@@ -120,21 +121,26 @@ osgGA::EventQueue* MainWindow::getEventQueue() const
         throw std::runtime_error("Unable to obtain valid event queue");
 }
 
-void MainWindow::timerEvent(QTimerEvent *)
+void MainWindow::timerEvent(QTimerEvent *event)
 {
     if(!pauseFlag)
     {
-        physics.update(deltaTime);
-        mainWindowUI->osgWidget->getOsgViewer()->frame();
+        if(event->timerId() == simulationUpdateTimerId)
+            mainWindowUI->osgWidget->getOsgViewer()->frame();
+        else if(event->timerId() == physicsUpdateTimerId)
+            physics.update(1.0/physicsFramesPerSecond);
     }
 }
 
 void MainWindow::create_timer()
 {
-    double framesPerSecond{30};
-    double timeStep{1.0/framesPerSecond};
-    double timerDurationInMilliSeconds{timeStep * 1000};
-    simulationUpdateTimerId = startTimer(timerDurationInMilliSeconds);
+    double simulationTimeStep{1.0/simulationFramesPerSecond};
+    double simulationTimerDurationInMilliSeconds{simulationTimeStep * 1000};
+    simulationUpdateTimerId = startTimer(simulationTimerDurationInMilliSeconds);
+
+    double physicsTimeStep{1.0/physicsFramesPerSecond};
+    double physicsTimerDurationInMilliSeconds{physicsTimeStep * 1000};
+    physicsUpdateTimerId = startTimer(physicsTimerDurationInMilliSeconds);
 }
 
 void MainWindow::create_camera()

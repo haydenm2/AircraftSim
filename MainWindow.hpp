@@ -65,6 +65,7 @@ private:
     Ui::MainWindowForm *mainWindowUI;
     void timerEvent(QTimerEvent *)override;
     int simulationUpdateTimerId{0};
+    int physicsUpdateTimerId{1};
 
     void create_camera();
     void create_manipulator();
@@ -75,7 +76,8 @@ private:
     osgGA::EventQueue *getEventQueue() const;
 
     bool pauseFlag{true};
-    float deltaTime{1/30.0};
+    float simulationFramesPerSecond{30.0};
+    float physicsFramesPerSecond{100.0};
 
     float initialGroundPlaneSize{10};
     AircraftPhysics physics{AircraftPhysics()};
