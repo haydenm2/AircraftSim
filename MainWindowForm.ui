@@ -121,8 +121,16 @@
     <addaction name="menuFixed_Wing"/>
     <addaction name="menuQuadcopter"/>
    </widget>
+   <widget class="QMenu" name="menuTerrain">
+    <property name="title">
+     <string>Terrain</string>
+    </property>
+    <addaction name="actionWar_Zone"/>
+    <addaction name="actionCity"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuVehicles"/>
+   <addaction name="menuTerrain"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -213,6 +221,16 @@
   <action name="actionPhantom_2">
    <property name="text">
     <string>Phantom</string>
+   </property>
+  </action>
+  <action name="actionWar_Zone">
+   <property name="text">
+    <string>War Zone</string>
+   </property>
+  </action>
+  <action name="actionCity">
+   <property name="text">
+    <string>City</string>
    </property>
   </action>
  </widget>

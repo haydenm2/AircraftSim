@@ -38,8 +38,10 @@ public:
     enum VehicleType {FIXEDWING, QUADCOPTER};
     enum FixedWingType {EMB312, EMB314, F16D, MQ9};
     enum QuadcopterType {PHANTOM};
+    enum TerrainType {WARZONE, CITY};
 
     void change_vehicle(FixedWingType type);
+    void change_terrain(TerrainType type);
 
 public slots:
     void on_actionExit_triggered();
@@ -47,6 +49,8 @@ public slots:
     void on_actionEMB_314_triggered();
     void on_actionF16_D_triggered();
     void on_actionMQ9_triggered();
+    void on_actionWar_Zone_triggered();
+    void on_actionCity_triggered();
     void setup_osg_view();
 
 protected:
@@ -76,13 +80,15 @@ private:
     float initialGroundPlaneSize{10};
     AircraftPhysics physics{AircraftPhysics()};
 
+    TerrainType terrainType{TerrainType::CITY};
     VehicleType vehicleType{VehicleType::FIXEDWING};
     FixedWingType fixedWingType{FixedWingType::EMB314};
     QuadcopterType quadcopterType{QuadcopterType::PHANTOM};
 
     osg::ref_ptr<osg::Node> aircraftModelNode;
     osg::ref_ptr<osg::Node> terrainModelNode;
-    osg::ref_ptr<osg::Node> aircraftChildNode;
+    osg::ref_ptr<osg::Node> warzoneTerrainModelNode;
+    osg::ref_ptr<osg::Node> cityTerrainModelNode;
 
     osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;

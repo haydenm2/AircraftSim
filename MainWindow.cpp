@@ -45,6 +45,16 @@ void MainWindow::on_actionMQ9_triggered()
     change_vehicle(FixedWingType::MQ9);
 }
 
+void MainWindow::on_actionWar_Zone_triggered()
+{
+    change_terrain(TerrainType::WARZONE);
+}
+
+void MainWindow::on_actionCity_triggered()
+{
+    change_terrain(TerrainType::CITY);
+}
+
 void MainWindow::setup_osg_view()
 {
     create_camera();
@@ -203,15 +213,15 @@ void MainWindow::create_aircraft()
     transformAircraft->addChild(aircraftModelNode);
 
     this->root->addChild(transformAircraft);
-    aircraftChildNode = transformAircraft->asNode();
 
     manipulator->setNode(aircraftModelNode);
 }
 
 void MainWindow::create_terrain()
 {
-    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/city.3ds");
-//    terrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
+    warzoneTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
+    cityTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/city.3ds");
+    terrainModelNode = cityTerrainModelNode;
     if (!terrainModelNode)
         std::cout << "Problem opening terrain model" << std::endl;
 
@@ -231,6 +241,40 @@ void MainWindow::change_vehicle(FixedWingType type)
     this->root->removeObserver(0);
     create_aircraft();
     create_manipulator();
+    physics.reset();
+    manipulator->home(0);
+}
+
+void MainWindow::change_terrain(TerrainType type)
+{
+    pauseFlag = true;
+    QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
+    pausePlayButton->setChecked(pauseFlag);
+    terrainType = type;
+
+    osg::ref_ptr<osg::Node> newTerrainModelNode;
+
+    switch(terrainType)
+    {
+        case TerrainType::CITY:
+            newTerrainModelNode = cityTerrainModelNode;
+            break;
+        case TerrainType::WARZONE:
+            newTerrainModelNode = warzoneTerrainModelNode;
+            break;
+        default:
+            newTerrainModelNode = cityTerrainModelNode;
+            break;
+    }
+
+    if (!newTerrainModelNode)
+        std::cout << "Problem opening terrain model" << std::endl;
+
+    osg::StateSet *stateSetTerrain = newTerrainModelNode->getOrCreateStateSet();
+    stateSetTerrain->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+
+    this->root->replaceChild(terrainModelNode, newTerrainModelNode);
+    terrainModelNode = newTerrainModelNode;
     physics.reset();
     manipulator->home(0);
 }
