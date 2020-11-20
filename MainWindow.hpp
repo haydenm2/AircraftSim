@@ -110,5 +110,13 @@ private:
     osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;
 
+    QSlider *northWindSlider;
+    QSlider *eastWindSlider;
+    QSlider *downWindSlider;
+    QSlider *controlSlider1;
+    QSlider *controlSlider2;
+    QSlider *controlSlider3;
+    QSlider *controlSlider4;
+
 };
 #endif

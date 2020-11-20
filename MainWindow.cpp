@@ -12,6 +12,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     mainWindowUI->setupUi(this);
     QObject::connect(mainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setup_osg_view);
+
+    northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
+    eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
+    downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
+
+    controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
+    controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
+    controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
+    controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
 }
 
 MainWindow::~MainWindow()
@@ -112,11 +121,6 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
     }
 
     physics.set_control(controlInputs);
-
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
 
     Eigen::Vector4f newControlInputs{physics.get_aircraft_ptr()->get_control()};
 
@@ -298,11 +302,6 @@ void MainWindow::on_pushButton_Reset_clicked()
 {
     physics.reset();
 
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
-
     Eigen::Vector4f controlStates{physics.get_aircraft_ptr()->get_control()};
 
     controlSlider1->setValue(math_tools::radians2Degrees(controlStates[0]));
@@ -333,34 +332,24 @@ void MainWindow::on_checkBox_toggled(bool checked)
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
-    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
     Eigen::Vector3f windInput{float(value), float(eastWindSlider->value()), float(downWindSlider->value())};
     physics.set_wind(windInput);
 }
 
 void MainWindow::on_horizontalSlider_2_valueChanged(int value)
 {
-    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
-    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
     Eigen::Vector3f windInput{float(northWindSlider->value()), float(value), float(downWindSlider->value())};
     physics.set_wind(windInput);
 }
 
 void MainWindow::on_horizontalSlider_3_valueChanged(int value)
 {
-    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
-    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
     Eigen::Vector3f windInput{float(northWindSlider->value()), float(eastWindSlider->value()), float(value)};
     physics.set_wind(windInput);
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
-    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
-    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
-
     northWindSlider->setValue(0);
     eastWindSlider->setValue(0);
     downWindSlider->setValue(0);
@@ -368,39 +357,24 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_horizontalSlider_4_valueChanged(int value)
 {
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
-
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_5_valueChanged(int value)
 {
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
-
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_6_valueChanged(int value)
 {
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
-
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(value), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_7_valueChanged(int value)
 {
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
 
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(value/100.0)};
     physics.set_control(controlInputs);
@@ -408,11 +382,6 @@ void MainWindow::on_horizontalSlider_7_valueChanged(int value)
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
-
     controlSlider1->setValue(0);
     controlSlider2->setValue(0);
     controlSlider3->setValue(0);
