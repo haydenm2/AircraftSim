@@ -341,3 +341,43 @@ void MainWindow::on_pushButton_2_clicked()
     eastWindSlider->setValue(0);
     downWindSlider->setValue(0);
 }
+
+void MainWindow::on_horizontalSlider_4_valueChanged(int value)
+{
+    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
+    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
+    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
+
+    Eigen::Vector4f controlInputs{float(value), float(controlSlider2->value()), float(controlSlider3->value()), float(controlSlider4->value())};
+    physics.set_control(controlInputs);
+}
+
+void MainWindow::on_horizontalSlider_5_valueChanged(int value)
+{
+    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
+    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
+    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
+
+    Eigen::Vector4f controlInputs{float(controlSlider1->value()), float(value), float(controlSlider3->value()), float(controlSlider4->value())};
+    physics.set_control(controlInputs);
+}
+
+void MainWindow::on_horizontalSlider_6_valueChanged(int value)
+{
+    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
+    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
+    QSlider *controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
+
+    Eigen::Vector4f controlInputs{float(controlSlider1->value()), float(controlSlider2->value()), float(value), float(controlSlider4->value())};
+    physics.set_control(controlInputs);
+}
+
+void MainWindow::on_horizontalSlider_7_valueChanged(int value)
+{
+    QSlider *controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
+    QSlider *controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
+    QSlider *controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
+
+    Eigen::Vector4f controlInputs{float(controlSlider1->value()), float(controlSlider2->value()), float(controlSlider3->value()), float(value)};
+    physics.set_control(controlInputs);
+}
