@@ -54,6 +54,14 @@ private slots:
     void on_pushButton_Pause_toggled(bool checked);
     void on_pushButton_clicked();
 
+    void on_checkBox_toggled(bool checked);
+
+    void on_horizontalSlider_valueChanged(int value);
+    void on_horizontalSlider_2_valueChanged(int value);
+    void on_horizontalSlider_3_valueChanged(int value);
+
+    void on_pushButton_2_clicked();
+
 private:
     enum TerrainType {WARZONE, CITY, MOUNTAINS, MARS};
     TerrainType terrainType{TerrainType::CITY};
@@ -83,6 +91,7 @@ private:
     AircraftPhysics physics{AircraftPhysics()};
 
     osg::ref_ptr<osg::Node> aircraftModelNode;
+
     osg::ref_ptr<osg::Node> terrainModelNode;
     osg::ref_ptr<osg::Node> warzoneTerrainModelNode;
     osg::ref_ptr<osg::Node> mountainTerrainModelNode;

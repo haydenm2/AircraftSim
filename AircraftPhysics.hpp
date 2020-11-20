@@ -24,6 +24,7 @@ public:
     float get_gravity() const;
     Eigen::Vector3f get_wind() const;
 
+    void toggle_wind(bool active);
     void set_wind(Eigen::Vector3f windInput);
     void set_control(Eigen::Vector4f controlInput);
     void set_gravity(float gravityInput);
@@ -33,8 +34,8 @@ protected:
     FixedWing::FixedWingType fixedWingType{FixedWing::FixedWingType::EMB314};
     Vehicle *aircraft;
     float gravity{9.81};
+    bool windActive{true};
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
-
 
 private:
 //    void update_collisions();

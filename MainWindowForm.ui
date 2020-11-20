@@ -48,9 +48,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>RESET WIND</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_Reset">
             <property name="text">
-             <string>RESET ALL</string>
+             <string>RESET AIRCRAFT</string>
             </property>
            </widget>
           </item>
@@ -87,6 +94,9 @@
               <property name="text">
                <string>Activate Wind</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -116,6 +126,15 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimum">
+               <number>-15</number>
+              </property>
+              <property name="maximum">
+               <number>15</number>
+              </property>
+              <property name="pageStep">
+               <number>3</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -147,6 +166,15 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="minimum">
+               <number>-15</number>
+              </property>
+              <property name="maximum">
+               <number>15</number>
+              </property>
+              <property name="pageStep">
+               <number>3</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -176,6 +204,15 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimum">
+               <number>-15</number>
+              </property>
+              <property name="maximum">
+               <number>15</number>
+              </property>
+              <property name="pageStep">
+               <number>3</number>
               </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>

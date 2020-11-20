@@ -285,7 +285,6 @@ void MainWindow::change_terrain(TerrainType type)
 void MainWindow::on_pushButton_Reset_clicked()
 {
     physics.reset();
-    manipulator->home(0);
 }
 
 void MainWindow::on_pushButton_Pause_toggled(bool checked)
@@ -301,4 +300,44 @@ void MainWindow::on_pushButton_Pause_toggled(bool checked)
 void MainWindow::on_pushButton_clicked()
 {
     manipulator->home(0);
+}
+
+void MainWindow::on_checkBox_toggled(bool checked)
+{
+    physics.toggle_wind(checked);
+}
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
+    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
+    Eigen::Vector3f windInput{float(value), float(eastWindSlider->value()), float(downWindSlider->value())};
+    physics.set_wind(windInput);
+}
+
+void MainWindow::on_horizontalSlider_2_valueChanged(int value)
+{
+    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
+    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
+    Eigen::Vector3f windInput{float(northWindSlider->value()), float(value), float(downWindSlider->value())};
+    physics.set_wind(windInput);
+}
+
+void MainWindow::on_horizontalSlider_3_valueChanged(int value)
+{
+    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
+    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
+    Eigen::Vector3f windInput{float(northWindSlider->value()), float(eastWindSlider->value()), float(value)};
+    physics.set_wind(windInput);
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QSlider *northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
+    QSlider *eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
+    QSlider *downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
+
+    northWindSlider->setValue(0);
+    eastWindSlider->setValue(0);
+    downWindSlider->setValue(0);
 }

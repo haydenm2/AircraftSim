@@ -73,10 +73,26 @@ Eigen::Vector3f AircraftPhysics::get_wind() const
     return aircraft->get_wind();
 }
 
+void AircraftPhysics::toggle_wind(bool active)
+{
+    windActive = active;
+    if(windActive)
+    {
+        aircraft->set_wind(wind);
+    }
+    else
+    {
+        aircraft->set_wind(Eigen::Vector3f{0.0f, 0.0f, 0.0f});
+    }
+}
+
 void AircraftPhysics::set_wind(Eigen::Vector3f windInput)
 {
     wind = windInput;
-    aircraft->set_wind(windInput);
+    if(windActive)
+    {
+        aircraft->set_wind(wind);
+    }
 }
 
 void AircraftPhysics::set_control(Eigen::Vector4f controlInput)
