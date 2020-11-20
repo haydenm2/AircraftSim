@@ -70,6 +70,8 @@ private slots:
 
     void on_horizontalSlider_7_valueChanged(int value);
 
+    void on_pushButton_3_clicked();
+
 private:
     enum TerrainType {WARZONE, CITY, MOUNTAINS, MARS};
     TerrainType terrainType{TerrainType::CITY};
