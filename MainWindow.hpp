@@ -50,27 +50,27 @@ protected:
     void keyPressEvent(QKeyEvent* event);
 
 private slots:
-    void on_pushButton_Reset_clicked();
+    void on_pushButton_Reset_Aircraft_clicked();
     void on_pushButton_Pause_toggled(bool checked);
-    void on_pushButton_clicked();
+    void on_pushButton_Reset_Camera_clicked();
 
-    void on_checkBox_toggled(bool checked);
+    void on_checkBox_Activate_Wind_toggled(bool checked);
 
-    void on_horizontalSlider_valueChanged(int value);
-    void on_horizontalSlider_2_valueChanged(int value);
-    void on_horizontalSlider_3_valueChanged(int value);
+    void on_horizontalSlider_Wind_North_valueChanged(int value);
+    void on_horizontalSlider_Wind_East_valueChanged(int value);
+    void on_horizontalSlider_Wind_Down_valueChanged(int value);
 
-    void on_pushButton_2_clicked();
+    void on_pushButton_Reset_Wind_clicked();
 
-    void on_horizontalSlider_4_valueChanged(int value);
+    void on_horizontalSlider_Control_1_valueChanged(int value);
 
-    void on_horizontalSlider_5_valueChanged(int value);
+    void on_horizontalSlider_Control_2_valueChanged(int value);
 
-    void on_horizontalSlider_6_valueChanged(int value);
+    void on_horizontalSlider_Control_3_valueChanged(int value);
 
-    void on_horizontalSlider_7_valueChanged(int value);
+    void on_horizontalSlider_Control_4_valueChanged(int value);
 
-    void on_pushButton_3_clicked();
+    void on_pushButton_Reset_Controls_clicked();
 
 private:
     enum TerrainType {WARZONE, CITY, MOUNTAINS, MARS};

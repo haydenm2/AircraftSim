@@ -13,14 +13,14 @@ MainWindow::MainWindow(QWidget *parent) :
     mainWindowUI->setupUi(this);
     QObject::connect(mainWindowUI->osgWidget, &osgQOpenGLWidget::initialized, this, &MainWindow::setup_osg_view);
 
-    northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider"));
-    eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_2"));
-    downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_3"));
+    northWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Wind_North"));
+    eastWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Wind_East"));
+    downWindSlider = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Wind_Down"));
 
-    controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_4"));
-    controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_5"));
-    controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_6"));
-    controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_7"));
+    controlSlider1 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Control_1"));
+    controlSlider2 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Control_2"));
+    controlSlider3 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Control_3"));
+    controlSlider4 = qobject_cast<QSlider *>(findChild<QObject *>("horizontalSlider_Control_4"));
 }
 
 MainWindow::~MainWindow()
@@ -298,7 +298,7 @@ void MainWindow::change_terrain(TerrainType type)
     manipulator->home(0);
 }
 
-void MainWindow::on_pushButton_Reset_clicked()
+void MainWindow::on_pushButton_Reset_Aircraft_clicked()
 {
     physics.reset();
 
@@ -320,67 +320,67 @@ void MainWindow::on_pushButton_Pause_toggled(bool checked)
         pausePlayButton->setText(QString("PAUSE"));
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_Reset_Camera_clicked()
 {
     manipulator->home(0);
 }
 
-void MainWindow::on_checkBox_toggled(bool checked)
+void MainWindow::on_checkBox_Activate_Wind_toggled(bool checked)
 {
     physics.toggle_wind(checked);
 }
 
-void MainWindow::on_horizontalSlider_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Wind_North_valueChanged(int value)
 {
     Eigen::Vector3f windInput{float(value), float(eastWindSlider->value()), float(downWindSlider->value())};
     physics.set_wind(windInput);
 }
 
-void MainWindow::on_horizontalSlider_2_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Wind_East_valueChanged(int value)
 {
     Eigen::Vector3f windInput{float(northWindSlider->value()), float(value), float(downWindSlider->value())};
     physics.set_wind(windInput);
 }
 
-void MainWindow::on_horizontalSlider_3_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Wind_Down_valueChanged(int value)
 {
     Eigen::Vector3f windInput{float(northWindSlider->value()), float(eastWindSlider->value()), float(value)};
     physics.set_wind(windInput);
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_pushButton_Reset_Wind_clicked()
 {
     northWindSlider->setValue(0);
     eastWindSlider->setValue(0);
     downWindSlider->setValue(0);
 }
 
-void MainWindow::on_horizontalSlider_4_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Control_1_valueChanged(int value)
 {
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
-void MainWindow::on_horizontalSlider_5_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Control_2_valueChanged(int value)
 {
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
-void MainWindow::on_horizontalSlider_6_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Control_3_valueChanged(int value)
 {
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(value), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
-void MainWindow::on_horizontalSlider_7_valueChanged(int value)
+void MainWindow::on_horizontalSlider_Control_4_valueChanged(int value)
 {
 
     Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(value/100.0)};
     physics.set_control(controlInputs);
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_pushButton_Reset_Controls_clicked()
 {
     controlSlider1->setValue(0);
     controlSlider2->setValue(0);
