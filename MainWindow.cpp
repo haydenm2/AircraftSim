@@ -87,7 +87,7 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 
     Eigen::Vector4f controlInputs{physics.get_aircraft_ptr()->get_control()};
 
-    float deltaTheta{math_tools::degrees2Radians(1)};
+    float deltaTheta{math_tools::degrees_to_radians(1)};
     if(*keyData == 'j')
     {
         controlInputs[0] -= deltaTheta;
@@ -125,9 +125,9 @@ void MainWindow::keyPressEvent(QKeyEvent* event)
 
     Eigen::Vector4f newControlInputs{physics.get_aircraft_ptr()->get_control()};
 
-    controlSlider1->setValue(math_tools::radians2Degrees(newControlInputs[0]));
-    controlSlider2->setValue(math_tools::radians2Degrees(newControlInputs[1]));
-    controlSlider3->setValue(math_tools::radians2Degrees(newControlInputs[2]));
+    controlSlider1->setValue(math_tools::radians_to_degrees(newControlInputs[0]));
+    controlSlider2->setValue(math_tools::radians_to_degrees(newControlInputs[1]));
+    controlSlider3->setValue(math_tools::radians_to_degrees(newControlInputs[2]));
     controlSlider4->setValue(newControlInputs[3]*100.0);
 
     mainWindowUI->osgWidget->getOsgViewer()->getEventQueue()->keyPress(osgGA::GUIEventAdapter::KeySymbol(*keyData));
@@ -339,9 +339,9 @@ void MainWindow::on_pushButton_Reset_Aircraft_clicked()
 
     Eigen::Vector4f controlStates{physics.get_aircraft_ptr()->get_control()};
 
-    controlSlider1->setValue(math_tools::radians2Degrees(controlStates[0]));
-    controlSlider2->setValue(math_tools::radians2Degrees(controlStates[1]));
-    controlSlider3->setValue(math_tools::radians2Degrees(controlStates[2]));
+    controlSlider1->setValue(math_tools::radians_to_degrees(controlStates[0]));
+    controlSlider2->setValue(math_tools::radians_to_degrees(controlStates[1]));
+    controlSlider3->setValue(math_tools::radians_to_degrees(controlStates[2]));
     controlSlider4->setValue(controlStates[3]*100.0);
 }
 
@@ -392,26 +392,26 @@ void MainWindow::on_pushButton_Reset_Wind_clicked()
 
 void MainWindow::on_horizontalSlider_Control_1_valueChanged(int value)
 {
-    Eigen::Vector4f controlInputs{math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
+    Eigen::Vector4f controlInputs{math_tools::degrees_to_radians(value), math_tools::degrees_to_radians(controlSlider2->value()), math_tools::degrees_to_radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_Control_2_valueChanged(int value)
 {
-    Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(value), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
+    Eigen::Vector4f controlInputs{math_tools::degrees_to_radians(controlSlider1->value()), math_tools::degrees_to_radians(value), math_tools::degrees_to_radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_Control_3_valueChanged(int value)
 {
-    Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(value), float(controlSlider4->value()/100.0)};
+    Eigen::Vector4f controlInputs{math_tools::degrees_to_radians(controlSlider1->value()), math_tools::degrees_to_radians(controlSlider2->value()), math_tools::degrees_to_radians(value), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }
 
 void MainWindow::on_horizontalSlider_Control_4_valueChanged(int value)
 {
 
-    Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(value/100.0)};
+    Eigen::Vector4f controlInputs{math_tools::degrees_to_radians(controlSlider1->value()), math_tools::degrees_to_radians(controlSlider2->value()), math_tools::degrees_to_radians(controlSlider3->value()), float(value/100.0)};
     physics.set_control(controlInputs);
 }
 
@@ -422,6 +422,6 @@ void MainWindow::on_pushButton_Reset_Controls_clicked()
     controlSlider3->setValue(0);
     controlSlider4->setValue(40);
 
-    Eigen::Vector4f controlInputs{math_tools::degrees2Radians(controlSlider1->value()), math_tools::degrees2Radians(controlSlider2->value()), math_tools::degrees2Radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
+    Eigen::Vector4f controlInputs{math_tools::degrees_to_radians(controlSlider1->value()), math_tools::degrees_to_radians(controlSlider2->value()), math_tools::degrees_to_radians(controlSlider3->value()), float(controlSlider4->value()/100.0)};
     physics.set_control(controlInputs);
 }

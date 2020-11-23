@@ -11,8 +11,6 @@ class AircraftPhysics
 public:
     AircraftPhysics();
     ~AircraftPhysics();
-//    AircraftPhysics(const AircraftPhysics &newAircraft);
-//    void operator=(const AircraftPhysics &newAircraft);
 
     void update(float deltaTime);
     void change_fixed_wing(FixedWing::FixedWingType type);
@@ -39,7 +37,6 @@ protected:
     Eigen::Vector3f wind{0.0, 0.0, 0.0};
 
 private:
-//    void update_collisions();
 };
 
 #endif

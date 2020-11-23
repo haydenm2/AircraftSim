@@ -86,8 +86,8 @@ TEST_F(FixedWingTests, WhenSettingFixedWingControlWithinSaturation_ExpectOrigina
 
 TEST_F(FixedWingTests, WhenSettingFixedWingControlBelowSaturation_ExpectMaximumValues)
 {
-    Eigen::Vector4f controlInput{math_tools::degrees2Radians(-90), math_tools::degrees2Radians(-90), math_tools::degrees2Radians(-90), -10.0};
-    Eigen::Vector4f controlExpected{math_tools::degrees2Radians(-25), math_tools::degrees2Radians(-25), math_tools::degrees2Radians(-25), 0.0};
+    Eigen::Vector4f controlInput{math_tools::degrees_to_radians(-90), math_tools::degrees_to_radians(-90), math_tools::degrees_to_radians(-90), -10.0};
+    Eigen::Vector4f controlExpected{math_tools::degrees_to_radians(-25), math_tools::degrees_to_radians(-25), math_tools::degrees_to_radians(-25), 0.0};
 
     set_control(controlInput);
 
@@ -96,8 +96,8 @@ TEST_F(FixedWingTests, WhenSettingFixedWingControlBelowSaturation_ExpectMaximumV
 
 TEST_F(FixedWingTests, WhenSettingFixedWingControlAboveSaturation_ExpectMaximumValues)
 {
-    Eigen::Vector4f controlInput{math_tools::degrees2Radians(90), math_tools::degrees2Radians(90), math_tools::degrees2Radians(90), 10.0};
-    Eigen::Vector4f controlExpected{math_tools::degrees2Radians(25), math_tools::degrees2Radians(25), math_tools::degrees2Radians(25), 1.0};
+    Eigen::Vector4f controlInput{math_tools::degrees_to_radians(90), math_tools::degrees_to_radians(90), math_tools::degrees_to_radians(90), 10.0};
+    Eigen::Vector4f controlExpected{math_tools::degrees_to_radians(25), math_tools::degrees_to_radians(25), math_tools::degrees_to_radians(25), 1.0};
 
     set_control(controlInput);
 

@@ -23,12 +23,12 @@ FixedWing::FixedWing(FixedWingType type)
             parameters = FixedWingEMBParameters();
             break;
     }
-    controlThresholds(0, 0) = math_tools::degrees2Radians(-25);
-    controlThresholds(1, 0) = math_tools::degrees2Radians(25);
-    controlThresholds(0, 1) = math_tools::degrees2Radians(-25);
-    controlThresholds(1, 1) = math_tools::degrees2Radians(25);
-    controlThresholds(0, 2) = math_tools::degrees2Radians(-25);
-    controlThresholds(1, 2) = math_tools::degrees2Radians(25);
+    controlThresholds(0, 0) = math_tools::degrees_to_radians(-25);
+    controlThresholds(1, 0) = math_tools::degrees_to_radians(25);
+    controlThresholds(0, 1) = math_tools::degrees_to_radians(-25);
+    controlThresholds(1, 1) = math_tools::degrees_to_radians(25);
+    controlThresholds(0, 2) = math_tools::degrees_to_radians(-25);
+    controlThresholds(1, 2) = math_tools::degrees_to_radians(25);
     controlThresholds(0, 3) = 0.0;
     controlThresholds(1, 3) = 1.0;
 
@@ -67,7 +67,7 @@ Eigen::VectorXf FixedWing::get_derivatives(const Eigen::VectorXf &state, const E
 {
     Eigen::VectorXf stateDot{Eigen::VectorXf(12)};
     Eigen::Vector3f bodyVelocity{state[3], state[4], state[5]};
-    Eigen::Vector3f positionDot{math_tools::rotationBody2Inertial(state[6], state[7], state[8])*bodyVelocity};
+    Eigen::Vector3f positionDot{math_tools::rotation_body_to_inertial(state[6], state[7], state[8])*bodyVelocity};
 
     Eigen::Vector3f coriolisForces{(state[11]*state[4] - state[10]*state[5]), (state[9]*state[5] - state[11]*state[3]), (state[10]*state[3] - state[9]*state[4])};
     Eigen::Vector3f bodyVelocityDot{coriolisForces + 1/parameters.mass*forces};
@@ -97,7 +97,7 @@ Eigen::VectorXf FixedWing::get_derivatives(const Eigen::VectorXf &state, const E
 
 void FixedWing::calculate_forces_and_moments()
 {
-    forces = math_tools::rotationInertial2Body(state[6], state[7], state[8])*Eigen::Vector3f{0.0, 0.0, -parameters.mass*gravity};
+    forces = math_tools::rotation_inertial_to_body(state[6], state[7], state[8])*Eigen::Vector3f{0.0, 0.0, -parameters.mass*gravity};
     moments *= 0;
     calculate_propulsion_forces_and_moments();
     calculate_aerodynamic_forces_and_moments();
@@ -106,7 +106,7 @@ void FixedWing::calculate_forces_and_moments()
 void FixedWing::calculate_velocities()
 {
     Eigen::Vector3f bodyVelocity{state[3], state[4], state[5]};
-    Eigen::Vector3f bodyWind{math_tools::rotationInertial2Body(state[6], state[7], state[8]) * wind};
+    Eigen::Vector3f bodyWind{math_tools::rotation_inertial_to_body(state[6], state[7], state[8]) * wind};
     relativeBodyAirspeedVelocity = bodyVelocity - bodyWind;
     Va = relativeBodyAirspeedVelocity.norm();
 }

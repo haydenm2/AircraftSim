@@ -6,16 +6,6 @@ AircraftPhysics::AircraftPhysics()
     aircraft = new FixedWing(fixedWingType);
 }
 
-//AircraftPhysics::AircraftPhysics(const AircraftPhysics &newPhysics)
-//{
-//    //TODO
-//}
-
-//void operator=(const AircraftPhysics &newPhysics)
-//{
-//    //TODO
-//}
-
 AircraftPhysics::~AircraftPhysics()
 {
     delete aircraft;
@@ -25,10 +15,6 @@ void AircraftPhysics::update(float deltaTime)
 {
     aircraft->update(deltaTime);
 }
-
-//void AircraftPhysics::change_vehicle(VehiclePhysicsType type)
-//{
-//}
 
 void AircraftPhysics::change_fixed_wing(FixedWing::FixedWingType type)
 {
@@ -43,11 +29,6 @@ void AircraftPhysics::reset()
     aircraft = new FixedWing(fixedWingType);
     aircraft->set_wind(wind);
 }
-
-//void AircraftPhysics::update_collisions()
-//{
-//    //TODO
-//}
 
 Vehicle *AircraftPhysics::get_aircraft_ptr() const
 {
