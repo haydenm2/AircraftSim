@@ -1,8 +1,7 @@
 #include <QMainWindow>
 
 #include "MainWindow.hpp"
-#include <iostream>
-
+#include <osg/Material>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow{parent},
@@ -74,6 +73,7 @@ void MainWindow::setup_osg_view()
 {
     create_camera();
     create_terrain();
+    create_sky();
     create_aircraft();
     create_manipulator();
     create_timer();
@@ -173,6 +173,7 @@ void MainWindow::create_camera()
     mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setViewMatrixAsLookAt(osg::Vec3d(0.0,-20.0,3.0),osg::Vec3d(0,0,0),osg::Vec3d(0,0,1));
     mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setClearMask(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     mainWindowUI->osgWidget->getOsgViewer()->getCamera()->getOrCreateStateSet()->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+    mainWindowUI->osgWidget->getOsgViewer()->getCamera()->setNearFarRatio(0.0001);
 }
 
 void MainWindow::create_manipulator()
@@ -196,19 +197,19 @@ void MainWindow::create_aircraft()
     switch(fixedWingType)
     {
         case FixedWing::FixedWingType::EMB312:
-            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_312/EMB_312.obj");
+            aircraftModelNode = osgDB::readNodeFile("resources/fixedwing/EMB_312/EMB_312.obj");
             break;
         case FixedWing::FixedWingType::EMB314:
-            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
+            aircraftModelNode = osgDB::readNodeFile("resources/fixedwing/EMB_314/EMB_314.obj");
             break;
         case FixedWing::FixedWingType::F16D:
-            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/F-16D/F-16D.obj");
+            aircraftModelNode = osgDB::readNodeFile("resources/fixedwing/F-16D/F-16D.obj");
             break;
         case FixedWing::FixedWingType::MQ9:
-            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/MQ-9/MQ-9.obj");
+            aircraftModelNode = osgDB::readNodeFile("resources/fixedwing/MQ-9/MQ-9.obj");
             break;
         default:
-            aircraftModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/fixedwing/EMB_314/EMB_314.obj");
+            aircraftModelNode = osgDB::readNodeFile("resources/fixedwing/EMB_314/EMB_314.obj");
             break;
     }
 
@@ -231,10 +232,9 @@ void MainWindow::create_aircraft()
 
 void MainWindow::create_terrain()
 {
-    // TODO: READ NODE FILE RELATIVE TO MAIN FILE PATH INSTEAD OF GLOBAL FILE PATH
-    warzoneTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/warzone/warzone.3ds");
-    cityTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/city/city.3ds");
-    mountainTerrainModelNode = osgDB::readNodeFile("/home/haydenm2/me570/final-project-haydenm2/terrain/mountains/mountain.obj");
+    warzoneTerrainModelNode = osgDB::readNodeFile("resources/terrain/warzone/warzone.3ds");
+    cityTerrainModelNode = osgDB::readNodeFile("resources/terrain/city/city.3ds");
+    mountainTerrainModelNode = osgDB::readNodeFile("resources/terrain/mountains/mountain.obj");
 
     terrainModelNode = cityTerrainModelNode;
     if (!terrainModelNode)
@@ -246,13 +246,26 @@ void MainWindow::create_terrain()
     this->root->addChild(terrainModelNode);
 }
 
+void MainWindow::create_sky()
+{
+    skyModelNode = osgDB::readNodeFile("resources/sky/Sky.obj");
+
+    if (!skyModelNode)
+        std::cout << "Problem opening sky model" << std::endl;
+
+    osg::StateSet *stateSetSky = skyModelNode->getOrCreateStateSet();
+    stateSetSky->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+
+    this->root->addChild(skyModelNode);
+}
+
 void MainWindow::change_vehicle(FixedWing::FixedWingType type)
 {
     pauseFlag = true;
     QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
     pausePlayButton->setChecked(pauseFlag);
     fixedWingType = type;
-    this->root->removeChild(1);
+    this->root->removeChild(2);
     this->root->removeObserver(0);
     create_aircraft();
     create_manipulator();

@@ -87,8 +87,9 @@ private:
 
     void create_camera();
     void create_manipulator();
-    void create_aircraft();
     void create_terrain();
+    void create_sky();
+    void create_aircraft();
     void create_timer();
 
     osgGA::EventQueue *getEventQueue() const;
@@ -106,6 +107,8 @@ private:
     osg::ref_ptr<osg::Node> warzoneTerrainModelNode;
     osg::ref_ptr<osg::Node> mountainTerrainModelNode;
     osg::ref_ptr<osg::Node> cityTerrainModelNode;
+
+    osg::ref_ptr<osg::Node> skyModelNode;
 
     osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;

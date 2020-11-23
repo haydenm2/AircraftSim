@@ -6,6 +6,7 @@ find_package(Qt5Gui)
 find_package(OpenSceneGraph REQUIRED COMPONENTS osgDB osgGA osgUtil osgViewer osgText)
 find_package(GTest REQUIRED)
 find_package(Eigen3 3.3 REQUIRED)
+
 find_library(OSGQOPENGL_DEBUG_LIBRARIES NAMES osgQOpenGLd PATHS ${OSG_ROOT})
 find_library(OSGQOPENGL_OPTIMIZED_LIBRARIES NAMES osgQOpenGL PATHS ${OSG_ROOT})
 
@@ -49,7 +50,10 @@ add_executable(${TEST_NAME}
     UnitTestUtils.hpp
     )
 
-set(MYRESOURCES command_icons/command_icons.qrc)
+set(MYRESOURCES
+    resources/command_icons/command_icons.qrc
+    )
+
 add_executable(${PROJECT_NAME}
     Main.cpp
     MainWindow.cpp
@@ -78,5 +82,11 @@ target_link_libraries(${TEST_NAME}
     ${GTEST_MAIN_LIBRARIES}
     ${PHYSICS_NAME}
     Eigen3::Eigen
+    )
+
+add_custom_target(copy_resources ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    ${CMAKE_BINARY_DIR}/resources
     )
 
