@@ -142,10 +142,10 @@
                </sizepolicy>
               </property>
               <property name="minimum">
-               <number>-15</number>
+               <number>-25</number>
               </property>
               <property name="maximum">
-               <number>15</number>
+               <number>25</number>
               </property>
               <property name="pageStep">
                <number>3</number>
@@ -181,10 +181,10 @@
                </sizepolicy>
               </property>
               <property name="minimum">
-               <number>-15</number>
+               <number>-25</number>
               </property>
               <property name="maximum">
-               <number>15</number>
+               <number>25</number>
               </property>
               <property name="pageStep">
                <number>3</number>
@@ -220,10 +220,10 @@
                </sizepolicy>
               </property>
               <property name="minimum">
-               <number>-15</number>
+               <number>-25</number>
               </property>
               <property name="maximum">
-               <number>15</number>
+               <number>25</number>
               </property>
               <property name="pageStep">
                <number>3</number>

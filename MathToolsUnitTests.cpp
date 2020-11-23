@@ -117,3 +117,52 @@ TEST(MathToolsTests, WhenRotatingXUnitVectorYaw90DegreesToBodyAndBack_ExpectXUni
 
     EXPECT_VECTOR3_FLOAT_NEAR(output, outputExpected, 1e-5);
 }
+
+TEST(MathToolsTests, WhenDefiningQuaternionBetweenSameVectors_ExpectNoRotation)
+{
+    Eigen::Vector3f inputVector1{1.0, 0.0, 0.0};
+    Eigen::Vector3f inputVector2{1.0, 0.0, 0.0};
+
+    Eigen::Quaternion<float> rotation{math_tools::get_quaternion_between_vectors(inputVector1, inputVector2)};
+
+    EXPECT_NEAR(rotation.x(), 0.0, 1e-5);
+    EXPECT_NEAR(rotation.y(), 0.0, 1e-5);
+    EXPECT_NEAR(rotation.z(), 0.0, 1e-5);
+    EXPECT_NEAR(rotation.w(), 1.0, 1e-5);
+}
+
+TEST(MathToolsTests, WhenDefiningQuaternionBetweenOppositeParallelVectors_Expect180DegreeRotation)
+{
+    Eigen::Vector3f inputVector1{1.0, 0.0, 0.0};
+    Eigen::Vector3f inputVector2{-1.0, 0.0, 0.0};
+
+    Eigen::Quaternion<float> rotation{math_tools::get_quaternion_between_vectors(inputVector1, inputVector2)};
+
+    EXPECT_NEAR(rotation.x(), 0.0, 1e-5);
+    EXPECT_NEAR(rotation.y(), 0.0, 1e-5);
+    EXPECT_NEAR(rotation.z(), 1.0, 1e-5);
+    EXPECT_NEAR(rotation.w(), 0.0, 1e-5);
+}
+
+TEST(MathToolsTests, WhenDefiningQuaternionBetweenRandomUnitVectorsAndApplyingRotationToOriginalVector_ExpectCorrectVectorResult)
+{
+    Eigen::Vector3f inputVector1{1.0, 0.0, 0.0};
+    Eigen::Vector3f inputVector2{0.0, 1.0, 0.0};
+
+    Eigen::Quaternion<float> rotation{math_tools::get_quaternion_between_vectors(inputVector1, inputVector2)};
+
+    Eigen::Vector3f rotatedNormalizedResultVector{(rotation*inputVector1).normalized()};
+    EXPECT_VECTOR3_FLOAT_NEAR(rotatedNormalizedResultVector, inputVector2.normalized(), 1e-5);
+}
+
+TEST(MathToolsTests, WhenDefiningQuaternionBetweenRandomNonUnitVectorsAndApplyingRotationToOriginalVector_ExpectCorrectVectorResult)
+{
+    Eigen::Vector3f inputVector1{1.0, 0.0, 0.0};
+    Eigen::Vector3f inputVector2{-20.0, 1.0, 10.0};
+
+    Eigen::Quaternion<float> rotation{math_tools::get_quaternion_between_vectors(inputVector1, inputVector2)};
+
+    Eigen::Vector3f rotatedNormalizedResultVector{(rotation*inputVector1).normalized()};
+    EXPECT_VECTOR3_FLOAT_NEAR(rotatedNormalizedResultVector, inputVector2.normalized(), 1e-5);
+}
+

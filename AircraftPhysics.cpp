@@ -41,6 +41,7 @@ void AircraftPhysics::reset()
 {
     delete aircraft;
     aircraft = new FixedWing(fixedWingType);
+    aircraft->set_wind(wind);
 }
 
 //void AircraftPhysics::update_collisions()

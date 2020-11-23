@@ -82,9 +82,20 @@ TEST_F(AircraftPhysicsTests, WhenResettingAircraft_ExpectInitializedStatesAndVal
 
     EXPECT_FALSE(get_aircraft_ptr() == nullptr);
     EXPECT_EQ(get_gravity(), gravity);
-    EXPECT_VECTOR3_FLOAT_EQ(get_wind(), zeros3);
     EXPECT_VECTOR3_FLOAT_EQ(get_position(), zeros3);
     EXPECT_VECTOR3_FLOAT_EQ(get_orientation(), zeros3);
+}
+
+TEST_F(AircraftPhysicsTests, WhenResettingAircraft_ExpectOriginalWindValues)
+{
+    set_control(Eigen::Vector4f{1.0, 1.0, 1.0, 1.0});
+    set_gravity(100.0);
+    set_wind(ones3);
+    update(10.0);
+
+    reset();
+
+    EXPECT_VECTOR3_FLOAT_EQ(get_wind(), ones3);
 }
 
 TEST_F(AircraftPhysicsTests, WhenChangingFixedWingAircraftToEMB12_ExpectCorrectAircraftType)

@@ -49,4 +49,35 @@ Eigen::Matrix3f rotationBody2Inertial(float phi, float theta, float psi)
     return Rb2i.transpose();
 }
 
+Eigen::Quaternion<float> get_quaternion_between_vectors(Eigen::Vector3f originalVector, Eigen::Vector3f desiredVector)
+{
+    originalVector.normalize();
+    desiredVector.normalize();
+
+    Eigen::Quaternion<float> attitude;
+    if(originalVector.dot(desiredVector) == -1)
+    {
+        attitude.x() = 0.0;
+        attitude.y() = 0.0;
+        attitude.z() = 1.0;
+        attitude.w() = 0.0;
+    }
+    else if(originalVector.dot(desiredVector) == 1)
+    {
+        attitude.x() = 0.0;
+        attitude.y() = 0.0;
+        attitude.z() = 0.0;
+        attitude.w() = 1.0;
+    }
+    else
+    {
+        Eigen::Vector3f quatVectorComponent = originalVector.cross(desiredVector);
+        attitude.x() = quatVectorComponent[0];
+        attitude.y() = quatVectorComponent[1];
+        attitude.z() = quatVectorComponent[2];
+        attitude.w() = 1.0 + originalVector.dot(desiredVector);
+    }
+    return attitude.normalized();
+}
+
 }
