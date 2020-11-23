@@ -74,6 +74,7 @@ void MainWindow::setup_osg_view()
     create_camera();
     create_terrain();
     create_sky();
+    create_wind_indicator();
     create_aircraft();
     create_manipulator();
     create_timer();
@@ -259,13 +260,34 @@ void MainWindow::create_sky()
     this->root->addChild(skyModelNode);
 }
 
+void MainWindow::create_wind_indicator()
+{
+    windModelNode = osgDB::readNodeFile("resources/wind/wind.obj");
+
+    if (!windModelNode)
+        std::cout << "Problem opening wind model" << std::endl;
+
+    osg::StateSet *stateSetWind = windModelNode->getOrCreateStateSet();
+    stateSetWind->setMode(GL_DEPTH_TEST, osg::StateAttribute::ON);
+
+    osg::PositionAttitudeTransform *transformWind = new osg::PositionAttitudeTransform;
+    osg::Vec3f initialWindPosition{physics.get_position()[0], physics.get_position()[1], physics.get_position()[2]};
+    transformWind->setPosition(initialWindPosition);
+    transformWind->setUpdateCallback(new WindUpdateCallback(&physics));
+    transformWind->addChild(windModelNode);
+
+    this->root->addChild(transformWind);
+
+    manipulator->setNode(aircraftModelNode);
+}
+
 void MainWindow::change_vehicle(FixedWing::FixedWingType type)
 {
     pauseFlag = true;
     QPushButton *pausePlayButton = qobject_cast<QPushButton *>(findChild<QObject *>("pushButton_Pause"));
     pausePlayButton->setChecked(pauseFlag);
     fixedWingType = type;
-    this->root->removeChild(2);
+    this->root->removeChild(3);
     this->root->removeObserver(0);
     create_aircraft();
     create_manipulator();

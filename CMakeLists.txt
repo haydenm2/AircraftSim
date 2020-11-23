@@ -64,6 +64,8 @@ add_executable(${PROJECT_NAME}
     KeyboardCommandWindow.ui
     VehicleUpdateCallback.cpp
     VehicleUpdateCallback.hpp
+    WindUpdateCallback.cpp
+    WindUpdateCallback.hpp
     ${MYRESOURCES}
     )
 

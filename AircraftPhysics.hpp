@@ -23,6 +23,7 @@ public:
     Eigen::Vector3f get_orientation() const;
     float get_gravity() const;
     Eigen::Vector3f get_wind() const;
+    bool isWindActive() const;
 
     void toggle_wind(bool active);
     void set_wind(Eigen::Vector3f windInput);

@@ -18,6 +18,7 @@
 
 #include "ui_MainWindowForm.h"
 #include "VehicleUpdateCallback.hpp"
+#include "WindUpdateCallback.hpp"
 #include "AircraftPhysics.hpp"
 
 
@@ -89,6 +90,7 @@ private:
     void create_manipulator();
     void create_terrain();
     void create_sky();
+    void create_wind_indicator();
     void create_aircraft();
     void create_timer();
 
@@ -109,6 +111,7 @@ private:
     osg::ref_ptr<osg::Node> cityTerrainModelNode;
 
     osg::ref_ptr<osg::Node> skyModelNode;
+    osg::ref_ptr<osg::Node> windModelNode;
 
     osg::ref_ptr<osg::Group> root;
     osg::ref_ptr<osgGA::NodeTrackerManipulator> manipulator;

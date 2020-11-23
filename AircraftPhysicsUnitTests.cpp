@@ -133,4 +133,11 @@ TEST_F(AircraftPhysicsTests, WhenTogglingWindTrue_ExpectCorrectBoolean)
     EXPECT_EQ(windActive, true);
 }
 
+TEST_F(AircraftPhysicsTests, WhenTogglingWindToTrueAndCheckingIfWindIsActive_ExpectCorrectBoolean)
+{
+    toggle_wind(true);
+
+    EXPECT_EQ(isWindActive(), true);
+}
+
 

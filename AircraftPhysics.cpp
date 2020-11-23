@@ -73,6 +73,11 @@ Eigen::Vector3f AircraftPhysics::get_wind() const
     return aircraft->get_wind();
 }
 
+bool AircraftPhysics::isWindActive() const
+{
+    return windActive;
+}
+
 void AircraftPhysics::toggle_wind(bool active)
 {
     windActive = active;
