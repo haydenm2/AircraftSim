@@ -510,13 +510,7 @@
      <addaction name="actionF16_D"/>
      <addaction name="actionMQ9"/>
     </widget>
-    <widget class="QMenu" name="menuQuadcopter">
-     <property name="title">
-      <string>Quadcopter</string>
-     </property>
-    </widget>
     <addaction name="menuFixed_Wing"/>
-    <addaction name="menuQuadcopter"/>
    </widget>
    <widget class="QMenu" name="menuTerrain">
     <property name="title">
@@ -613,7 +607,7 @@
   </action>
   <action name="actionMQ9">
    <property name="text">
-    <string>MQ9</string>
+    <string>MQ-9</string>
    </property>
   </action>
   <action name="actionPhantom_2">

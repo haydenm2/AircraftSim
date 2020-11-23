@@ -87,9 +87,9 @@ FixedWingEMBParameters::FixedWingEMBParameters()
     phi0 = 0.0;
     theta0 = 0.0349;
     psi0 = 0;
-    Va0 = 25;
+    Va0 = 35;
     deltaA0 = 0.0;
-    deltaE0 = 0.032;
+    deltaE0 = 0.052;
     deltaR0 = 0.0;
     deltaT0 = 0.78144714;
 }

@@ -6,7 +6,7 @@ KeyboardCommandWindow::KeyboardCommandWindow(QWidget *parent) :
     ui(new Ui::KeyboardCommandWindow)
 {
     ui->setupUi(this);
-    this->setFixedSize(520,200);
+    this->setFixedSize(520,240);
 
     QPixmap wPix(":command_icons/computer_key_W_T.png");
     QPixmap aPix(":command_icons/computer_key_A_T.png");
