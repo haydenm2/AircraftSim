@@ -1,7 +1,7 @@
 #include <QMainWindow>
 
 #include "MainWindow.hpp"
-#include <osg/Material>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow{parent},
