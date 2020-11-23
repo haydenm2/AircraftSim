@@ -93,9 +93,9 @@ TEST(FixedWingParameterTests, WhenInitializingEMBParameterSet_ExpectCorrectValue
     EXPECT_EQ(parameters.phi0, 0.0f);
     EXPECT_EQ(parameters.theta0, 0.0349f);
     EXPECT_EQ(parameters.psi0, 0.0f);
-    EXPECT_EQ(parameters.Va0, 25.0f);
+    EXPECT_EQ(parameters.Va0, 35.0f);
     EXPECT_EQ(parameters.deltaA0, 0.0f);
-    EXPECT_EQ(parameters.deltaE0, 0.032f);
+    EXPECT_EQ(parameters.deltaE0, 0.052f);
     EXPECT_EQ(parameters.deltaR0, 0.0f);
     EXPECT_EQ(parameters.deltaT0, 0.78144714f);
 }

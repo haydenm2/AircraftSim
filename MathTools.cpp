@@ -4,12 +4,12 @@
 namespace math_tools
 {
 
-float radians2Degrees(float radianInput)
+float radians_to_degrees(float radianInput)
 {
     return radianInput*180.0/M_PI;
 }
 
-float degrees2Radians(float degreeInput)
+float degrees_to_radians(float degreeInput)
 {
     return degreeInput*M_PI/180.0;
 }
@@ -28,7 +28,7 @@ float saturate(float input, float minimum, float maximum)
     return output;
 }
 
-Eigen::Matrix3f rotationInertial2Body(float phi, float theta, float psi)
+Eigen::Matrix3f rotation_inertial_to_body(float phi, float theta, float psi)
 {
     Eigen::Matrix3f R;
     R(0, 0) = cos(theta)*cos(psi);
@@ -43,9 +43,9 @@ Eigen::Matrix3f rotationInertial2Body(float phi, float theta, float psi)
     return R;
 }
 
-Eigen::Matrix3f rotationBody2Inertial(float phi, float theta, float psi)
+Eigen::Matrix3f rotation_body_to_inertial(float phi, float theta, float psi)
 {
-    Eigen::Matrix3f Rb2i = rotationInertial2Body(phi, theta, psi);
+    Eigen::Matrix3f Rb2i = rotation_inertial_to_body(phi, theta, psi);
     return Rb2i.transpose();
 }
 

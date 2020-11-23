@@ -20,7 +20,7 @@ TEST_F(AircraftPhysicsTests, WhenRequestingAircraftPointer_ExpectValidPointer)
 
 TEST_F(AircraftPhysicsTests, WhenUpdatingWithNoTimeStep_ExpectNoChanges)
 {
-    Eigen::Vector4f controlExpected{0.0, 0.032, 0.0, 0.78144714};
+    Eigen::Vector4f controlExpected{0.0, 0.052, 0.0, 0.78144714};
     float deltaTime{0.0};
 
     update(deltaTime);
