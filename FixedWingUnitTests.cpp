@@ -136,8 +136,8 @@ TEST_F(FixedWingTests, WhenCalculatingPropulsionForcesAndMoments_ExpectCorrectVa
     Eigen::Vector4f control{Eigen::Vector4f{0.0, 0.0, 0.0, 1.0}};
     set_control(control);
     calculate_velocities();
-    Eigen::Vector3f forcePropExpected{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2)), 0.0, 0.0};
-    Eigen::Vector3f momentPropExpected{-parameters.kTP*pow(parameters.kOmega*control[3], 2), 0.0, 0.0};
+    Eigen::Vector3f forcePropExpected{0.5f*parameters.propS*parameters.propC*(powf((parameters.kMotor*control[3]), 2) - powf(Va, 2)), 0.0f, 0.0f};
+    Eigen::Vector3f momentPropExpected{-parameters.kTP*powf(parameters.kOmega*control[3], 2), 0.0, 0.0};
 
     calculate_propulsion_forces_and_moments();
 
@@ -168,9 +168,9 @@ TEST_F(FixedWingTests, WhenCalculatingAerodynamicForcesAndMoments_ExpectCorrectV
 
     float alpha{atan(relativeBodyAirspeedVelocity[2]/relativeBodyAirspeedVelocity[0])};
     float beta{asin(relativeBodyAirspeedVelocity[1]/Va)};
-    float aerodynamicCoefficient{0.5*parameters.rho*pow(Va, 2)*parameters.wingS};
-    float forceLift{aerodynamicCoefficient*(parameters.cL.O + parameters.cL.alpha*alpha + parameters.cL.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cL.deltaE*control[1])};
-    float forceDrag{aerodynamicCoefficient*(parameters.cD.O + parameters.cD.alpha*alpha + parameters.cD.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cD.deltaE*control[1])};
+    float aerodynamicCoefficient{0.5f*parameters.rho*powf(Va, 2)*parameters.wingS};
+    float forceLift{aerodynamicCoefficient*(parameters.cL.O + parameters.cL.alpha*alpha + parameters.cL.q*parameters.wingC/(2.0f*Va)*state[10] + parameters.cL.deltaE*control[1])};
+    float forceDrag{aerodynamicCoefficient*(parameters.cD.O + parameters.cD.alpha*alpha + parameters.cD.q*parameters.wingC/(2.0f*Va)*state[10] + parameters.cD.deltaE*control[1])};
 
     Eigen::Vector3f aerodynamicForcesExpected;
     aerodynamicForcesExpected[0] = -forceDrag*cos(alpha) + forceLift*sin(alpha);
@@ -219,14 +219,14 @@ TEST_F(FixedWingTests, WhenCalculatingDerivatives_ExpectCorrectValues)
     derivativeExpected[7] = orientationDot[1];
     derivativeExpected[8] = orientationDot[2];
 
-    float gamma{parameters.Jx*parameters.Jz - pow(parameters.Jxz, 2)};
+    float gamma{parameters.Jx*parameters.Jz - powf(parameters.Jxz, 2)};
     float gamma1{parameters.Jxz*(parameters.Jx - parameters.Jy + parameters.Jz)/gamma};
-    float gamma2{(parameters.Jz*(parameters.Jz - parameters.Jy) + pow(parameters.Jxz, 2))/gamma};
+    float gamma2{(parameters.Jz*(parameters.Jz - parameters.Jy) + powf(parameters.Jxz, 2))/gamma};
     float gamma3{parameters.Jz/gamma};
     float gamma4{parameters.Jxz/gamma};
     float gamma5{(parameters.Jz - parameters.Jx)/parameters.Jy};
     float gamma6{parameters.Jxz/parameters.Jy};
-    float gamma7{((parameters.Jx - parameters.Jy)*parameters.Jx + pow(parameters.Jxz, 2))/gamma};
+    float gamma7{((parameters.Jx - parameters.Jy)*parameters.Jx + powf(parameters.Jxz, 2))/gamma};
     float gamma8{parameters.Jx/gamma};
 
     derivativeExpected[9] = gamma1*state[9]*state[10] - gamma2*state[10]*state[11] + gamma3*moments[0] + gamma4*moments[2];

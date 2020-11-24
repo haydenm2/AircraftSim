@@ -32,7 +32,7 @@ FixedWing::FixedWing(FixedWingType type)
     controlThresholds(0, 3) = 0.0;
     controlThresholds(1, 3) = 1.0;
 
-    float gamma{parameters.Jx*parameters.Jz - pow(parameters.Jxz, 2)};
+    float gamma{parameters.Jx*parameters.Jz - powf(parameters.Jxz, 2)};
     gamma1 = parameters.Jxz*(parameters.Jx - parameters.Jy + parameters.Jz)/gamma;
     gamma2 = (parameters.Jz*(parameters.Jz - parameters.Jy) + pow(parameters.Jxz, 2))/gamma;
     gamma3 = parameters.Jz/gamma;
@@ -113,10 +113,10 @@ void FixedWing::calculate_velocities()
 
 void FixedWing::calculate_propulsion_forces_and_moments()
 {
-    float forcePropulsion{0.5*parameters.propS*parameters.propC*(pow((parameters.kMotor*control[3]), 2) - pow(Va, 2))};
+    float forcePropulsion{0.5f*parameters.propS*parameters.propC*(powf((parameters.kMotor*control[3]), 2) - powf(Va, 2))};
     forces[0] += forcePropulsion;
 
-    float momentPropulsion{-parameters.kTP*pow(parameters.kOmega*control[3], 2)};
+    float momentPropulsion{-parameters.kTP*powf(parameters.kOmega*control[3], 2)};
     moments[0] += momentPropulsion;
 }
 
@@ -130,10 +130,10 @@ void FixedWing::calculate_aerodynamic_forces_and_moments()
         float cL{parameters.cL.O + parameters.cL.alpha*alpha};
         float cD{parameters.cD.O + parameters.cD.alpha*alpha};
 
-        float aerodynamicCoefficient{0.5*parameters.rho*pow(Va, 2)*parameters.wingS};
+        float aerodynamicCoefficient{0.5f*parameters.rho*powf(Va, 2)*parameters.wingS};
 
-        float forceLift{aerodynamicCoefficient*(cL + parameters.cL.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cL.deltaE*control[1])};
-        float forceDrag{aerodynamicCoefficient*(cD + parameters.cD.q*parameters.wingC/(2.0*Va)*state[10] + parameters.cD.deltaE*control[1])};
+        float forceLift{aerodynamicCoefficient*(cL + parameters.cL.q*parameters.wingC/(2.0f*Va)*state[10] + parameters.cL.deltaE*control[1])};
+        float forceDrag{aerodynamicCoefficient*(cD + parameters.cD.q*parameters.wingC/(2.0f*Va)*state[10] + parameters.cD.deltaE*control[1])};
 
         Eigen::Vector3f aerodynamicForces;
         aerodynamicForces[0] = -forceDrag*cos(alpha) + forceLift*sin(alpha);

@@ -6,7 +6,7 @@
 TEST(MathToolsTests, WhenConvertingToDegrees_ExpectCorrectValue)
 {
     float inputRadians{1.0};
-    float expectedDegrees{inputRadians*180.0f/M_PI};
+    float expectedDegrees{inputRadians*180.0f/float(M_PI)};
 
     EXPECT_EQ(math_tools::radians_to_degrees(inputRadians), expectedDegrees);
 }
@@ -14,7 +14,7 @@ TEST(MathToolsTests, WhenConvertingToDegrees_ExpectCorrectValue)
 TEST(MathToolsTests, WhenConvertingToRadians_ExpectCorrectValue)
 {
     float inputDegrees{10.0};
-    float expectedRadians{inputDegrees*M_PI/180.0f};
+    float expectedRadians{inputDegrees*float(M_PI)/180.0f};
 
     EXPECT_EQ(math_tools::degrees_to_radians(inputDegrees), expectedRadians);
 }
