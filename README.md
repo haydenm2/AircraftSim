@@ -16,6 +16,7 @@ AircraftSim is an application designed for simulating the behaviors of aircraft 
 - GUI sliders for altering control surfaces and throttle (sliders also update with keyboard inputs)
 - GUI button to reset control inputs to default position for semi-stable flight
 - Separate window containing keyboard/GUI instructions for reference
+
 Currently there is no support for collision physics with the available 3D environments.
 The software is designed to provide ease in adding additional physics models for simulation of verious other vehicle types to the simulation in the future.
 
