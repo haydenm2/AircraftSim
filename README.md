@@ -19,6 +19,8 @@ AircraftSim is an application designed for simulating the behaviors of aircraft 
 Currently there is no support for collision physics with the available 3D environments.
 The software is designed to provide ease in adding additional physics models for simulation of verious other vehicle types to the simulation in the future.
 
+![Alt text](resources/SimImage.png?raw=true "Title")
+
 # Installation Requirements
 - Google Test (https://github.com/google/googletest)
 - OpenSceneGraph (https://github.com/openscenegraph/OpenSceneGraph)
